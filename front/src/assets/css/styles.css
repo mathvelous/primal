@@ -1,0 +1,119 @@
+/* line 9, ../sass/_colors.scss */
+.white_color {
+  color: #ffffff;
+}
+
+/* line 13, ../sass/_colors.scss */
+.dark_color {
+  color: #22292E;
+}
+
+@font-face {
+  font-family: 'fira_sansbold';
+  src: url("../font/firasans-bold-webfont.woff2") format("woff2"), url("../font/firasans-bold-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'fira_sansmedium';
+  src: url("../font/firasans-medium-webfont.woff2") format("woff2"), url("../font/firasans-medium-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+/* line 18, ../sass/_main.scss */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* line 23, ../sass/_main.scss */
+body {
+  background-color: #f4f4ef;
+  max-width: 100vw;
+  overflow-x: hidden;
+  color: #22292E;
+}
+
+/* line 30, ../sass/_main.scss */
+p {
+  font-size: 0.9rem;
+}
+
+/* line 34, ../sass/_main.scss */
+h1 {
+  font-family: 'fira_sansbold';
+  color: white;
+  font-size: 2.5rem;
+}
+
+/* line 40, ../sass/_main.scss */
+h2 {
+  font-family: 'fira_sansmedium';
+  color: #22292E;
+  font-size: 1.1em;
+}
+
+/* line 46, ../sass/_main.scss */
+h3 {
+  font-family: 'fira_sansmedium';
+  color: #22292E;
+  font-size: 2em;
+}
+
+/* line 52, ../sass/_main.scss */
+.section {
+  margin: 20vh 0;
+}
+
+/* line 56, ../sass/_main.scss */
+.marge {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+/**** Displays ****/
+/* line 64, ../sass/_main.scss */
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+/* line 69, ../sass/_main.scss */
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+/* line 74, ../sass/_main.scss */
+.align-center {
+  align-items: center;
+}
+
+/* line 78, ../sass/_main.scss */
+.justify-center {
+  justify-content: center;
+}
+
+/* line 82, ../sass/_main.scss */
+.space_around {
+  justify-content: space-around;
+}
+
+/**** Margin ****/
+/* line 88, ../sass/_main.scss */
+.mb70 {
+  margin-bottom: 70px;
+}
+
+/* line 92, ../sass/_main.scss */
+.mb30 {
+  margin-bottom: 30px;
+}
+
+/**** Padding ***/
+/* line 1, ../sass/_images.scss */
+.home {
+  background-image: url("../images/bg-home.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
