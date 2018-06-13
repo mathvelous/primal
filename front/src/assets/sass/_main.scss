@@ -28,7 +28,8 @@ body{
 }
 
 p{
-  font-size: 0.9rem;
+  font-size: 0.8rem;
+  font-family: Avenir;
 }
 
 h1{
@@ -57,6 +58,11 @@ h3{
   margin-left: 5%;
   margin-right: 5%;
 }
+
+.relative{
+  position: relative;
+}
+
 
 
  /**** Displays ****/
@@ -87,6 +93,9 @@ h3{
   justify-content: space-between;
 }
 
+.flex-end{
+  justify-content: flex-end;
+}
   /**** Margin ****/
 
 .mb70{

@@ -5,19 +5,13 @@
         <h1>Les origines du goût livré chez vous</h1>
         <h2 class="white_color">Entrer votre adresse de livraison</h2>
         <form id="formAdress" action="">
-          <input type="text">
+          <input ref="autocomplete" type="text">
           <button type="submit">
             <img src="../assets/images/search.svg" alt="Search">
           </button>
         </form>
       </div>
     </section>
-    <!--<div id="names">
-      <button @click='getNames'>click</button>
-      <div v-for="name in names">
-        <p>{{name.firstname}}</p>
-      </div>
-    </div>-->
     <section class="section marge column align-center">
       <h3 class="mb70">Comment ça marche ?</h3>
       <div class="row justify-center">
@@ -41,10 +35,17 @@
         </div>
       </div>
     </section>
-    <section class="section marge row align-center">
+    <section class="section marge row align-center flex-end relative">
       <article>
-        <h3>Qui sommes nous ?</h3>
+        <h3 class="mb30">Qui sommes nous ?</h3>
         <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aperiam aspernatur aut commodi
+          consequuntur deserunt distinctio dolorum, exercitationemm.
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aperiam aspernatur aut commodi
+          consequuntur deserunt distinctio dolorum, exercitationemm.Lorem ipsum dolor sit amet, consec
+          consequuntur deserunt distinctio dolorum, exercitationemm.
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aperiam aspernatur aut commodi
+          consequuntur deserunt distinctio dolorum, exercitationemm.
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aperiam aspernatur aut commodi
           consequuntur deserunt distinctio dolorum, exercitationemm.
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aperiam aspernatur aut commodi
@@ -54,8 +55,8 @@
           consequuntur deserunt distinctio dolorum, exercitationemm.
         </p>
       </article>
-      <div>
-        <img src="" alt="">
+      <div class="image">
+        <img src="../assets/images/few-words.jpg" alt="Primal est quelques mots">
       </div>
     </section>
   </main>
@@ -68,7 +69,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 92vh;
     width: 100vw;
     .content-home {
       display: flex;
@@ -123,6 +124,17 @@
     }
   }
 
+  .section article{
+    position: absolute;
+    left: 0;
+    width: 46vw;
+    background-color: #ECECEC;
+    padding: 20px 20px 20px 0;
+    p{
+      text-align: justify;
+    }
+  }
+
 
 </style>
 
@@ -131,20 +143,15 @@
     name: 'Home',
     data() {
       return {
-        msg: 'Welcome to Your Vue.js App',
-        names: []
       }
     },
     methods: {
-      getNames: function () {
-        this.$http.get("http://localhost:3000/users")
-          .then(response => {
-            this.names = response.data;
-          })
-          .catch(error => {
-            console.log(error)
-          })
-      }
+    },
+    mounted() {
+      this.autocomplete = new google.maps.places.Autocomplete(
+        (this.$refs.autocomplete),
+        {types: ['geocode']}
+      );
     }
   }
 

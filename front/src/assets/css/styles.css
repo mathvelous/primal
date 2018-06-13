@@ -28,7 +28,7 @@
 
 /* line 23, ../sass/_main.scss */
 body {
-  background-color: #f4f4ef;
+  background-color: #ECECEC;
   max-width: 100vw;
   overflow-x: hidden;
   color: #22292E;
@@ -36,76 +36,92 @@ body {
 
 /* line 30, ../sass/_main.scss */
 p {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
+  font-family: Avenir;
 }
 
-/* line 34, ../sass/_main.scss */
+/* line 35, ../sass/_main.scss */
 h1 {
   font-family: 'fira_sansbold';
   color: white;
   font-size: 2.5rem;
 }
 
-/* line 40, ../sass/_main.scss */
+/* line 41, ../sass/_main.scss */
 h2 {
   font-family: 'fira_sansmedium';
   color: #22292E;
   font-size: 1.1em;
 }
 
-/* line 46, ../sass/_main.scss */
+/* line 47, ../sass/_main.scss */
 h3 {
   font-family: 'fira_sansmedium';
   color: #22292E;
   font-size: 2em;
 }
 
-/* line 52, ../sass/_main.scss */
+/* line 53, ../sass/_main.scss */
 .section {
   margin: 20vh 0;
 }
 
-/* line 56, ../sass/_main.scss */
+/* line 57, ../sass/_main.scss */
 .marge {
   margin-left: 5%;
   margin-right: 5%;
 }
 
+/* line 62, ../sass/_main.scss */
+.relative {
+  position: relative;
+}
+
 /**** Displays ****/
-/* line 64, ../sass/_main.scss */
+/* line 70, ../sass/_main.scss */
 .row {
   display: flex;
   flex-direction: row;
 }
 
-/* line 69, ../sass/_main.scss */
+/* line 75, ../sass/_main.scss */
 .column {
   display: flex;
   flex-direction: column;
 }
 
-/* line 74, ../sass/_main.scss */
+/* line 80, ../sass/_main.scss */
 .align-center {
   align-items: center;
 }
 
-/* line 78, ../sass/_main.scss */
+/* line 84, ../sass/_main.scss */
 .justify-center {
   justify-content: center;
 }
 
-/* line 82, ../sass/_main.scss */
+/* line 88, ../sass/_main.scss */
 .space_around {
   justify-content: space-around;
 }
 
+/* line 92, ../sass/_main.scss */
+.space_between {
+  justify-content: space-between;
+}
+
+/* line 96, ../sass/_main.scss */
+.flex-end {
+  justify-content: flex-end;
+}
+
 /**** Margin ****/
-/* line 88, ../sass/_main.scss */
+/* line 101, ../sass/_main.scss */
 .mb70 {
   margin-bottom: 70px;
 }
 
-/* line 92, ../sass/_main.scss */
+/* line 105, ../sass/_main.scss */
 .mb30 {
   margin-bottom: 30px;
 }
@@ -116,4 +132,10 @@ h3 {
   background-image: url("../images/bg-home.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+/* line 9, ../sass/_images.scss */
+.image img {
+  width: 45vw;
+  height: auto;
 }

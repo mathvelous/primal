@@ -1,13 +1,16 @@
 var mysql      = require('mysql');
 
 var connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : 'root',
-    database : 'primal'
+    host     : 'mysql-primal.alwaysdata.net',
+    user     : 'primal',
+    password : 'primal2018',
+    database : 'primal_bdd'
 });
 
-connection.connect();
+connection.connect(function (err) {
+    if (err) throw err;
+    console.log('connected')
+});
 
 function sendQuery(query, callback) {
     connection.query(query, function (error, results, fields) {
