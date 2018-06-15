@@ -3,52 +3,53 @@
     <section>
       <div>
         <h1 class="title">Inscrivez-vous</h1>
-        <form method="POST" class="p5">
+        <form @submit.prevent="signup" method="POST" class="p5">
           <h2>Informations personnelles</h2>
           <div class="row space_between">
             <div>
               <div class="label_group">
                 <label for="firstname">Nom</label>
-                <input id="firstname" type="text">
+                <input v-model="info.firstname" id="firstname" type="text">
               </div>
               <div class="label_group">
                 <label for="lastname">Prénom</label>
-                <input id="lastname" type="text">
+                <input v-model="info.lastname" id="lastname" type="text">
               </div>
               <div class="label_group">
                 <label for="mail">Adresse mail</label>
-                <input id="mail" type="email">
+                <input v-model="info.mail" id="mail" type="email">
               </div>
             </div>
             <div>
               <div class="label_group">
                 <label for="phone">Numéro de téléphone</label>
-                <input id="phone" type="tel">
+                <input v-model="info.phone" id="phone" type="text">
               </div>
               <div class="label_group">
                 <label for="password">Mot de passe</label>
-                <input id="password" type="password">
+                <input v-model="info.password" id="password" type="password">
               </div>
               <div class="label_group">
                 <label for="confirm_password">Confirmation du mot de passe</label>
-                <input id="confirm_password" type="text">
+                <input v-model="info.confirm_password" id="confirm_password" type="password">
               </div>
+              <p v-if="dontMatch">Les mots de passes ne sont différents</p>
             </div>
           </div>
           <h2>Adresse de livraison</h2>
           <div class="row space_between">
             <div class="label_group">
               <label for="adress">Adresse</label>
-              <input id="adress" type="text">
+              <input v-model="address.street" id="adress" type="text">
             </div>
             <div class="row vw27">
               <div class="city">
                 <label for="city">Ville</label>
-                <input id="city" type="text">
+                <input v-model="address.city" id="city" type="text">
               </div>
               <div class="zip">
                 <label for="zipcode">Code postal</label>
-                <input id="zipcode" type="text">
+                <input v-model="address.zipcode" id="zipcode" type="text">
               </div>
             </div>
           </div>
@@ -65,6 +66,44 @@
 </template>
 
 <script>
+  export default {
+    name: 'SignUp',
+    data() {
+      return {
+        info:{
+          firstname: '',
+          lastname: '',
+          mail: '',
+          phone: '',
+          password: '',
+          confirm_password: ''
+        },
+        address:{
+          street: '',
+          city: '',
+          zipcode: ''
+        },
+        dontMatch: false
+      }
+    },
+    methods: {
+      signup: function() {
+        if(this.info.password != this.info.confirm_password){
+          this.dontMatch = true
+          return
+        }
+        this.$http.post("http://localhost:3000/users", {
+          data: this.info, address: this.address
+        })
+          .then(response => {
+            console.log(response.data)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      },
+    }
+  }
 
 </script>
 
@@ -107,7 +146,6 @@
   section {
     background-color: white;
     width: 67vw;
-    height: 75vh;
   }
 
   .p5 {
@@ -167,18 +205,17 @@
   }
 
   .button {
-    background-color: #53E093;
-    width: 180px;
-    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 5px;
     letter-spacing: 1px;
-    transform: translateY(30%);
+    transform: translateY(50%);
     button {
+      background-color: #53E093;
+      border-radius: 5px;
+      width: 180px;
+      height: 40px;
       border: none;
-      background-color: transparent;
       color: white;
       font-size: 1rem;
       font-family: fira_sansmedium;

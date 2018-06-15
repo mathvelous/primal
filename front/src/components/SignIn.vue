@@ -3,16 +3,16 @@
     <section>
       <div>
         <h1 class="title">Connectez-vous</h1>
-        <form method="POST" class="p5">
+        <form @submit.prevent="signin" method="GET" class="p5">
           <h2>Entrez vos identifiants</h2>
           <div class="row space_between">
             <div class="label_group">
               <label for="mail">Adresse mail</label>
-              <input id="mail" type="email">
+              <input v-model="conn.mail" id="mail" type="email">
             </div>
             <div class="label_group">
               <label for="password">Mot de passe</label>
-              <input id="password" type="password">
+              <input  v-model="conn.password" id="password" type="password">
             </div>
           </div>
           <p>Vous n'avez pas <router-link :to="{ name: 'SignUp'}">de compte ?</router-link></p>
@@ -28,7 +28,31 @@
 </template>
 
 <script>
-
+  export default {
+    name: 'SignUp',
+    data() {
+      return {
+        conn:{
+          mail: '',
+          password: '',
+        }
+      }
+    },
+    methods: {
+      signin: function() {
+        this.$http.post("http://localhost:3000/users/conn", {
+          data: this.conn
+        })
+          .then(response => {
+            console.log(response.data)
+            this.$router.push('/account')
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      },
+    }
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -70,7 +94,6 @@
   section {
     background-color: white;
     width: 67vw;
-    height: 40vh;
   }
 
   .p5 {
@@ -113,18 +136,17 @@
   }
 
   .button {
-    background-color: #53E093;
-    width: 180px;
-    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 5px;
     letter-spacing: 1px;
-    transform: translateY(80%);
+    transform: translateY(50%);
     button {
+      border-radius: 5px;
+      background-color: #53E093;
+      width: 180px;
+      height: 40px;
       border: none;
-      background-color: transparent;
       color: white;
       font-size: 1rem;
       font-family: fira_sansmedium;

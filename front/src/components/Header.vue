@@ -8,7 +8,7 @@
     <div class="menu">
       <div>
         <router-link :to="{ name: 'What'}">Qu'est ce que c'est ?</router-link>
-        <router-link :to="{ name: 'Shipping'}">Commander</router-link>
+        <router-link :to="{ name: 'Order'}">Commander</router-link>
         <router-link :to="{ name: 'Contact'}">Contact</router-link>
         <router-link :to="{ name: 'Account'}">Mon compte</router-link>
       </div>
@@ -21,6 +21,25 @@
   </header>
 
 </template>
+
+<script>
+  export default {
+    name: 'Header',
+    data() {
+      return {
+      }
+    },
+    methods: {
+      ifCookie: function (){
+
+        //if(this.$cookies.get)
+      }
+    },
+    mounted(){
+      console.log(this.$cookies.isKey('connect.sid'))
+    }
+  }
+</script>
 
 <style lang="scss">
 

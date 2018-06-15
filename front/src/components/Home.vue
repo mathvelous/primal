@@ -3,9 +3,8 @@
     <section class="home">
       <div class="content-home">
         <h1>Les origines du goût livré chez vous</h1>
-        <h2 class="white_color">Entrer votre adresse de livraison</h2>
         <form id="formAdress" action="">
-          <input ref="autocomplete" type="text">
+          <input ref="autocomplete" type="text" placeholder="Entrer votre adresse de livraison">
           <button type="submit">
             <img src="../assets/images/search.svg" alt="Search">
           </button>
@@ -77,7 +76,8 @@
       align-items: center;
     }
     h1 {
-      margin-bottom: 20px;
+      font-size: 3rem;
+      margin-bottom: 75px;
     }
     h2 {
       margin-bottom: 10px;

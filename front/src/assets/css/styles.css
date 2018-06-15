@@ -127,6 +127,11 @@ h3 {
 }
 
 /**** Padding ***/
+/* line 111, ../sass/_main.scss */
+.p20 {
+  padding: 20px;
+}
+
 /* line 1, ../sass/_images.scss */
 .home {
   background-image: url("../images/bg-home.jpg");
@@ -138,4 +143,13 @@ h3 {
 .image img {
   width: 45vw;
   height: auto;
+}
+
+/* line 15, ../sass/_images.scss */
+.bg_order {
+  background-image: url("../images/order-img.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 60vh;
 }

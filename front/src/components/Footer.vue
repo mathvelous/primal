@@ -8,7 +8,7 @@
     <div class="marge">
       <div class="row">
         <div class="menu2">
-          <router-link :to="{ name: 'Shipping'}">Commander</router-link>
+          <router-link :to="{ name: 'Order'}">Commander</router-link>
           <router-link :to="{ name: 'Contact'}">Contact</router-link>
           <router-link :to="{ name: 'Account'}">Mon compte</router-link>
         </div>
