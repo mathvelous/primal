@@ -24,7 +24,7 @@ router.post('/conn', function(req, res, next) {
             bcrypt.compare(req.body.data.password, results[0].password).then(function(result) {
                 if(result == true){
                     sess = results[0]
-                    res.json('Connection réussi!')
+                    res.json('Connection réussi')
                 }else {
                     res.json('Erreur de connection')
                 }

@@ -62,72 +62,92 @@ h3 {
 }
 
 /* line 53, ../sass/_main.scss */
+button {
+  cursor: pointer;
+}
+
+/* line 57, ../sass/_main.scss */
 .section {
   margin: 20vh 0;
 }
 
-/* line 57, ../sass/_main.scss */
+/* line 61, ../sass/_main.scss */
 .marge {
   margin-left: 5%;
   margin-right: 5%;
 }
 
-/* line 62, ../sass/_main.scss */
+/* line 66, ../sass/_main.scss */
 .relative {
   position: relative;
 }
 
 /**** Displays ****/
-/* line 70, ../sass/_main.scss */
+/* line 74, ../sass/_main.scss */
 .row {
   display: flex;
   flex-direction: row;
 }
 
-/* line 75, ../sass/_main.scss */
+/* line 79, ../sass/_main.scss */
 .column {
   display: flex;
   flex-direction: column;
 }
 
-/* line 80, ../sass/_main.scss */
+/* line 84, ../sass/_main.scss */
 .align-center {
   align-items: center;
 }
 
-/* line 84, ../sass/_main.scss */
+/* line 88, ../sass/_main.scss */
+.align-end {
+  align-items: flex-end;
+}
+
+/* line 92, ../sass/_main.scss */
 .justify-center {
   justify-content: center;
 }
 
-/* line 88, ../sass/_main.scss */
+/* line 96, ../sass/_main.scss */
 .space_around {
   justify-content: space-around;
 }
 
-/* line 92, ../sass/_main.scss */
+/* line 100, ../sass/_main.scss */
 .space_between {
   justify-content: space-between;
 }
 
-/* line 96, ../sass/_main.scss */
+/* line 104, ../sass/_main.scss */
 .flex-end {
   justify-content: flex-end;
 }
 
 /**** Margin ****/
-/* line 101, ../sass/_main.scss */
+/* line 109, ../sass/_main.scss */
 .mb70 {
   margin-bottom: 70px;
 }
 
-/* line 105, ../sass/_main.scss */
+/* line 113, ../sass/_main.scss */
 .mb30 {
   margin-bottom: 30px;
 }
 
+/* line 117, ../sass/_main.scss */
+.mb40 {
+  margin-bottom: 40px;
+}
+
+/* line 121, ../sass/_main.scss */
+.mt10 {
+  margin-top: 10px;
+}
+
 /**** Padding ***/
-/* line 111, ../sass/_main.scss */
+/* line 127, ../sass/_main.scss */
 .p20 {
   padding: 20px;
 }

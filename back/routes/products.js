@@ -3,8 +3,9 @@ const router = express.Router();
 const database = require('../services/database.js');
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-      database.sendQuery('SELECT * FROM products', function (err, results) {
+router.get('/:category', function(req, res, next) {
+    let category = req.params.category
+      database.sendQuery(`SELECT * FROM products WHERE category LIKE '${category}'`, function (err, results) {
           if (err) {
             console.log(err)
           } else {

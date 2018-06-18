@@ -3,7 +3,7 @@
     <section>
       <div>
         <h1 class="title">Connectez-vous</h1>
-        <form @submit.prevent="signin" method="GET" class="p5">
+        <form @submit.prevent="signin" class="p5">
           <h2>Entrez vos identifiants</h2>
           <div class="row space_between">
             <div class="label_group">
@@ -45,7 +45,9 @@
         })
           .then(response => {
             console.log(response.data)
-            this.$router.push('/account')
+            if (response.data == 'Connection réussi'){
+              this.$router.push('/account')
+            }
           })
           .catch(error => {
             console.log(error)

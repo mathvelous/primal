@@ -1,6 +1,5 @@
-var mysql      = require('mysql');
-
-var connection = mysql.createConnection({
+const mysql      = require('mysql');
+const connection = mysql.createConnection({
     host     : 'mysql-primal.alwaysdata.net',
     user     : 'primal',
     password : 'primal2018',

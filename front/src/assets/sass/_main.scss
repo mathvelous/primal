@@ -50,6 +50,10 @@ h3{
   font-size: 2em;
 }
 
+button{
+  cursor: pointer;
+}
+
 .section{
   margin: 20vh 0;
 }
@@ -81,6 +85,10 @@ h3{
   align-items: center;
 }
 
+.align-end{
+  align-items: flex-end;
+}
+
 .justify-center{
   justify-content: center;
 }
@@ -104,6 +112,14 @@ h3{
 
 .mb30{
   margin-bottom: 30px;
+}
+
+.mb40{
+  margin-bottom: 40px;
+}
+
+.mt10{
+  margin-top: 10px;
 }
 
   /**** Padding ***/

@@ -97,6 +97,7 @@
         })
           .then(response => {
             console.log(response.data)
+            //this.$router.push('/account')
           })
           .catch(error => {
             console.log(error)
