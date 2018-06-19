@@ -22,7 +22,7 @@
             <img src="../assets/images/picking.svg" alt="Cueillette">
             <p>Cuiellette</p>
           </button>
-          <button  @click="clickCategory('chasse', '#ff7900')">
+          <button @click="clickCategory('chasse', '#ff7900')">
             <img src="../assets/images/hunt.svg" alt="Chasse">
             <p>Chasse</p>
           </button>
@@ -67,16 +67,18 @@
             </transition>
             <div class="card_order" v-for="(cartproduct, index) in cartproducts">
               <div class="row space_between">
-                <p>{{cartproduct.name}}</p>
-                <p>{{cartproduct.price}} €</p>
+                <p class="w80">{{cartproduct.name}}</p>
+                <p>{{cartproduct.result}} €</p>
               </div>
               <div class="row space_between mt10">
                 <div class="row">
-                  <button><span class="less"></span></button>
-                  <p class="quantity">1</p>
-                  <button><span class="more2"></span></button>
+                  <button @click="removed(index)"><span class="less"></span></button>
+                  <p class="quantity">{{cartproduct.quantity}}</p>
+                  <button @click="addMore(index)">
+                    <span class="more"></span>
+                  </button>
                 </div>
-                <button>
+                <button @click="deleted(index)">
                   <span class="delete"></span>
                 </button>
               </div>
@@ -86,7 +88,7 @@
         <div class="p20">
           <div class="row space_between">
             <h3>Sous total du prix</h3>
-            <p class="total_price">10 € TTC</p>
+            <p class="total_price">{{underTotal}} € TTC</p>
           </div>
           <div class="row space_between">
             <h3>Frais de livraison</h3>
@@ -96,7 +98,7 @@
         <div class="border_b"></div>
         <div class="row space_between p20">
           <h3>Total du prix</h3>
-          <p>13 € TTC</p>
+          <p>{{total}} € TTC</p>
         </div>
         <div class="button mb30">
           <button>Valider mon panier</button>
@@ -108,6 +110,7 @@
 
 <script>
   import draggable from 'vuedraggable'
+  import Vuex from 'vuex'
 
   export default {
     name: 'Order',
@@ -118,28 +121,63 @@
         editable: true,
         isDragging: false,
         category: 'cueillette',
-        categoryColor: '#53E093'
+        categoryColor: '#53E093',
+        underTotal: 0,
+        total: 0
       }
     },
     components: {
       draggable
     },
     methods: {
-      addClick: function(index) {
-        this.cartproducts.push({
-          name: this.products[index].name,
-          price: this.products[index].price
-        })
+      addClick: function (index) {
+        let check = -1
+
+        if (this.cartproducts.length == 0) {
+          this.cartproducts.push({
+            id: this.products[index].id,
+            name: this.products[index].name,
+            price: this.products[index].price,
+            result: this.products[index].price,
+            quantity: 1
+          })
+          this.calUnderTotal()
+          this.calTotal()
+        } else {
+          for (let i=0; i < this.cartproducts.length; i++){
+            if (this.products[index].id == this.cartproducts[i].id){
+              check = i
+              break;
+            }
+          }
+          //si existant
+          if (check > -1) {
+            this.cartproducts[check].quantity++
+            this.calCard(check)
+          } else {
+            //si pas existant
+            this.cartproducts.push({
+              id: this.products[index].id,
+              name: this.products[index].name,
+              price: this.products[index].price,
+              result: this.products[index].price,
+              quantity: 1
+            })
+
+          }
+        }
       },
-      onMove: function({relatedContext, draggedContext}) {
+      onMove: function ({relatedContext, draggedContext}) {
         const relatedElement = relatedContext.element;
         const draggedElement = draggedContext.element;
         return (!relatedElement || !relatedElement.fixed) && !draggedElement.fixed
       },
-      init: function() {
+      init: function () {
         this.$http.get(`http://localhost:3000/products/${this.category}`)
           .then(response => {
-            console.log(response.data)
+            for (let product of response.data) {
+              product.quantity = 1
+            }
             this.products = response.data
           })
           .catch(error => {
@@ -150,6 +188,43 @@
         this.category = text
         this.categoryColor = color
         this.init()
+      },
+      deleted: function (index) {
+        this.$delete(this.cartproducts, index)
+        this.cartproducts[index].quantity = 1
+        this.init()
+      },
+      addMore: function (index) {
+        this.cartproducts[index].quantity++
+        this.calCard(index)
+        this.calUnderTotal()
+        this.calTotal()
+        this.init()
+      },
+      removed: function (index) {
+        if (this.cartproducts[index].quantity != 1) {
+          this.cartproducts[index].quantity--
+          this.calCard(index)
+          this.calUnderTotal()
+          this.calTotal()
+        }
+        this.init()
+      },
+      calCard: function (index) {
+        let result = this.cartproducts[index].quantity * this.cartproducts[index].price
+        this.cartproducts[index].result = result
+        console.log(result)
+      },
+      calUnderTotal: function () {
+        let cal = 0
+        for (let i=0; i < this.cartproducts.length; i++){
+          cal += this.cartproducts[i].result
+        }
+        this.underTotal = cal
+      },
+      calTotal: function () {
+        let calT = this.underTotal + 3
+        this.total = calT
       }
     },
     mounted() {
@@ -162,11 +237,18 @@
           group: {
             name: 'description',
             pull: 'clone',
-            put: false
+            put: false,
           },
           ghostClass: 'ghost',
         };
       },
+      /*...Vuex.mapGetters([
+        'count',
+        console.log(this.count)
+        ])*/
+      /*oneTodosCount () {
+        console.log(this.$store.state.count)
+      }*/
     },
   }
 </script>
@@ -175,6 +257,7 @@
   .fade-enter-active, .fade-leave-active {
     transition: opacity .5s;
   }
+
   .fade-enter, .fade-leave-to {
     opacity: 0;
   }
@@ -188,7 +271,7 @@
     width: 21vw;
     background-color: #FBFBFB;
     padding: 30px;
-    transform: translateY(50%);
+    transform: translateY(40%);
     p {
       text-align: justify;
       margin-bottom: 40px;
@@ -196,7 +279,7 @@
   }
 
   h2 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 
   h3 {
@@ -275,7 +358,7 @@
   }
 
   .card {
-    width: 250px;
+    width: 260px;
     height: 420px;
     background-color: white;
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, .1);
@@ -291,7 +374,7 @@
     .title_card {
       p {
         font-family: fira_sansbold;
-        font-size: 1.1rem;
+        font-size: 1rem;
         height: 80px;
       }
     }
@@ -306,8 +389,8 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
     margin-top: -20px;
+    width: 100%;
   }
 
   .add {
@@ -344,13 +427,17 @@
     border-bottom: 1px solid #D0CECE;
   }
 
+  .w80 {
+    width: 80%;
+  }
+
   .card_order {
     padding: 10px;
     background-color: white;
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, .1);
     margin-bottom: 20px;
     p {
-      font-size: 1rem;
+      font-size: 0.9rem;
       font-family: Avenir;
       &:last-of-type {
         font-family: fira_sansmedium;
@@ -378,7 +465,7 @@
           border-radius: 3px;
         }
       }
-      .more2 {
+      .more {
         position: relative;
         &:after {
           position: absolute;

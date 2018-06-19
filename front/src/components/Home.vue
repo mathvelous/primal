@@ -88,11 +88,12 @@
     display: flex;
     align-items: center;
     input {
-      width: 25vw;
-      height: 20px;
+      width: 30vw;
+      height: 30px;
       padding: 10px;
       border: none;
       border-radius: 3px 0px 0px 3px;
+      font-size: 1rem;
     }
     button[type='submit'] {
       border: none;
@@ -100,7 +101,7 @@
       border-radius: 0px 3px 3px 0px;
       img {
         width: 20px;
-        height: auto;
+        height: 30px;
         padding: 10px;
       }
     }

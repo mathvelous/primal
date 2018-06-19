@@ -6,6 +6,7 @@ import router from './router'
 import Styles from './assets/css/styles.css'
 import axios from 'axios'
 import VueCookies from 'vue-cookies'
+import {store} from './store'
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
@@ -16,6 +17,7 @@ Vue.prototype.$cookies = VueCookies
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
 })

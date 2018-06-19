@@ -37,7 +37,7 @@
       flex-direction: column;
       margin-right: 80px;
       line-height: 30px;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
       a {
         color: #fafdfa;
         text-decoration: none;
@@ -48,7 +48,7 @@
     .logo img {
       width: 100px;
       height: auto;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
     p {
       color: #fafdfa;
@@ -59,7 +59,7 @@
     .network img {
       width: 30px;
       height: auto;
-      padding: 15px;
+      padding: 0 15px;
       &:last-child{
         padding-right: 0;
       }
