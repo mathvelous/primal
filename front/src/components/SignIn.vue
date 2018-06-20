@@ -94,7 +94,8 @@
   }
 
   section {
-    background-color: white;
+    background-color: #FBFBFB;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, .1);
     width: 67vw;
   }
 

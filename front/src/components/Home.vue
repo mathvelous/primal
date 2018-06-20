@@ -3,8 +3,8 @@
     <section class="home">
       <div class="content-home">
         <h1>Les origines du goût livré chez vous</h1>
-        <form id="formAdress" action="">
-          <input ref="autocomplete" type="text" placeholder="Entrer votre adresse de livraison">
+        <form id="formAdress" @submit.prevent="geoAddress" >
+          <input v-model="address" ref="autocomplete" type="text" placeholder="Entrer votre adresse de livraison">
           <button type="submit">
             <img src="../assets/images/search.svg" alt="Search">
           </button>
@@ -130,7 +130,9 @@
     left: 0;
     width: 46vw;
     background-color: #ECECEC;
-    padding: 20px 20px 20px 0;
+    padding-right: 5%;
+    padding-bottom: 5%;
+    padding-top: 1%;
     p{
       text-align: justify;
     }
@@ -144,18 +146,31 @@
     name: 'Home',
     data() {
       return {
+        address: ''
       }
     },
     methods: {
+      geoAddress: function () {
+        if (this.address == ''){
+          return
+        }
+        this.$router.push(`/order?address=${this.address}`)
+      }
     },
     mounted() {
       this.autocomplete = new google.maps.places.Autocomplete(
         (this.$refs.autocomplete),
-        {types: ['geocode']}
+        {
+          types: ['geocode'],
+          componentRestrictions: {country: "FR"},
+          language: 'fr'
+        }
       );
+      this.autocomplete.addListener('place_changed', () => {
+        let place = this.autocomplete.getPlace()
+        this.address = place.formatted_address
+      })
     }
   }
-
-
 </script>
 

@@ -11,7 +11,7 @@
           faucibus
           vitae. Aenean faucibus ipsum ut faucibus porta. Quisque suscipit ligula ut </p>
         <div class="button">
-          <button>Je le veux</button>
+          <button>Voir le produit</button>
         </div>
       </article>
     </section>
@@ -37,7 +37,7 @@
         </header>
         <div>
           <draggable v-model="products" class="container_cards bg" :options="dragOptions" :move="onMove"
-                     @start="isDragging=true" @end="isDragging=false">
+                     @start="isDragging=true" @end="onAdd">
             <div class="card" v-for="(product, index) in products">
               <div class="img_card">
                 <img :src="'../assets/images/' + product.image" alt="">
@@ -154,6 +154,8 @@
           if (check > -1) {
             this.cartproducts[check].quantity++
             this.calCard(check)
+            this.calUnderTotal()
+            this.calTotal()
           } else {
             //si pas existant
             this.cartproducts.push({
@@ -189,16 +191,34 @@
         this.categoryColor = color
         this.init()
       },
-      deleted: function (index) {
-        this.$delete(this.cartproducts, index)
-        this.cartproducts[index].quantity = 1
-        this.init()
-      },
       addMore: function (index) {
         this.cartproducts[index].quantity++
         this.calCard(index)
         this.calUnderTotal()
         this.calTotal()
+      },
+      onAdd: function(event){
+        let tab = []
+        for (let i = 0; i < this.cartproducts.length; i++){
+          if (this.cartproducts[i].id == this.products[event.oldIndex].id){
+            tab.push(i)
+          }
+        }
+        if (tab.length > 1){
+          for (let i = 0; i < tab.length; i++){
+            this.cartproducts.splice(tab[i], 1)
+            if (i>0){
+              this.products[event.oldIndex].quantity++
+            }
+          }
+        }
+        this.products[event.oldIndex].result = this.products[event.oldIndex].quantity * this.products[event.oldIndex].price
+        this.calUnderTotal()
+        this.calTotal()
+      },
+      deleted: function (index) {
+        this.$delete(this.cartproducts, index)
+        this.cartproducts[index].quantity = 1
         this.init()
       },
       removed: function (index) {
@@ -208,7 +228,6 @@
           this.calUnderTotal()
           this.calTotal()
         }
-        this.init()
       },
       calCard: function (index) {
         let result = this.cartproducts[index].quantity * this.cartproducts[index].price
@@ -271,7 +290,7 @@
     width: 21vw;
     background-color: #FBFBFB;
     padding: 30px;
-    transform: translateY(40%);
+    transform: translateY(30%);
     p {
       text-align: justify;
       margin-bottom: 40px;
@@ -525,6 +544,24 @@
 
   .sentence_empty {
     text-align: center;
+  }
+
+  .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 1px;
+    transform: translateY(50%);
+    button {
+      background-color: #53E093;
+      border-radius: 5px;
+      width: 180px;
+      height: 40px;
+      border: none;
+      color: white;
+      font-size: 1rem;
+      font-family: fira_sansmedium;
+    }
   }
 
 </style>
