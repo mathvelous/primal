@@ -127,3 +127,53 @@ button{
 .p20{
   padding: 20px;
 }
+
+
+@media screen and (max-width: 480px){
+
+  .m_row{
+    display: flex;
+    flex-direction: row;
+  }
+
+  .m_column{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .m_align-center{
+    align-items: center;
+  }
+
+  .m_align-end{
+    align-items: flex-end;
+  }
+
+  .m_justify-center{
+    justify-content: center;
+  }
+
+  .m_space_around{
+    justify-content: space-around;
+  }
+
+  .m_space_between{
+    justify-content: space-between;
+  }
+
+  .m_flex-end{
+    justify-content: flex-end;
+  }
+
+}
+
+@media all and (min-width: 481px) and (max-width: 768px) {
+}
+
+@media all and (min-width: 769px) and (max-width: 1024px){
+
+}
+
+@media screen and (min-width : 1224px) {
+
+}

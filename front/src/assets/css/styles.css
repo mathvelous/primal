@@ -152,6 +152,49 @@ button {
   padding: 20px;
 }
 
+@media screen and (max-width: 480px) {
+  /* line 134, ../sass/_main.scss */
+  .m_row {
+    display: flex;
+    flex-direction: row;
+  }
+
+  /* line 139, ../sass/_main.scss */
+  .m_column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* line 144, ../sass/_main.scss */
+  .m_align-center {
+    align-items: center;
+  }
+
+  /* line 148, ../sass/_main.scss */
+  .m_align-end {
+    align-items: flex-end;
+  }
+
+  /* line 152, ../sass/_main.scss */
+  .m_justify-center {
+    justify-content: center;
+  }
+
+  /* line 156, ../sass/_main.scss */
+  .m_space_around {
+    justify-content: space-around;
+  }
+
+  /* line 160, ../sass/_main.scss */
+  .m_space_between {
+    justify-content: space-between;
+  }
+
+  /* line 164, ../sass/_main.scss */
+  .m_flex-end {
+    justify-content: flex-end;
+  }
+}
 /* line 1, ../sass/_images.scss */
 .home {
   background-image: url("../images/bg-home.jpg");

@@ -13,7 +13,7 @@
     </section>
     <section class="section marge column align-center">
       <h3 class="mb70">Comment ça marche ?</h3>
-      <div class="row justify-center">
+      <div class="row justify-center m_column">
         <div class="big_icon column align-center">
           <img src="../assets/images/order.svg" alt="Commandez">
           <h2>Vous commandez</h2>
@@ -34,7 +34,7 @@
         </div>
       </div>
     </section>
-    <section class="section marge row align-center flex-end relative">
+    <section class="section marge row align-center flex-end m_column">
       <article>
         <h3 class="mb30">Qui sommes nous ?</h3>
         <p>
@@ -61,6 +61,38 @@
   </main>
 </template>
 
+<script>
+  export default {
+    name: 'Home',
+    data() {
+      return {
+        address: ''
+      }
+    },
+    methods: {
+      geoAddress: function () {
+        if (this.address == ''){
+          return
+        }
+        this.$router.push(`/order?address=${this.address}`)
+      }
+    },
+    mounted() {
+      this.autocomplete = new google.maps.places.Autocomplete(
+        (this.$refs.autocomplete),
+        {
+          types: ['geocode'],
+          componentRestrictions: {country: "FR"},
+          language: 'fr'
+        }
+      );
+      this.autocomplete.addListener('place_changed', () => {
+        let place = this.autocomplete.getPlace()
+        this.address = place.formatted_address
+      })
+    }
+  }
+</script>
 
 <style lang="scss" scoped>
 
@@ -126,8 +158,7 @@
   }
 
   .section article{
-    position: absolute;
-    left: 0;
+    transform: translateX(5%);
     width: 46vw;
     background-color: #ECECEC;
     padding-right: 5%;
@@ -139,38 +170,85 @@
   }
 
 
-</style>
+  @media screen and (max-width: 480px){
+    .home {
+      background-position: center;
+      h1 {
+        font-size: 1.5rem;
+        text-align: center;
+      }
+    }
 
-<script>
-  export default {
-    name: 'Home',
-    data() {
-      return {
-        address: ''
+    h3{
+      font-size: 1.3rem;
+      margin-top:20px ;
+      text-align: center;
+    }
+
+    #formAdress{
+      input{
+        width: 60vw;
+        font-size: 0.8rem;
       }
-    },
-    methods: {
-      geoAddress: function () {
-        if (this.address == ''){
-          return
-        }
-        this.$router.push(`/order?address=${this.address}`)
+    }
+
+    .big_icon{
+      img {
+        width: 100px;
+        height: auto;
       }
-    },
-    mounted() {
-      this.autocomplete = new google.maps.places.Autocomplete(
-        (this.$refs.autocomplete),
-        {
-          types: ['geocode'],
-          componentRestrictions: {country: "FR"},
-          language: 'fr'
-        }
-      );
-      this.autocomplete.addListener('place_changed', () => {
-        let place = this.autocomplete.getPlace()
-        this.address = place.formatted_address
-      })
+      p{
+        margin-bottom: 30px;
+      }
+      h2{
+        height: 60px;
+      }
+    }
+
+    .marge{
+      margin: 3%;
+    }
+
+    .section{
+      margin-bottom: 0;
+    }
+
+    .section article{
+      transform: translateX(0);
+      width: 90%;
+      padding-bottom: 0%;
+    }
+
+    .image img{
+      width: 100vw;
+      margin-top: 20px;
     }
   }
-</script>
+
+  @media all and (min-width: 481px) and (max-width: 768px){
+    .home {
+      h1 {
+        font-size: 2rem;
+      }
+    }
+    #formAdress{
+      input{
+        width: 50vw;
+      }
+    }
+
+    .section{
+      margin: 10vh 6%;
+    }
+  }
+
+  @media all and (min-width: 769px) and (max-width: 1024px){
+
+  }
+
+  @media screen and (min-width : 1224px) {
+
+  }
+
+</style>
 
