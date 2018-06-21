@@ -23,8 +23,8 @@ router.post('/conn', function(req, res, next) {
         } else {
             bcrypt.compare(req.body.data.password, results[0].password).then(function(result) {
                 if(result == true){
-                    sess = results[0]
-                    res.json('Connection réussi')
+                    sess.user = results[0].id
+                    res.json(sess.user)
                 }else {
                     res.json('Erreur de connection')
                 }
@@ -48,6 +48,7 @@ router.post('/', function(req, res, next) {
                         console.log(err)
                     }
                     else {
+                        res.json(sess.user)
                     }
                 })
             }

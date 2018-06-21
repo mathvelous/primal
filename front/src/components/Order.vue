@@ -35,6 +35,7 @@
             <p>Breuvage</p>
           </button>
         </header>
+        <p class="textDrag">Vous pouvez cliquez glissez votre produit au panier.</p>
         <draggable v-model="products" class="container_cards bg" :options="dragOptions" :move="onMove"
                    @start="isDragging=true" @end="onAdd">
           <div class="card" v-for="(product, index) in products">
@@ -138,8 +139,6 @@
             result: this.products[index].price,
             quantity: 1
           })
-          this.calUnderTotal()
-          this.calTotal()
         } else {
           for (let i = 0; i < this.cartproducts.length; i++) {
             if (this.products[index].id == this.cartproducts[i].id) {
@@ -151,8 +150,6 @@
           if (check > -1) {
             this.cartproducts[check].quantity++
             this.calCard(check)
-            this.calUnderTotal()
-            this.calTotal()
           } else {
             //si pas existant
             this.cartproducts.push({
@@ -162,9 +159,10 @@
               result: this.products[index].price,
               quantity: 1
             })
-
           }
         }
+        this.calUnderTotal()
+        this.calTotal()
       },
       onMove: function ({relatedContext, draggedContext}) {
         const relatedElement = relatedContext.element;
@@ -214,7 +212,6 @@
         this.calTotal()
       },
       deleted: function (index) {
-        this.$delete(this.cartproducts, index)
         this.underTotal = 0
         this.total = 0
         for (let i = 0; i < this.products.length; i++) {
@@ -222,7 +219,15 @@
             this.products[i].quantity = 1
           }
         }
-        console.log(this.underTotal)
+        this.$delete(this.cartproducts, index)
+        console.log(this.cartproducts.length)
+        if (this.cartproducts.length > 0){
+          this.$cookies.set('cart', JSON.stringify({
+            cartProduct: this.cartproducts
+          }), '7d')
+        }else {
+          this.$cookies.remove('cart')
+        }
       },
       removed: function (index) {
         if (this.cartproducts[index].quantity != 1) {
@@ -247,6 +252,9 @@
       calTotal: function () {
         let calT = this.underTotal + 3
         this.total = calT
+        this.$cookies.set('cart', JSON.stringify({
+          cartProduct: this.cartproducts
+        }), '7d')
       },
       onResize: function () {
         if (window.innerWidth < 960) {
@@ -260,8 +268,15 @@
       }
     },
     mounted() {
-      this.init()
       this.onResize()
+      this.init()
+      let cookie = this.$cookies.get('cart')
+      if (cookie != null){
+        cookie = JSON.parse(cookie)
+        this.cartproducts = cookie.cartProduct
+        this.calUnderTotal()
+        this.calTotal()
+      }
     },
     computed: {
       dragOptions() {
@@ -290,6 +305,12 @@
 </script>
 
 <style lang="scss" scoped>
+  .textDrag{
+    transform: translateY(-250%);
+    font-size: 0.9rem;
+    padding-left: 2%;
+  }
+
   .fade-enter-active, .fade-leave-active {
     transition: opacity .5s;
   }
@@ -633,6 +654,10 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+    }
+
+    .textDrag{
+      transform: translateY(-85%);
     }
 
   }

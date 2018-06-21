@@ -45,7 +45,8 @@
         })
           .then(response => {
             console.log(response.data)
-            if (response.data == 'Connection réussi'){
+            if (response.data != 'Erreur de connection'){
+              this.$cookies.set('user', response.data, '14d')
               this.$router.push('/account')
             }
           })
