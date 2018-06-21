@@ -218,8 +218,14 @@
       },
       deleted: function (index) {
         this.$delete(this.cartproducts, index)
-        this.cartproducts[index].quantity = 1
-        this.init()
+        this.underTotal = 0
+        this.total = 0
+        for (let i=0; i < this.products.length; i++){
+          if (this.products[i].id == this.cartproducts[index].id){
+            this.products[i].quantity = 1
+          }
+        }
+        console.log(this.underTotal)
       },
       removed: function (index) {
         if (this.cartproducts[index].quantity != 1) {
@@ -335,7 +341,10 @@
     button {
       background-color: transparent;
       border: none;
-      padding: 20px;
+      padding: 11px;
+      &:focus {
+        outline: none;
+      }
     }
     img {
       height: 50px;

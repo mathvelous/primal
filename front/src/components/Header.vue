@@ -53,6 +53,7 @@
     },
     mounted() {
       console.log(this.$cookies.isKey('connect.sid'))
+      this.onResize()
     },
     beforeCreate(){
       this.resize()
@@ -72,21 +73,20 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-family: 'fira_sansmedium';
+    font-family: Avenir;
     background-color: #22292E;
     a {
       text-decoration: none;
       color: #ffffff;
       font-size: 0.9rem;
-      font-family: 'fira_sansmedium';
       letter-spacing: 0.5px;
     }
     .logo {
       margin: 1%;
       img {
-        width: 70px;
+        width: 100px;
         height: auto;
-        margin-top: 15px;
+        margin-top: 5px;
       }
     }
   }

@@ -17,7 +17,7 @@
               </div>
             </div>
             <div class="button">
-              <button>Modifier</button>
+              <button><span>Modif</span><span>ier</span></button>
             </div>
           </form>
         </div>
@@ -130,7 +130,7 @@
       border: none;
       color: white;
       font-size: 1rem;
-      font-family: fira_sansmedium;
+      font-family: 'fira_sansmedium';
     }
   }
 

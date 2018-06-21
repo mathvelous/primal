@@ -275,6 +275,7 @@
       height: 1px;
       width: 19%;
       background-color: #6F7476;
+      margin-top: -10px;
     }
     p {
       display: flex;

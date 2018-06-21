@@ -4,7 +4,7 @@
       <div>
         <h1 class="title">Connectez-vous</h1>
         <form @submit.prevent="signin" class="p5">
-          <h2>Entrez vos identifiants</h2>
+          <h2>Entrez vos <span>identif</span><span>iants</span></h2>
           <div class="row space_between">
             <div class="label_group">
               <label for="mail">Adresse mail</label>
@@ -12,7 +12,7 @@
             </div>
             <div class="label_group">
               <label for="password">Mot de passe</label>
-              <input  v-model="conn.password" id="password" type="password">
+              <input v-model="conn.password" id="password" type="password">
             </div>
           </div>
           <p>Vous n'avez pas <router-link :to="{ name: 'SignUp'}">de compte ?</router-link></p>
@@ -85,11 +85,11 @@
 
   h1 {
     font-size: 1.5rem;
-    font-family: fira_sansmedium;
+    font-family: 'fira_sansmedium';
   }
 
   h2 {
-    font-family: fira_sansmedium;
+    font-family: 'fira_sansmedium';
     margin-bottom: 25px;
   }
 
