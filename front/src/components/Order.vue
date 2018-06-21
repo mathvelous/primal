@@ -15,7 +15,7 @@
         </div>
       </article>
     </section>
-    <section class="marge row">
+    <section class="marge row section2">
       <div class="section_card">
         <header>
           <button @click="clickCategory('cueillette', '#53E093')">
@@ -35,30 +35,26 @@
             <p>Breuvage</p>
           </button>
         </header>
-        <div>
-          <draggable v-model="products" class="container_cards bg" :options="dragOptions" :move="onMove"
-                     @start="isDragging=true" @end="onAdd">
-            <div class="card" v-for="(product, index) in products">
-              <div class="img_card">
-                <img :src="'../assets/images/' + product.image" alt="">
+        <draggable v-model="products" class="container_cards bg" :options="dragOptions" :move="onMove"
+                   @start="isDragging=true" @end="onAdd">
+          <div class="card" v-for="(product, index) in products">
+            <div class="img_card">
+              <img :src="'../assets/images/' + product.image" alt="">
+            </div>
+            <div class="p20">
+              <div class="title_card row space_between">
+                <h3>{{product.name}}</h3>
+                <p :style="'color:' + categoryColor">{{product.price}} €</p>
               </div>
-              <div class="p20">
-                <div class="title_card row space_between">
-                  <h3>{{product.name}}</h3>
-                  <p :style="'color:' + categoryColor">{{product.price}} €</p>
-                </div>
-                <p class="text_card">{{product.description}}</p>
-                <div class="row flex-end">
-                  <span @click="addClick(index)" :style="'background-color:' + categoryColor" class="add"></span>
-                </div>
+              <p class="text_card">{{product.description}}</p>
+              <div class="row flex-end">
+                <span @click="addClick(index)" :style="'background-color:' + categoryColor" class="add"></span>
               </div>
             </div>
-          </draggable>
-
-        </div>
+          </div>
+        </draggable>
       </div>
-
-      <aside>
+      <aside v-if="aside">
         <h2 class="border_b">Récapitulatif du panier</h2>
         <div class="p20">
           <draggable v-model="cartproducts" class="bg container_empty" :options="{group:'description'}" :move="onMove">
@@ -123,7 +119,8 @@
         category: 'cueillette',
         categoryColor: '#53E093',
         underTotal: 0,
-        total: 0
+        total: 0,
+        aside: true
       }
     },
     components: {
@@ -144,8 +141,8 @@
           this.calUnderTotal()
           this.calTotal()
         } else {
-          for (let i=0; i < this.cartproducts.length; i++){
-            if (this.products[index].id == this.cartproducts[i].id){
+          for (let i = 0; i < this.cartproducts.length; i++) {
+            if (this.products[index].id == this.cartproducts[i].id) {
               check = i
               break;
             }
@@ -197,17 +194,17 @@
         this.calUnderTotal()
         this.calTotal()
       },
-      onAdd: function(event){
+      onAdd: function (event) {
         let tab = []
-        for (let i = 0; i < this.cartproducts.length; i++){
-          if (this.cartproducts[i].id == this.products[event.oldIndex].id){
+        for (let i = 0; i < this.cartproducts.length; i++) {
+          if (this.cartproducts[i].id == this.products[event.oldIndex].id) {
             tab.push(i)
           }
         }
-        if (tab.length > 1){
-          for (let i = 0; i < tab.length; i++){
+        if (tab.length > 1) {
+          for (let i = 0; i < tab.length; i++) {
             this.cartproducts.splice(tab[i], 1)
-            if (i>0){
+            if (i > 0) {
               this.products[event.oldIndex].quantity++
             }
           }
@@ -220,8 +217,8 @@
         this.$delete(this.cartproducts, index)
         this.underTotal = 0
         this.total = 0
-        for (let i=0; i < this.products.length; i++){
-          if (this.products[i].id == this.cartproducts[index].id){
+        for (let i = 0; i < this.products.length; i++) {
+          if (this.products[i].id == this.cartproducts[index].id) {
             this.products[i].quantity = 1
           }
         }
@@ -242,7 +239,7 @@
       },
       calUnderTotal: function () {
         let cal = 0
-        for (let i=0; i < this.cartproducts.length; i++){
+        for (let i = 0; i < this.cartproducts.length; i++) {
           cal += this.cartproducts[i].result
         }
         this.underTotal = cal
@@ -250,10 +247,21 @@
       calTotal: function () {
         let calT = this.underTotal + 3
         this.total = calT
+      },
+      onResize: function () {
+        if (window.innerWidth < 960) {
+          this.aside = false
+        } else {
+          this.aside = true
+        }
+      },
+      resize() {
+        window.addEventListener('resize', this.onResize)
       }
     },
     mounted() {
       this.init()
+      this.onResize()
     },
     computed: {
       dragOptions() {
@@ -274,6 +282,9 @@
       /*oneTodosCount () {
         console.log(this.$store.state.count)
       }*/
+    },
+    created() {
+      this.resize()
     },
   }
 </script>
@@ -299,7 +310,10 @@
     transform: translateY(30%);
     p {
       text-align: justify;
-      margin-bottom: 40px;
+      padding-bottom: 10px;
+    }
+    .button {
+      padding-bottom: 30px;
     }
   }
 
@@ -571,6 +585,67 @@
       font-size: 1rem;
       font-family: fira_sansmedium;
     }
+  }
+
+  /*********** Responsive ***********/
+
+  @media screen and (max-width: 480px) {
+    .card_new {
+      width: 70vw;
+      padding: 30px;
+      transform: translateY(60%);
+      margin-bottom: 200px;
+    }
+
+    .mb40 {
+      margin-bottom: 20px;
+    }
+
+    .section2 {
+      margin-top: 36vh;
+    }
+
+    .section_card {
+      margin-top: 200px;
+      width: 80vw;
+    }
+
+    header {
+      width: 90vw;
+      transform: translateY(-50%);
+      margin-left: -20px;
+      padding: 15px 0;
+      img {
+        height: 40px;
+      }
+      p {
+        font-size: 0.8rem;
+      }
+    }
+
+    .container_cards{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .bg_order{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+  }
+
+  @media all and (min-width: 481px) and (max-width: 768px) {
+  }
+
+  @media all and (min-width: 769px) and (max-width: 1024px) {
+
+  }
+
+  @media screen and (min-width: 1224px) {
+
   }
 
 </style>

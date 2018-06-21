@@ -55,9 +55,6 @@
       console.log(this.$cookies.isKey('connect.sid'))
       this.onResize()
     },
-    beforeCreate(){
-      this.resize()
-    },
     created() {
       this.resize()
     },
@@ -75,12 +72,6 @@
     justify-content: space-between;
     font-family: Avenir;
     background-color: #22292E;
-    a {
-      text-decoration: none;
-      color: #ffffff;
-      font-size: 0.9rem;
-      letter-spacing: 0.5px;
-    }
     .logo {
       margin: 1%;
       img {
@@ -96,10 +87,25 @@
     align-items: center;
     div {
       display: flex;
-      justify-content: space-around;
-      width: 40vw;
-      a {
-
+      a{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        color: #ffffff;
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
+        height: calc(8vh - 3px);
+        width: 145px;
+        transition: all ease 0.5s;
+        border-bottom: 3px solid transparent;
+        &:first-of-type {
+          width: 215px;
+        }
+        &:hover, &:focus{
+          background-color: #131719;
+          border-bottom: 3px solid #ff7900;
+        }
       }
     }
   }
@@ -107,7 +113,7 @@
   .icon {
     background-color: #ff7900;
     height: 8vh;
-    max-width: 70px;
+    width: 70px;
     display: flex;
     align-items: center;
     justify-content: center;

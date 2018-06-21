@@ -116,6 +116,10 @@
     }
   }
 
+  h3{
+    font-size: 1.7rem;
+  }
+
   #formAdress {
     display: flex;
     align-items: center;
@@ -126,15 +130,25 @@
       border: none;
       border-radius: 3px 0px 0px 3px;
       font-size: 1rem;
+      &:focus{
+        outline: none;
+      }
     }
     button[type='submit'] {
       border: none;
       background-color: #ff7900;
       border-radius: 0px 3px 3px 0px;
+      &:focus{
+        outline: none;
+      }
       img {
         width: 20px;
         height: 30px;
         padding: 10px;
+        transition: all ease .5s;
+        &:hover{
+          transform: scale(1.2);
+        }
       }
     }
   }
@@ -143,7 +157,7 @@
     padding: 0 30px;
     margin-bottom: 20px;
     img {
-      width: 150px;
+      width: 100px;
       height: auto;
     }
     h2 {
@@ -169,6 +183,7 @@
     }
   }
 
+/*********** Responsive ***********/
 
   @media screen and (max-width: 480px){
     .home {
@@ -216,7 +231,8 @@
     .section article{
       transform: translateX(0);
       width: 90%;
-      padding-bottom: 0%;
+      padding-bottom: 0;
+      padding-right: 0;
     }
 
     .image img{
