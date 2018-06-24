@@ -8,12 +8,12 @@
             <h2>Mes informations</h2>
             <div class="row space_between">
               <div class="input_groupe">
-                <input type="text">
-                <input type="text">
+                <input v-model="user.info.firstname" type="text">
+                <input v-model="user.info.lastname" type="text">
               </div>
               <div class="input_groupe">
-                <input type="text">
-                <input type="text">
+                <input v-model="user.info.email" type="mail">
+                <input v-model="user.info.phone" type="tel">
               </div>
             </div>
             <div class="button">
@@ -22,11 +22,13 @@
           </form>
         </div>
         <div class="card_account">
-          <form action="">
+          <form>
             <h2>Mes adresses</h2>
-            <div class="row space_between align-end">
-              <input type="text">
-              <span class="delete"></span>
+            <div class="row flex-end align-end addresses" v-for="(address, index) in user.addresses">
+              <input id="address" v-model="address.street" type="text" disabled="true">
+              <input id="city" v-model="address.city" type="text" disabled="true">
+              <input id="zipcode" v-model="address.zipcode" type="text" disabled="true">
+              <span @click="deleted(index)" class="delete"></span>
             </div>
             <div class="button">
               <button>Ajouter</button>
@@ -51,7 +53,35 @@
 </template>
 
 <script>
-
+  export default {
+    name: 'Account',
+    data() {
+      return {
+        user: {},
+      }
+    },
+    methods: {
+      init: function () {
+        let cookie = this.$cookies.get('user')
+        this.$http.get(`http://localhost:3000/users/${cookie}`)
+          .then(response => {
+            this.user = response.data
+            console.log(response.data)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      },
+      deleted: function (index) {
+        if (this.user.addresses.length > 1){
+          this.$delete(this.user.addresses, index)
+        }
+      }
+    },
+    mounted() {
+      this.init()
+    }
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -73,7 +103,6 @@
 
   h1 {
     font-size: 1.5rem;
-    font-family: fira_sansmedium;
   }
 
   h2 {
@@ -137,6 +166,7 @@
   .delete {
     position: relative;
     top: -20px;
+    margin-left: 20px;
     &:after {
       position: absolute;
       top: 50%;
@@ -165,5 +195,20 @@
     background-color: #FBFBFB;
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, .1);
     padding: 30px;
+  }
+
+  .addresses {
+    input {
+      margin-right: 10px;
+    }
+    #address{
+      width: 50%;
+    }
+    #city{
+      width: 30%;
+    }
+    #zipcode{
+      width: 20%;
+    }
   }
 </style>

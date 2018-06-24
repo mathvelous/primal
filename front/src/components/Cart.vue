@@ -22,20 +22,20 @@
       <div class="container">
         <h1 class="title">Mon panier</h1>
         <div class="p5">
-          <div class="row align-center card">
+          <div class="row align-center card" v-for="product in products">
             <div class="img_card">
               <img src="../assets/images/img-card1.jpg" alt="">
             </div>
             <div class="row align-center space_around group_card">
-              <h2 class="name">Name</h2>
-              <h2 class="p100">Prix</h2>
+              <h2 class="name">{{product.name}}</h2>
+              <h2 class="p100">{{product.result}}€</h2>
             </div>
             <div class="row align-center space_around group_card">
               <div class="row align-center">
                 <button class="button_quant">
                   <span class="less"></span>
                 </button>
-                <p class="quantity">1</p>
+                <p class="quantity">{{product.quantity}}</p>
                 <button class="button_quant">
                   <span class="more"></span>
                 </button>
@@ -80,8 +80,13 @@
   export default {
     name: 'Cart',
     data() {
-      return {}
+      return {
+        products: []
+      }
     },
+    mounted: function () {
+      this.products = JSON.parse(this.$cookies.get('cart')).cartProduct
+    }
   }
 </script>
 

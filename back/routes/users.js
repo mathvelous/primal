@@ -4,16 +4,28 @@ const bcrypt = require('bcrypt');
 const database = require('../services/database.js');
 
 /* GET users listing. */
-/*router.get('/', function(req, res, next) {
-      database.sendQuery('SELECT * FROM users WHERE email LIKE', function (err, results) {
+router.get('/:id', function(req, res, next) {
+    let id = req.params.id
+      database.sendQuery(`SELECT * FROM users WHERE id = ${id}`, function (err, results) {
           if (err) {
             console.log(err)
           } else {
-              res.user = results[0].id
-              res.json(results)
+              let userInfo = results[0]
+              res.user = userInfo.id
+              database.sendQuery(`SELECT * FROM addresses WHERE id_user = ${id}`, function (err, results) {
+                  if (err) {
+                      console.log(err)
+                  } else {
+                      let userAddresses = results
+                      res.json({
+                          info: userInfo,
+                          addresses: userAddresses
+                      })
+                  }
+              })
           }
       })
-});*/
+});
 
 router.post('/conn', function(req, res, next) {
     let sess = req.session
