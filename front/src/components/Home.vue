@@ -1,11 +1,12 @@
 <template>
   <main>
+    <notifications classes="myNoti" group="notGeo"/>
     <section class="home">
       <div class="content-home">
         <h1>Les origines du goût livré chez vous</h1>
-        <form id="formAdress" @submit.prevent="geoAddress" >
+        <form id="formAdress" @submit.prevent="geoAddress">
           <input v-model="address" ref="autocomplete" type="text" placeholder="Entrer votre adresse de livraison">
-          <button type="submit">
+          <button @click.prevent="show" type="submit">
             <img src="../assets/images/search.svg" alt="Search">
           </button>
         </form>
@@ -66,7 +67,7 @@
     name: 'Home',
     data() {
       return {
-        address: ''
+        address: '',
       }
     },
     methods: {
@@ -75,7 +76,17 @@
           return
         }
         this.$router.push(`/order?address=${this.address}`)
-      }
+      },
+      show (group) {
+        this.$notify({
+          group: 'notGeo',
+          title: 'Impossible de livrer à cette adresse',
+          text: 'Nous sommes désolé nous faisons de notre mieux pour étendre notre périmètre de livraison.',
+          duration: 5000,
+          speed: 500,
+          type: 'error'
+        });
+      },
     },
     mounted() {
       this.autocomplete = new google.maps.places.Autocomplete(
@@ -95,7 +106,6 @@
 </script>
 
 <style lang="scss" scoped>
-
   .home {
     display: flex;
     justify-content: center;

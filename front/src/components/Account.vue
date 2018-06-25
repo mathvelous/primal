@@ -22,7 +22,7 @@
           </form>
         </div>
         <div class="card_account">
-          <form>
+          <div class="form">
             <h2>Mes adresses</h2>
             <div class="row flex-end align-end addresses" v-for="(address, index) in user.addresses">
               <input id="address" v-model="address.street" type="text" disabled="true">
@@ -30,10 +30,10 @@
               <input id="zipcode" v-model="address.zipcode" type="text" disabled="true">
               <span @click="deleted(index)" class="delete"></span>
             </div>
-            <div @click.prevent="showModal = true" class="button">
+            <div @click="showModal = true" class="button">
               <button>Ajouter</button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </section>
@@ -49,11 +49,9 @@
         </div>
       </article>
     </section>
-    <div v-if="showModal" @close="showModal = false">
-      <FormAddress></FormAddress>
+    <div v-if="showModal">
+      <FormAddress @close="showModal = false"></FormAddress>
     </div>
-
-
   </main>
 </template>
 
@@ -88,9 +86,6 @@
           this.$delete(this.user.addresses, index)
         }
       },
-      clickModal: function () {
-        this.modal = true
-      }
     },
     mounted() {
       this.init()
@@ -149,7 +144,7 @@
     flex-direction: column;
   }
 
-  form {
+  form, .form {
     display: flex;
     flex-direction: column;
     background-color: #FBFBFB;

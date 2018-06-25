@@ -16,7 +16,25 @@ export default {
   components: {
     Header,
     Footer
+  },
+  methods: {
+    closeModal() {
+      console.log('in app.vue')
+    }
   }
 }
 </script>
+
+<style lang="scss">
+  .myNoti{
+    font-family: Avenir;
+    color: white;
+    font-size: 0.9rem;
+    padding: 10px;
+    margin-bottom: 10px;
+    &.error{
+      background-color: #d3113b;
+    }
+  }
+</style>
 

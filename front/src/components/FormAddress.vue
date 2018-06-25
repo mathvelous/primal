@@ -19,8 +19,8 @@
             </div>
           </div>
           <div class="row">
-            <div @click="$emit('close')" class="button">
-              <button class="bg_red">Annulé</button>
+            <div @click.prevent="$emit('close')" class="button">
+              <button class="bg_red" type="button">Annulé</button>
             </div>
           </div>
           <div class="row flex-end">
@@ -39,7 +39,7 @@
     name: 'FormAddress',
     data() {
       return {
-        address:{
+        address: {
           street: '',
           city: '',
           zipcode: ''
@@ -48,16 +48,22 @@
     },
     methods: {
       addAddress: function () {
-        this.$http.post("http://localhost:3000/users/address", {
-          address: this.address
-        })
-          .then(response => {
-            console.log(response.data)
+        let cookie = this.$cookies.get('user')
+        if (cookie == null) {
+          return
+        }
+        if (this.address.street != '' && this.address.city != '' && this.address.zipcode != ''){
+          this.$http.post(`http://localhost:3000/users/address/${cookie}`, {
+            address: this.address
           })
-          .catch(error => {
-            console.log(error)
-          })
-      }
+            .then(response => {
+              console.log(response.data)
+            })
+            .catch(error => {
+              console.log(error)
+            })
+        }
+      },
     }
   }
 </script>
