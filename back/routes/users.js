@@ -68,4 +68,16 @@ router.post('/', function(req, res, next) {
     })
 });
 
+router.post('/address', function(req, res, next) {
+    console.log(req.body)
+    database.sendQuery(`INSERT INTO addresses (street, city, zipcode, id_user) VALUES ('${req.body.address.street}', '${req.body.address.city}', '${req.body.address.zipcode}', ${results.insertId})`,function (err, results) {
+        if (err) {
+            console.log(err)
+        }
+        else {
+        }
+    })
+});
+
+
 module.exports = router;

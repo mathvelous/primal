@@ -7,11 +7,13 @@ import Styles from './assets/css/styles.css'
 import axios from 'axios'
 import VueCookies from 'vue-cookies'
 import {store} from './store'
+import Notifications from 'vue-notification'
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.use(VueCookies)
 Vue.prototype.$cookies = VueCookies
+Vue.use(Notifications)
 
 /* eslint-disable no-new */
 new Vue({

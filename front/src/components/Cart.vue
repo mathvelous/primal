@@ -22,7 +22,7 @@
       <div class="container">
         <h1 class="title">Mon panier</h1>
         <div class="p5">
-          <div class="row align-center card" v-for="product in products">
+          <div class="row align-center card" v-for="(product, index) in cartproducts">
             <div class="img_card">
               <img src="../assets/images/img-card1.jpg" alt="">
             </div>
@@ -33,14 +33,14 @@
             <div class="row align-center space_around group_card">
               <div class="row align-center">
                 <button class="button_quant">
-                  <span class="less"></span>
+                  <span @click="removed(index)" class="less"></span>
                 </button>
                 <p class="quantity">{{product.quantity}}</p>
-                <button class="button_quant">
+                <button @click="addMore(index)" class="button_quant">
                   <span class="more"></span>
                 </button>
               </div>
-              <button>
+              <button @click="deleted(index)" >
                 <span class="delete"></span>
               </button>
             </div>
@@ -50,19 +50,19 @@
             </div>
             <div class="row">
               <div class="group_price">
-                <h2>dffd</h2>
-                <h2>fsdd</h2>
+                <h2>Sous total</h2>
+                <h2>Frais de livraison</h2>
               </div>
               <div class="group_price">
-                <h2>fsq</h2>
-                <h2>fds</h2>
+                <h2>{{underTotal}}€</h2>
+                <h2>3€</h2>
               </div>
             </div>
             <div class="border_top">
             </div>
             <div class="row">
-              <h2>jnfsqkdj</h2>
-              <h2>kdsbf</h2>
+              <h2 class="mr155">Total</h2>
+              <h2>{{total}}€</h2>
             </div>
           </div>
         </div>
@@ -81,11 +81,63 @@
     name: 'Cart',
     data() {
       return {
-        products: []
+        cartproducts: [],
+        underTotal: 0,
+        total: 0,
       }
     },
-    mounted: function () {
-      this.products = JSON.parse(this.$cookies.get('cart')).cartProduct
+    methods: {
+      deleted: function (index) {
+        this.$delete(this.cartproducts, index)
+        if (this.cartproducts.length > 0) {
+          this.$cookies.set('cart', JSON.stringify({
+            cartProduct: this.cartproducts
+          }), '7d')
+        } else {
+          this.$cookies.remove('cart')
+        }
+      },
+      removed: function (index) {
+        if (this.cartproducts[index].quantity > 1) {
+          this.cartproducts[index].quantity--
+          this.calCard(index)
+          this.calUnderTotal()
+          this.calTotal()
+        }
+      },
+      addMore: function (index) {
+        this.cartproducts[index].quantity++
+        this.calCard(index)
+        this.calUnderTotal()
+        this.calTotal()
+      },
+      calCard: function (index) {
+        let result = this.cartproducts[index].quantity * this.cartproducts[index].price
+        this.cartproducts[index].result = result
+      },
+      calUnderTotal: function () {
+        let cal = 0
+        for (let i = 0; i < this.cartproducts.length; i++) {
+          cal += this.cartproducts[i].result
+        }
+        this.underTotal = cal
+      },
+      calTotal: function () {
+        let calT = this.underTotal + 3
+        this.total = calT
+        this.$cookies.set('cart', JSON.stringify({
+          cartProduct: this.cartproducts
+        }), '7d')
+      },
+    },
+    mounted() {
+      let cookie = this.$cookies.get('cart')
+      if (cookie != null) {
+        cookie = JSON.parse(cookie)
+        this.cartproducts = cookie.cartProduct
+        this.calUnderTotal()
+        this.calTotal()
+      }
     }
   }
 </script>
@@ -253,6 +305,10 @@
     }
   }
 
+  .mr155 {
+    margin-right: 155px;
+  }
+
   .button {
     display: flex;
     justify-content: center;
@@ -294,7 +350,7 @@
       border-radius: 50%;
       margin: 10px;
     }
-    .text{
+    .text {
       font-family: Avenir;
       font-size: 0.8rem;
     }

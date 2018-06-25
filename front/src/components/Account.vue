@@ -30,7 +30,7 @@
               <input id="zipcode" v-model="address.zipcode" type="text" disabled="true">
               <span @click="deleted(index)" class="delete"></span>
             </div>
-            <div class="button">
+            <div @click.prevent="showModal = true" class="button">
               <button>Ajouter</button>
             </div>
           </form>
@@ -49,15 +49,26 @@
         </div>
       </article>
     </section>
+    <div v-if="showModal" @close="showModal = false">
+      <FormAddress></FormAddress>
+    </div>
+
+
   </main>
 </template>
 
 <script>
+  import FormAddress from '@/components/FormAddress'
+
   export default {
     name: 'Account',
+    components: {
+      FormAddress
+    },
     data() {
       return {
         user: {},
+        showModal: false
       }
     },
     methods: {
@@ -73,9 +84,12 @@
           })
       },
       deleted: function (index) {
-        if (this.user.addresses.length > 1){
+        if (this.user.addresses.length > 1) {
           this.$delete(this.user.addresses, index)
         }
+      },
+      clickModal: function () {
+        this.modal = true
       }
     },
     mounted() {
@@ -201,14 +215,28 @@
     input {
       margin-right: 10px;
     }
-    #address{
+    #address {
       width: 50%;
     }
-    #city{
+    #city {
       width: 30%;
     }
-    #zipcode{
+    #zipcode {
       width: 20%;
     }
+  }
+
+  .modal-enter {
+    opacity: 0;
+  }
+
+  .modal-leave-active {
+    opacity: 0;
+  }
+
+  .modal-enter .modal-container,
+  .modal-leave-active .modal-container {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
   }
 </style>

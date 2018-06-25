@@ -84,7 +84,7 @@
         </div>
         <div class="p20">
           <div class="row space_between">
-            <h3>Sous total du prix</h3>
+            <h3>Sous total</h3>
             <p class="total_price">{{underTotal}} € TTC</p>
           </div>
           <div class="row space_between">
@@ -94,7 +94,7 @@
         </div>
         <div class="border_b"></div>
         <div class="row space_between p20">
-          <h3>Total du prix</h3>
+          <h3>Total</h3>
           <p>{{total}} € TTC</p>
         </div>
         <div class="button mb30">
@@ -230,7 +230,7 @@
         }
       },
       removed: function (index) {
-        if (this.cartproducts[index].quantity != 1) {
+        if (this.cartproducts[index].quantity > 1) {
           this.cartproducts[index].quantity--
           this.calCard(index)
           this.calUnderTotal()
