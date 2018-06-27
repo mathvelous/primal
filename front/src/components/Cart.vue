@@ -3,80 +3,30 @@
     <section class="steps">
       <span class="line"></span>
       <div class="column align-center">
-        <p>1</p>
+        <p class="active">1</p>
         <span class="text">Acheter</span>
       </div>
       <span class="line"></span>
       <div class="column align-center">
-        <p>2</p>
+        <p @click1="selected = 1" :class="{active:selected == 1}">2</p>
         <span class="text">Valider</span>
       </div>
       <span class="line"></span>
       <div class="column align-center">
-        <p>3</p>
+        <p @click2="selected = 2" :class="{active:selected == 2}">3</p>
         <span class="text">Payer</span>
       </div>
       <span class="line"></span>
     </section>
-    <section>
-      <div class="container">
-        <h1 class="title">Mon panier</h1>
-        <div class="p5">
-          <div class="row align-center card" v-for="(product, index) in cartproducts">
-            <div class="img_card">
-              <img src="../assets/images/img-card1.jpg" alt="">
-            </div>
-            <div class="row align-center space_around group_card">
-              <h2 class="name">{{product.name}}</h2>
-              <h2 class="p100">{{product.result}}€</h2>
-            </div>
-            <div class="row align-center space_around group_card">
-              <div class="row align-center">
-                <button class="button_quant">
-                  <span @click="removed(index)" class="less"></span>
-                </button>
-                <p class="quantity">{{product.quantity}}</p>
-                <button @click="addMore(index)" class="button_quant">
-                  <span class="more"></span>
-                </button>
-              </div>
-              <button @click="deleted(index)" >
-                <span class="delete"></span>
-              </button>
-            </div>
-          </div>
-          <div class="column align-end w100">
-            <div class="border_top">
-            </div>
-            <div class="row">
-              <div class="group_price">
-                <h2>Sous total</h2>
-                <h2>Frais de livraison</h2>
-              </div>
-              <div class="group_price">
-                <h2>{{underTotal}}€</h2>
-                <h2>3€</h2>
-              </div>
-            </div>
-            <div class="border_top">
-            </div>
-            <div class="row">
-              <h2 class="mr155">Total</h2>
-              <h2>{{total}}€</h2>
-            </div>
-          </div>
-        </div>
-        <div class="row flex-end">
-          <div class="button">
-            <button>Acheter</button>
-          </div>
-        </div>
-      </div>
-    </section>
+    <component @click1="componentActuel='Payment'" @click2="componentActuel='PaymentValidation'" @modify="componentActuel='Payment'" :is="componentActuel"></component>
   </main>
 </template>
 
 <script>
+  import ComponentCart from '@/components/ComponentCart'
+  import Payment from '@/components/Payment'
+  import PaymentValidation from '@/components/PaymentValidation'
+
   export default {
     name: 'Cart',
     data() {
@@ -84,60 +34,18 @@
         cartproducts: [],
         underTotal: 0,
         total: 0,
+        componentActuel: 'ComponentCart',
+        selected: undefined
       }
     },
-    methods: {
-      deleted: function (index) {
-        this.$delete(this.cartproducts, index)
-        if (this.cartproducts.length > 0) {
-          this.$cookies.set('cart', JSON.stringify({
-            cartProduct: this.cartproducts
-          }), '7d')
-        } else {
-          this.$cookies.remove('cart')
-        }
-      },
-      removed: function (index) {
-        if (this.cartproducts[index].quantity > 1) {
-          this.cartproducts[index].quantity--
-          this.calCard(index)
-          this.calUnderTotal()
-          this.calTotal()
-        }
-      },
-      addMore: function (index) {
-        this.cartproducts[index].quantity++
-        this.calCard(index)
-        this.calUnderTotal()
-        this.calTotal()
-      },
-      calCard: function (index) {
-        let result = this.cartproducts[index].quantity * this.cartproducts[index].price
-        this.cartproducts[index].result = result
-      },
-      calUnderTotal: function () {
-        let cal = 0
-        for (let i = 0; i < this.cartproducts.length; i++) {
-          cal += this.cartproducts[i].result
-        }
-        this.underTotal = cal
-      },
-      calTotal: function () {
-        let calT = this.underTotal + 3
-        this.total = calT
-        this.$cookies.set('cart', JSON.stringify({
-          cartProduct: this.cartproducts
-        }), '7d')
-      },
+    components:{
+      ComponentCart,
+      Payment,
+      PaymentValidation
     },
-    mounted() {
-      let cookie = this.$cookies.get('cart')
-      if (cookie != null) {
-        cookie = JSON.parse(cookie)
-        this.cartproducts = cookie.cartProduct
-        this.calUnderTotal()
-        this.calTotal()
-      }
+    methods:{
+    },
+    mounted(){
     }
   }
 </script>
@@ -160,171 +68,6 @@
       width: 67vw;
       padding-bottom: 30px;
       margin-bottom: 30px;
-    }
-  }
-
-  .title {
-    transform: translateY(-50%);
-    color: white;
-    background-color: #ff7900;
-    width: 400px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 5%;
-    margin-bottom: 15px;
-  }
-
-  h1 {
-    font-size: 1.5rem;
-    font-family: fira_sansmedium;
-  }
-
-  h2 {
-    font-size: 1rem;
-  }
-
-  .p5 {
-    padding: 0 5%;
-  }
-
-  .name {
-    width: 250px;
-    margin-left: 15px;
-  }
-
-  .quantity {
-    color: #53E093;
-    padding: 0 10px;
-    font-size: 1.3rem;
-    font-family: fira_sansmedium;
-  }
-
-  .button_quant {
-    background-color: transparent;
-    border: none;
-    padding: 10px;
-    .less {
-      position: relative;
-      &:before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translateY(-50%) translateX(-50%) rotate(90deg);
-        width: 3px;
-        height: 13px;
-        background-color: #53E093;
-        border-radius: 3px;
-      }
-    }
-    .more {
-      position: relative;
-      &:after {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translateY(-50%) translateX(-50%);
-        content: '';
-        background-color: #53E093;
-        width: 3px;
-        height: 13px;
-        border-radius: 3px;
-      }
-      &:before {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translateY(-50%) translateX(-50%) rotate(90deg);
-        content: '';
-        background-color: #53E093;
-        width: 3px;
-        height: 13px;
-        border-radius: 3px;
-      }
-    }
-  }
-
-  .delete {
-    position: relative;
-    &:after {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translateY(-50%) translateX(-50%) rotate(130deg);
-      content: '';
-      background-color: #F54141;
-      width: 3px;
-      height: 18px;
-      border-radius: 3px;
-    }
-    &:before {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translateY(-50%) translateX(-50%) rotate(45deg);
-      content: '';
-      background-color: #F54141;
-      width: 3px;
-      height: 18px;
-      border-radius: 3px;
-    }
-  }
-
-  .card {
-    background-color: white;
-    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, .1);
-    margin-bottom: 20px;
-    .img_card {
-      height: 100px;
-      img {
-        width: auto;
-        height: 100%;
-      }
-    }
-    .group_card {
-      width: 100%;
-    }
-  }
-
-  .p100 {
-    padding-right: 100px;
-  }
-
-  .border_top {
-    border-top: 1px solid #D0CECE;
-    width: 100%;
-    margin-bottom: 15px;
-    margin-top: 30px;
-  }
-
-  .group_price {
-    &:first-of-type {
-      margin-right: 60px;
-    }
-  }
-
-  .mr155 {
-    margin-right: 155px;
-  }
-
-  .button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    letter-spacing: 1px;
-    transform: translateY(110%);
-    margin-right: 5%;
-    button {
-      background-color: #53E093;
-      border-radius: 5px;
-      width: 180px;
-      height: 40px;
-      border: none;
-      color: white;
-      font-size: 1rem;
-      font-family: fira_sansmedium;
     }
   }
 
@@ -354,6 +97,11 @@
       font-family: Avenir;
       font-size: 0.8rem;
     }
+  }
+
+  .active{
+    background-color: #6F7476;
+    color: #ffffff !important;
   }
 
 </style>
