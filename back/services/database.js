@@ -1,9 +1,9 @@
 const mysql      = require('mysql');
 const connection = mysql.createConnection({
-    host     : 'mysql-primal.alwaysdata.net',
-    user     : 'primal',
-    password : 'primal2018',
-    database : 'primal_bdd'
+    host     : process.env.DB_HOST,
+    user     : process.env.DB_USER,
+    password : process.env.DB_PASSWORD,
+    database : process.env.DB_DATABASE
 });
 
 connection.connect(function (err) {

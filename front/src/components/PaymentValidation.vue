@@ -65,6 +65,28 @@
               <!--<button v-on:click="purchase">Purchase</button>-->
             </div>
           </div>
+          <div class="group">
+            <div class="column align-end w100">
+              <div class="border_top">
+              </div>
+              <div class="row space_between w_block">
+                <div class="group_price">
+                  <h2>Sous total</h2>
+                  <h2>Frais de livraison</h2>
+                </div>
+                <div class="group_price">
+                  <h2>Ttoo</h2>
+                  <h2>3€</h2>
+                </div>
+              </div>
+              <div class="border_top">
+              </div>
+              <div class="row space_between w_block">
+                <h2>Total</h2>
+                <h2>sfkjn</h2>
+              </div>
+            </div>
+          </div>
           <div class="row space_between w100">
             <div @click.prevent="$emit('modify')" class="button">
               <button class="bg_red"><span>Modif</span><span>ier</span></button>
@@ -266,5 +288,17 @@
 
   .bg_red {
     background-color: #F54141;
+  }
+
+  .border_top {
+    border-top: 1px solid #D0CECE;
+    width: 100%;
+    margin-bottom: 15px;
+    margin-top: 30px;
+  }
+
+
+  .w_block{
+    width: 230px;
   }
 </style>
