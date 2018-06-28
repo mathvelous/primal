@@ -75,9 +75,30 @@ router.post('/address/:id', function(req, res, next) {
             console.log(err)
         }
         else {
+            database.sendQuery(`SELECT * FROM addresses WHERE id_user = ${id}`, (err, results) => {
+                if (err) {
+                    console.log(err)
+                }else {
+                    res.json(results)
+                }
+            })
         }
     })
 });
+
+router.post('/update/:id', function (req, res, next) {
+    let id = req.params.id
+    console.log(req.body)
+    database.sendQuery(`UPDATE users SET firstname='${req.body.data.info.firstname}', lastname='${req.body.data.info.lastname}', email='${req.body.data.info.email}', phone='${req.body.data.info.phone}' WHERE id = ${id}`, (err, results) => {
+        if (err) {
+            console.log('error in updating user', err)
+            return
+        }
+        res.json('Success')
+    })
+});
+
+
 
 
 module.exports = router;

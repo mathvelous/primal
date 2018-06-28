@@ -1,5 +1,5 @@
 <template>
-  <section class="marge">
+  <section id="scrollFocus" class="marge">
     <div class="container">
       <div class="p5">
         <h1 class="title">Mes informations et paiement</h1>
@@ -59,20 +59,23 @@
 </template>
 
 <script>
-    let stripe = Stripe(`pk_test_wPbUhBpNUvFFIhE79fjyoqXG`),
-    elements = stripe.elements(),
-    card = undefined;
+  let stripe = Stripe(`pk_test_wPbUhBpNUvFFIhE79fjyoqXG`),
+  elements = stripe.elements(),
+  card = undefined;
 
   export default {
     name: 'Payment',
     data() {
       return {}
-    },
+      },
     methods: {
     },
-    mounted: function () {
+    mounted() {
       card = elements.create('card');
       card.mount(this.$refs.card);
+      document.querySelector('#scrollFocus').scrollIntoView({
+        behavior: 'smooth'
+      });
     }
   }
 </script>
@@ -191,7 +194,7 @@
     }
   }
 
-  .group_payment{
+  .group_payment {
     width: 47%;
   }
 

@@ -8,17 +8,17 @@
       </div>
       <span class="line"></span>
       <div class="column align-center">
-        <p @click1="selected = 1" :class="{active:selected == 1}">2</p>
+        <p :class="{active:selected == 1}">2</p>
         <span class="text">Valider</span>
       </div>
       <span class="line"></span>
       <div class="column align-center">
-        <p @click2="selected = 2" :class="{active:selected == 2}">3</p>
+        <p :class="{active:selected2 == 1}">3</p>
         <span class="text">Payer</span>
       </div>
       <span class="line"></span>
     </section>
-    <component @click1="componentActuel='Payment'" @click2="componentActuel='PaymentValidation'" @modify="componentActuel='Payment'" :is="componentActuel"></component>
+    <component @click1="clickPayment" @click2="clickPaymentValidation" @modify="Modify" :is="componentActuel"></component>
   </main>
 </template>
 
@@ -44,6 +44,18 @@
       PaymentValidation
     },
     methods:{
+      clickPayment:function () {
+        this.componentActuel = 'Payment'
+        this.selected = 1
+      },
+      clickPaymentValidation:function () {
+        this.componentActuel = 'PaymentValidation'
+        this.selected2 = 1
+      },
+      Modify: function () {
+        this.componentActuel = 'Payment'
+        this.selected2 = 0
+      }
     },
     mounted(){
     }

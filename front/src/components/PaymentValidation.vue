@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="marge">
+    <section id="scrollFocus" class="marge">
       <div class="container">
         <h1 class="title">Récapitulatif panier</h1>
         <div class="p5">
@@ -141,6 +141,9 @@
         this.calUnderTotal()
         this.calTotal()
       }
+      document.querySelector('#scrollFocus').scrollIntoView({
+        behavior: 'smooth'
+      });
     }
   }
 </script>

@@ -4,7 +4,7 @@
       <h1 class="title">mon compte</h1>
       <div class="row space_between">
         <div class="card_account">
-          <form action="">
+          <form @submit.prevent="infoModify">
             <h2>Mes informations</h2>
             <div class="row space_between">
               <div class="input_groupe">
@@ -24,11 +24,17 @@
         <div class="card_account">
           <div class="form">
             <h2>Mes adresses</h2>
-            <div class="row flex-end align-end addresses" v-for="(address, index) in user.addresses">
-              <input id="address" v-model="address.street" type="text" disabled="true">
-              <input id="city" v-model="address.city" type="text" disabled="true">
-              <input id="zipcode" v-model="address.zipcode" type="text" disabled="true">
-              <span @click="deleted(index)" class="delete"></span>
+            <div class="addresses_block">
+              <div class="block">
+                <div class="row flex-end align-end addresses" v-for="(address, index) in user.addresses">
+                  <input id="address" v-model="address.street" type="text" disabled="true">
+                  <input id="city" v-model="address.city" type="text" disabled="true">
+                  <input id="zipcode" v-model="address.zipcode" type="text" disabled="true">
+                  <div @click="deleted(index)">
+                    <span class="delete"></span>
+                  </div>
+                </div>
+              </div>
             </div>
             <div @click="showModal = true" class="button">
               <button>Ajouter</button>
@@ -50,7 +56,7 @@
       </article>
     </section>
     <div v-if="showModal">
-      <FormAddress @close="showModal = false"></FormAddress>
+      <FormAddress @close="Close"></FormAddress>
     </div>
   </main>
 </template>
@@ -83,9 +89,34 @@
       },
       deleted: function (index) {
         if (this.user.addresses.length > 1) {
-          this.$delete(this.user.addresses, index)
+          this.$http.delete(`http://localhost:3000/addresses/${this.user.addresses[index].id}`)
+            .then(response => {
+              this.$delete(this.user.addresses, index)
+              //todo: Noti delete address
+            })
+            .catch(error => {
+              console.log(error)
+            })
         }
       },
+      Close: function (data) {
+        if (data) {
+          this.user.addresses = data
+        }
+        this.showModal = false
+      },
+      infoModify: function () {
+        let cookie = this.$cookies.get('user')
+        this.$http.post(`http://localhost:3000/users/update/${cookie}`, {
+          data: this.user
+        })
+          .then(response => {
+            //todo: Noti modify success
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      }
     },
     mounted() {
       this.init()
@@ -206,7 +237,26 @@
     padding: 30px;
   }
 
+  .addresses_block {
+    height: 131px;
+    .block {
+      height: 125px;
+      overflow-y: scroll;
+      overflow-X: hidden;
+      &::-webkit-scrollbar {
+        -webkit-appearance: none;
+        width: 8px;
+      }
+      &::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background-color: rgba(0, 0, 0, .5);
+        -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+      }
+    }
+  }
+
   .addresses {
+    width: 95%;
     input {
       margin-right: 10px;
     }
