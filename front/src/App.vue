@@ -27,13 +27,21 @@ export default {
 
 <style lang="scss">
   .myNoti{
+
     font-family: Avenir;
     color: white;
     font-size: 0.9rem;
     padding: 10px;
+    margin-top:8vh;
     margin-bottom: 10px;
     &.error{
       background-color: #d3113b;
+    }
+    &.success{
+      background-color: #53E093;
+    }
+    &.warn{
+      background-color:#ff7900;
     }
   }
 </style>

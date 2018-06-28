@@ -172,7 +172,6 @@
     align-items: center;
     letter-spacing: 1px;
     transform: translateY(110%);
-    margin-right: 5%;
     button {
       border-radius: 5px;
       width: 180px;
@@ -193,7 +192,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 5%;
     margin-bottom: 15px;
   }
 

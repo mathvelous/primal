@@ -1,5 +1,7 @@
 <template>
   <main>
+    <notifications classes="myNoti" group="modifySuccess"/>
+    <notifications classes="myNoti" group="deleteAddress"/>
     <section class="marge">
       <h1 class="title">mon compte</h1>
       <div class="row space_between">
@@ -53,6 +55,14 @@
             <h3>Etat</h3>
           </div>
         </div>
+        <div class="column justify-center mt20">
+          <div class="row space_around">
+            <p>Date</p>
+            <p>Prix total</p>
+            <p>Etat</p>
+          </div>
+        </div>
+        <!-- todo: v-for orders + link db-->
       </article>
     </section>
     <div v-if="showModal">
@@ -92,7 +102,13 @@
           this.$http.delete(`http://localhost:3000/addresses/${this.user.addresses[index].id}`)
             .then(response => {
               this.$delete(this.user.addresses, index)
-              //todo: Noti delete address
+              this.$notify({
+                group: 'deleteAddress',
+                title: 'Vous avez bien supprimé une adresse enregistrée',
+                duration: 5000,
+                speed: 500,
+                type: 'warn'
+              });
             })
             .catch(error => {
               console.log(error)
@@ -111,7 +127,13 @@
           data: this.user
         })
           .then(response => {
-            //todo: Noti modify success
+            this.$notify({
+              group: 'modifySuccess',
+              title: 'Vous avez bien modifié vos informations',
+              duration: 5000,
+              speed: 500,
+              type: 'success'
+            });
           })
           .catch(error => {
             console.log(error)
@@ -235,12 +257,15 @@
     background-color: #FBFBFB;
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, .1);
     padding: 30px;
+    p {
+      font-size: 1rem;
+    }
   }
 
   .addresses_block {
     height: 131px;
     .block {
-      height: 125px;
+      height: 132px;
       overflow-y: scroll;
       overflow-X: hidden;
       &::-webkit-scrollbar {

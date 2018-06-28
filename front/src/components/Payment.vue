@@ -40,6 +40,9 @@
               </div>
             </div>
           </div>
+          <div @click="showModal = true" class="button button_address">
+            <button>Choisir une adresse</button>
+          </div>
         </div>
         <div class="group">
           <h2>Paiement</h2>
@@ -50,15 +53,20 @@
         </div>
         <div class="row flex-end">
           <div @click.prevent="$emit('click2')" class="button">
-            <button>Valider</button>
+            <button>Payer</button>
           </div>
         </div>
       </div>
+    </div>
+    <div v-if="showModal">
+      <ModalChoseAddress @close="Close"></ModalChoseAddress>
     </div>
   </section>
 </template>
 
 <script>
+  import ModalChoseAddress from '@/components/ModalChooseAddress'
+
   let stripe = Stripe(`pk_test_wPbUhBpNUvFFIhE79fjyoqXG`),
   elements = stripe.elements(),
   card = undefined;
@@ -66,9 +74,20 @@
   export default {
     name: 'Payment',
     data() {
-      return {}
+      return {
+        showModal: false
+      }
       },
+    components:{
+      ModalChoseAddress
+    },
     methods: {
+      Close: function (data) {
+        if (data) {
+          this.user.addresses = data
+        }
+        this.showModal = false
+      }
     },
     mounted() {
       card = elements.create('card');
@@ -101,7 +120,6 @@
     align-items: center;
     letter-spacing: 1px;
     transform: translateY(110%);
-    margin-right: 5%;
     button {
       background-color: #53E093;
       border-radius: 5px;
@@ -123,7 +141,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 5%;
     margin-bottom: 15px;
   }
 
@@ -198,4 +215,23 @@
     width: 47%;
   }
 
+  .button_address{
+    justify-content: flex-end;
+    transform: translateY(0);
+    margin-top: 15px;
+  }
+
+  .modal-enter {
+    opacity: 0;
+  }
+
+  .modal-leave-active {
+    opacity: 0;
+  }
+
+  .modal-enter .modal-container,
+  .modal-leave-active .modal-container {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
 </style>

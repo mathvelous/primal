@@ -9,12 +9,12 @@
       <span class="line"></span>
       <div class="column align-center">
         <p :class="{active:selected == 1}">2</p>
-        <span class="text">Valider</span>
+        <span class="text">Payer</span>
       </div>
       <span class="line"></span>
       <div class="column align-center">
         <p :class="{active:selected2 == 1}">3</p>
-        <span class="text">Payer</span>
+        <span class="text">Valider</span>
       </div>
       <span class="line"></span>
     </section>

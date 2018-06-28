@@ -20,11 +20,12 @@
       <hr>
       <p>© Tous droits réservés primal.cf</p>
       <div class="row flex-end">
-        <a href="" class="network"><img src="../assets/images/instagram.svg" alt="Instagram"></a>
-        <a href="" class="network"><img src="../assets/images/facebook.svg" alt="Facebook"></a>
-        <a href="" class="network"><img src="../assets/images/linkedin.svg" alt="Linkedin"></a>
+        <a href="https://www.instagram.com/" target="_blank" class="network"><img src="../assets/images/instagram.svg" alt="Instagram"></a>
+        <a href="https://www.facebook.com/" target="_blank" class="network"><img src="../assets/images/facebook.svg" alt="Facebook"></a>
+        <a href="https://www.linkedin.com/" target="_blank" class="network"><img src="../assets/images/linkedin.svg" alt="Linkedin"></a>
       </div>
     </div>
+    <!-- todo: scroll top on click router links-->
   </footer>
 </template>
 

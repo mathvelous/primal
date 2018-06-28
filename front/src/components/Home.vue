@@ -6,6 +6,9 @@
         <h1>Les origines du goût livré chez vous</h1>
         <form id="formAdress" @submit.prevent="geoAddress">
           <input v-model="address" ref="autocomplete" type="text" placeholder="Entrer votre adresse de livraison">
+
+          <!--todo: save address in state-->
+
           <button @click.prevent="show" type="submit">
             <img src="../assets/images/search.svg" alt="Search">
           </button>

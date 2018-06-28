@@ -10,7 +10,6 @@ import Cart from '@/components/Cart'
 import Order from '@/components/Order'
 import SignIn from '@/components/SignIn'
 import SignUp from '@/components/SignUp'
-import Test from '@/components/Test'
 import Payment from '@/components/Payment'
 
 
@@ -59,11 +58,6 @@ export default new Router({
       path: '/signup',
       name: 'SignUp',
       component: SignUp
-    },
-    {
-      path: '/test',
-      name: 'test',
-      component: Test
     },
     {
       path: '/payment',

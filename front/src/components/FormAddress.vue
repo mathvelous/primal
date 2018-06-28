@@ -1,6 +1,7 @@
 <template>
   <transition name="modal">
     <div class="mask_modal">
+      <notifications classes="myNoti" group="notComplete"/>
       <section>
         <h1 class="title">Ajoutez une adresse</h1>
         <form class="p5" @submit.prevent="addAddress">
@@ -63,7 +64,13 @@
               console.log(error)
             })
         }else{
-          //todo: Noti no complete form
+          this.$notify({
+            group: 'notComplete',
+            title: "Attention. Vous n'avez pas rempli tout les champs du formulaire",
+            duration: 5000,
+            speed: 500,
+            type: 'error'
+          });
         }
       },
     }

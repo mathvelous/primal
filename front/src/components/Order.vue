@@ -1,5 +1,6 @@
 <template>
   <main>
+    <!--todo: insert products in db-->
     <section class="bg_order">
       <article class="card_new marge">
         <h2 class="mb40">Sanglier aux framboises</h2>
@@ -10,7 +11,7 @@
           Praesent vitae malesuada nisi, aliquam ultrices orci. Pellentesque vehicula justo eros, nec sollicitudin purus
           faucibus
           vitae. Aenean faucibus ipsum ut faucibus porta. Quisque suscipit ligula ut </p>
-        <div class="button">
+        <div @click="scrollFocus" class="button">
           <button>Voir le produit</button>
         </div>
       </article>
@@ -265,7 +266,12 @@
       },
       resize() {
         window.addEventListener('resize', this.onResize)
-      }
+      },
+      /*scrollFocus: function () {
+        document.querySelector('#scrollFocus').scrollIntoView({
+          behavior: 'smooth'
+        });
+      }*/
     },
     mounted() {
       this.onResize()
