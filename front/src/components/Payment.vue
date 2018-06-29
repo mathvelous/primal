@@ -27,13 +27,10 @@
         </div>
         <div class="group">
           <h2>Paiement</h2>
-          <div class="group_payment">
-            <div ref="card"></div>
-            <!--<button v-on:click="purchase">Purchase</button>-->
-          </div>
+          <div ref="card"></div>
         </div>
         <div class="row flex-end">
-          <div @click.prevent="$emit('click2')" class="button">
+          <div @click.prevent="purchase" class="button">
             <button>Payer</button>
           </div>
         </div>
@@ -48,9 +45,9 @@
 <script>
   import ModalChoseAddress from '@/components/ModalChooseAddress'
 
-  let stripe = Stripe(`pk_test_wPbUhBpNUvFFIhE79fjyoqXG`),
-  elements = stripe.elements(),
-  card = undefined;
+  let stripe = Stripe(`pk_test_wPbUhBpNUvFFIhE79fjyoqXG`);
+  let elements = stripe.elements();
+  let card = undefined
 
   export default {
     name: 'Payment',
@@ -63,8 +60,8 @@
           phone: null
         },
       }
-      },
-    components:{
+    },
+    components: {
       ModalChoseAddress
     },
     methods: {
@@ -73,6 +70,12 @@
           this.user.addresses = data
         }
         this.showModal = false
+      },
+      purchase: function () {
+        stripe.createToken(card).then(function (result) {
+          console.log(result)
+        });
+        this.$emit('click2')
       },
     },
     mounted() {
@@ -201,7 +204,7 @@
     width: 47%;
   }
 
-  .button_address{
+  .button_address {
     justify-content: flex-end;
     transform: translateY(0);
     margin-top: 15px;
@@ -219,5 +222,28 @@
   .modal-leave-active .modal-container {
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
+  }
+
+  .StripeElement {
+    width: 45%;
+    background-color: white;
+    padding: 10px 12px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
+  }
+
+  .StripeElement--focus {
+    box-shadow: 0 1px 3px 0 #cfd7df;
+  }
+
+  .StripeElement--invalid {
+    border-color: #fa755a;
+  }
+
+  .StripeElement--webkit-autofill {
+    background-color: #fefde5 !important;
   }
 </style>

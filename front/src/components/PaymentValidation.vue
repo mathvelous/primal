@@ -62,7 +62,6 @@
             <h2>Paiement</h2>
             <div class="group_payment">
               <div ref="card"></div>
-              <!--<button v-on:click="purchase">Purchase</button>-->
             </div>
           </div>
           <div class="group">
