@@ -51,15 +51,20 @@
         </div>
       </div>
       <div class="row flex-end">
-        <div @click.prevent="$emit('click1')" class="button">
+        <div @click.prevent="clickBuy" class="button">
           <button>Acheter</button>
         </div>
       </div>
+    </div>
+    <div v-if="showModal">
+      <ModalRedirectConn @close="showModal = false"></ModalRedirectConn>
     </div>
   </section>
 </template>
 
 <script>
+  import ModalRedirectConn from '@/components/ModalRedirectConn'
+
   export default {
     name: 'ComponentCart',
     data() {
@@ -67,7 +72,11 @@
         cartproducts: [],
         underTotal: 0,
         total: 0,
+        showModal: false
       }
+    },
+    components: {
+      ModalRedirectConn
     },
     methods: {
       deleted: function (index) {
@@ -112,6 +121,14 @@
           cartProduct: this.cartproducts
         }), '7d')
       },
+      clickBuy: function () {
+        let cookie = this.$cookies.get('user')
+        if (cookie != null){
+          this.$emit('click1')
+        }else{
+          this.showModal = true
+        }
+      }
     },
     mounted() {
       let cookie = this.$cookies.get('cart')
@@ -127,8 +144,8 @@
 
 <style lang="scss" scoped>
 
-  .w_block{
-     width: 230px;
+  .w_block {
+    width: 230px;
   }
 
   section {
@@ -309,5 +326,19 @@
 
   .fade-enter, .fade-leave-to {
     opacity: 0;
+  }
+
+  .modal-enter {
+    opacity: 0;
+  }
+
+  .modal-leave-active {
+    opacity: 0;
+  }
+
+  .modal-enter .modal-container,
+  .modal-leave-active .modal-container {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
   }
 </style>

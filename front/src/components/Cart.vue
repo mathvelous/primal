@@ -35,7 +35,8 @@
         underTotal: 0,
         total: 0,
         componentActuel: 'ComponentCart',
-        selected: undefined
+        selected: NaN,
+        selected2: NaN
       }
     },
     components:{

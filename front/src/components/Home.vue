@@ -71,6 +71,7 @@
     data() {
       return {
         address: '',
+        dbAddress: {}
       }
     },
     methods: {
@@ -103,6 +104,11 @@
       this.autocomplete.addListener('place_changed', () => {
         let place = this.autocomplete.getPlace()
         this.address = place.formatted_address
+
+        this.dbAddress.street = place.address_components[0].long_name + ' ' + place.address_components[1].long_name
+        this.dbAddress.city = place.address_components[2].long_name
+        this.dbAddress.zipcode = place.address_components[6].long_name
+        console.log(this.dbAddress)
       })
     }
   }

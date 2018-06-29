@@ -2,26 +2,7 @@
   <section id="scrollFocus" class="marge">
     <div class="container">
       <div class="p5">
-        <h1 class="title">Mes informations et paiement</h1>
-        <div class="group">
-          <h2>Mes informations</h2>
-          <div class="row space_between">
-            <div>
-              <div class="label_group">
-                <label for="firstname">Nom</label>
-                <input id="firstname" type="text">
-              </div>
-              <div class="label_group">
-                <label for="lastname">Prénom</label>
-                <input id="lastname" type="text">
-              </div>
-            </div>
-            <div class="label_group">
-              <label for="phone">Numéro de téléphone</label>
-              <input id="phone" type="text">
-            </div>
-          </div>
-        </div>
+        <h1 class="title">Mes adresse et paiement</h1>
         <div class="group">
           <h2>Mon adresse de livraison</h2>
           <div class="row space_between">
@@ -75,7 +56,12 @@
     name: 'Payment',
     data() {
       return {
-        showModal: false
+        showModal: false,
+        user: {
+          firstname: null,
+          lastname: null,
+          phone: null
+        },
       }
       },
     components:{
@@ -87,14 +73,14 @@
           this.user.addresses = data
         }
         this.showModal = false
-      }
+      },
     },
     mounted() {
       card = elements.create('card');
       card.mount(this.$refs.card);
       document.querySelector('#scrollFocus').scrollIntoView({
         behavior: 'smooth'
-      });
+      })
     }
   }
 </script>

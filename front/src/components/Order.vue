@@ -11,7 +11,7 @@
           Praesent vitae malesuada nisi, aliquam ultrices orci. Pellentesque vehicula justo eros, nec sollicitudin purus
           faucibus
           vitae. Aenean faucibus ipsum ut faucibus porta. Quisque suscipit ligula ut </p>
-        <div @click="scrollFocus" class="button">
+        <div class="button">
           <button>Voir le produit</button>
         </div>
       </article>

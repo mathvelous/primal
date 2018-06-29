@@ -6,9 +6,9 @@
         <h1 class="title">Choisissez une adresse</h1>
         <div class="p5">
           <div v-for="address in user.addresses" class="card">
-            <input v-model="address.street" type="text">
-            <input v-model="address.city" type="text">
-            <input v-model="address.zipcode" type="text">
+            <input v-model="address.street" type="text" disabled>
+            <input v-model="address.city" type="text" disabled>
+            <input v-model="address.zipcode" type="text" disabled>
           </div>
           <div class="row">
             <div @click.prevent="$emit('close')" class="button">

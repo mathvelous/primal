@@ -26,16 +26,16 @@
               <div>
                 <div class="label_group">
                   <label for="firstname">Nom</label>
-                  <input id="firstname" type="text" disabled>
+                  <input v-model="user.info.firstname" id="firstname" type="text" disabled>
                 </div>
                 <div class="label_group">
                   <label for="lastname">Prénom</label>
-                  <input id="lastname" type="text" disabled>
+                  <input v-model="user.info.lastname" id="lastname" type="text" disabled>
                 </div>
               </div>
               <div class="label_group">
                 <label for="phone">Numéro de téléphone</label>
-                <input id="phone" type="text" disabled>
+                <input v-model="user.info.phone" id="phone" type="text" disabled>
               </div>
             </div>
           </div>
@@ -110,6 +110,11 @@
         cartproducts: [],
         underTotal: 0,
         total: 0,
+        user:{
+          firstname: null,
+          lastname: null,
+          phone: null
+        }
       }
     },
     methods: {
@@ -132,8 +137,22 @@
           cartProduct: this.cartproducts
         }), '7d')
       },
+      ifCookie: function () {
+        let cookie = this.$cookies.get('user')
+        if (cookie != null){
+          this.$http.get(`http://localhost:3000/users/${cookie}`)
+            .then(response => {
+              this.user = response.data
+              console.log(response.data)
+            })
+            .catch(error => {
+              console.log(error)
+            })
+        }
+      }
     },
     mounted() {
+      this.ifCookie()
       let cookie = this.$cookies.get('cart')
       if (cookie != null) {
         cookie = JSON.parse(cookie)
