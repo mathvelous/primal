@@ -1,6 +1,6 @@
 <template>
   <main>
-    <!--todo: insert products in db-->
+    <notifications classes="myNoti" group="empty"/>
     <section class="bg_order">
       <article class="card_new marge">
         <h2 class="mb40">Sanglier aux framboises</h2>
@@ -98,7 +98,7 @@
           <h3>Total</h3>
           <p>{{total}} € TTC</p>
         </div>
-        <div class="button mb30">
+        <div @click.prevent="valCart" class="button mb30">
           <button>Valider mon panier</button>
         </div>
       </aside>
@@ -271,6 +271,33 @@
           behavior: 'smooth'
         });
       }*/
+      valCart(){
+        if(this.cartproducts.length > 0){
+          this.$router.push('/cart')
+          let cookie = this.$cookies.get('user')
+          if (cookie == null){
+            this.$notify({
+              group: 'notUser',
+              title: "Vous devez vous connecter ou créer un compte pour continuer vos achats.",
+              duration: 5000,
+              speed: 500,
+              type: 'error'
+            })
+            this.$router.push('/signin')
+          }else{
+            this.$router.push('/cart')
+          }
+        }else {
+          this.$notify({
+            group: 'empty',
+            title: "Votre panier est vide vous ne pouver pas le valider.",
+            text: 'Cliquez glissez les produits que vous désirez dans votre panier',
+            duration: 5000,
+            speed: 500,
+            type: 'error'
+          })
+        }
+      }
     },
     mounted() {
       this.onResize()
@@ -304,7 +331,7 @@
 
 <style lang="scss" scoped>
   .img{
-    height: 140px;
+    height: 160px;
     width: 260px;
     img {
       background-color: #ff7900;
@@ -444,7 +471,7 @@
     .text_card {
       font-size: 0.7rem;
       text-align: justify;
-      height: 110px;
+      height: 85px;
     }
   }
 

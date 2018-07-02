@@ -98,7 +98,6 @@
           data: this.info, address: this.address
         })
           .then(response => {
-            console.log(response.data)
             this.$cookies.set('user', response.data, '14d')
             //this.$router.push('/account')
           })

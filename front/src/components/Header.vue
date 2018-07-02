@@ -1,5 +1,6 @@
 <template>
   <header>
+    <notifications classes="myNoti" group="notUser"/>
     <div class="logo">
       <router-link :to="{ name: 'Home'}">
         <img src="../assets/images/logo.png" alt="">
@@ -13,7 +14,7 @@
         <router-link :to="{ name: 'What'}">Qu'est ce que c'est ?</router-link>
         <router-link :to="{ name: 'Order'}">Commander</router-link>
         <router-link :to="{ name: 'Contact'}">Contact</router-link>
-        <router-link :to="{ name: 'Account'}">Mon compte</router-link>
+        <a @click.prevent="ifUser">Mon compte</a>
       </div>
       <router-link :to="{ name: 'Cart'}">
         <div class="icon">
@@ -49,6 +50,21 @@
       },
       resize(){
         window.addEventListener('resize', this.onResize)
+      },
+      ifUser(){
+        let cookie = this.$cookies.get('user')
+        if (cookie == null){
+          this.$notify({
+            group: 'notUser',
+            title: "Vous devez vous connecter ou créer un compte pour continuer.",
+            duration: 5000,
+            speed: 500,
+            type: 'error'
+          })
+          this.$router.push('/signin')
+        }else{
+          this.$router.push('/account')
+        }
       }
     },
     mounted() {
@@ -62,7 +78,6 @@
 </script>
 
 <style lang="scss">
-
   $orange: #ff7900;
 
   header {

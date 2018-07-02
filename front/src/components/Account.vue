@@ -3,7 +3,12 @@
     <notifications classes="myNoti" group="modifySuccess"/>
     <notifications classes="myNoti" group="deleteAddress"/>
     <section class="marge">
+      <div class="row space_between">
       <h1 class="title">mon compte</h1>
+        <div @click.prevent="deconnect" class="button_deco">
+          <button>Déconnection</button>
+        </div>
+      </div>
       <div class="row space_between">
         <div class="card_account">
           <form @submit.prevent="infoModify">
@@ -138,6 +143,9 @@
           .catch(error => {
             console.log(error)
           })
+      },
+      deconnect(){
+        this.$cookies.remove('user')
       }
     },
     mounted() {
@@ -150,6 +158,19 @@
   section {
     margin-top: 50px;
     margin-bottom: 60px;
+  }
+
+  .button_deco{
+    button{
+      background-color: #d3113b;
+      border-radius: 5px;
+      width: 180px;
+      height: 40px;
+      border: none;
+      color: white;
+      font-size: 1rem;
+      font-family: 'fira_sansmedium';
+    }
   }
 
   .title {

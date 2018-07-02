@@ -84,24 +84,25 @@
         'setAddress'
       ]),
       search(){
+        if (this.address == ''){
+          this.$notify({
+            group: 'notGeo',
+            title: 'Impossible de livrer à cette adresse',
+            text: 'Nous sommes désolé nous faisons de notre mieux pour étendre notre périmètre de livraison.',
+            duration: 5000,
+            speed: 500,
+            type: 'error'
+          })
+        }else{
           this.setAddress(this.address)
-        console.log()
+          this.$router.push('/order')
+        }
       },
       ifAddress(){
         if(this.getAddress != null){
           this.address = this.getAddress
           console.log(this.getAddress)
         }
-      },
-      show (group) {
-        this.$notify({
-          group: 'notGeo',
-          title: 'Impossible de livrer à cette adresse',
-          text: 'Nous sommes désolé nous faisons de notre mieux pour étendre notre périmètre de livraison.',
-          duration: 5000,
-          speed: 500,
-          type: 'error'
-        })
       },
     },
     mounted() {
