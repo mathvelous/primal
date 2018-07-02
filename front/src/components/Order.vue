@@ -40,8 +40,8 @@
         <draggable v-model="products" class="container_cards bg" :options="dragOptions" :move="onMove"
                    @start="isDragging=true" @end="onAdd">
           <div class="card" v-for="(product, index) in products">
-            <div class="img_card">
-              <img :src="'../assets/images/' + product.image" alt="">
+            <div class="img">
+              <img class="" :src="product.image" alt="">
             </div>
             <div class="p20">
               <div class="title_card row space_between">
@@ -108,7 +108,6 @@
 
 <script>
   import draggable from 'vuedraggable'
-  import Vuex from 'vuex'
 
   export default {
     name: 'Order',
@@ -296,13 +295,6 @@
           ghostClass: 'ghost',
         };
       },
-      /*...Vuex.mapGetters([
-        'count',
-        console.log(this.count)
-        ])*/
-      /*oneTodosCount () {
-        console.log(this.$store.state.count)
-      }*/
     },
     created() {
       this.resize()
@@ -311,6 +303,16 @@
 </script>
 
 <style lang="scss" scoped>
+  .img{
+    height: 140px;
+    width: 260px;
+    img {
+      background-color: #ff7900;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
   .textDrag{
     transform: translateY(-250%);
     font-size: 0.9rem;
@@ -432,14 +434,6 @@
     background-color: white;
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, .1);
     margin: 2%;
-    .img_card {
-      height: 150px;
-      width: 100px;
-      img {
-        width: 100%;
-        height: auto;
-      }
-    }
     .title_card {
       p {
         font-family: fira_sansbold;

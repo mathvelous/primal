@@ -4,8 +4,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const state = {
-   count: 0
-
+  address: ''
   /*loadTicket: [{
     date: '20-°5-2018',
     tel:'0123456789',
@@ -15,6 +14,9 @@ const state = {
 }
 
 const mutations = {
+  SET_ADDRESS(state, payload){
+    state.address = payload
+  }
   /*ADD_TO_QUEUE (state, payload){
     state.loadTicket.push(payload)
   },
@@ -24,6 +26,10 @@ const mutations = {
 }
 
 const actions = {
+  setAddress({commit}, payload) {
+    commit('SET_ADDRESS', payload)
+    console.log(payload)
+  },
   /*addToQueue ({commit}, payload){
     const ticket = {
       createAt: new Data(),
@@ -42,8 +48,8 @@ const getters = {
       })
     }
   }*/
-  count(state){
-    return state.count
+  getAddress(state){
+    return state.address
   }
 }
 

@@ -66,6 +66,8 @@
 </template>
 
 <script>
+  import {mapGetters, mapActions} from 'vuex'
+
   export default {
     name: 'SignUp',
     data() {
@@ -104,6 +106,21 @@
             console.log(error)
           })
       },
+      ifAddress(){
+        if(this.getAddress != null){
+          this.address.street = this.getAddress.street
+          this.address.city = this.getAddress.city
+          this.address.zipcode = this.getAddress.zipcode
+        }
+      },
+    },
+    mounted(){
+      this.ifAddress()
+    },
+    computed: {
+      ...mapGetters([
+        'getAddress'
+      ])
     }
   }
 

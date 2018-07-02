@@ -6,10 +6,7 @@
         <h1>Les origines du goût livré chez vous</h1>
         <form id="formAdress" @submit.prevent="geoAddress">
           <input v-model="address" ref="autocomplete" type="text" placeholder="Entrer votre adresse de livraison">
-
-          <!--todo: save address in state-->
-
-          <button @click.prevent="show" type="submit">
+          <button @click.prevent="search" type="submit">
             <img src="../assets/images/search.svg" alt="Search">
           </button>
         </form>
@@ -66,6 +63,8 @@
 </template>
 
 <script>
+  import {mapGetters, mapActions} from 'vuex'
+
   export default {
     name: 'Home',
     data() {
@@ -81,6 +80,19 @@
         }
         this.$router.push(`/order?address=${this.address}`)
       },
+      ...mapActions([
+        'setAddress'
+      ]),
+      search(){
+          this.setAddress(this.address)
+        console.log()
+      },
+      ifAddress(){
+        if(this.getAddress != null){
+          this.address = this.getAddress
+          console.log(this.getAddress)
+        }
+      },
       show (group) {
         this.$notify({
           group: 'notGeo',
@@ -89,7 +101,7 @@
           duration: 5000,
           speed: 500,
           type: 'error'
-        });
+        })
       },
     },
     mounted() {
@@ -110,7 +122,13 @@
         this.dbAddress.zipcode = place.address_components[6].long_name
         console.log(this.dbAddress)
       })
-    }
+      this.ifAddress()
+    },
+    computed:{
+      ...mapGetters([
+        'getAddress'
+      ])
+    },
   }
 </script>
 
