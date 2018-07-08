@@ -60,9 +60,6 @@
           </div>
           <div class="group">
             <h2>Paiement</h2>
-            <div class="group_payment">
-              <div ref="card"></div>
-            </div>
           </div>
           <div class="group">
             <div class="column align-end w100">
@@ -90,7 +87,7 @@
             <div @click.prevent="$emit('modify')" class="button">
               <button class="bg_red"><span>Modif</span><span>ier</span></button>
             </div>
-            <div @click.prevent="$emit('click2')" class="button">
+            <div @click.prevent="valPayment" class="button">
               <button class="bg_green">Valider</button>
             </div>
           </div>
@@ -101,6 +98,7 @@
 </template>
 
 <script>
+  import {mapGetters, mapActions} from 'vuex'
 
   export default {
     name: 'Account',
@@ -117,11 +115,6 @@
       }
     },
     methods: {
-      purchase: function () {
-        stripe.createToken(card).then(function (result) {
-          console.log(result)
-        });
-      },
       calUnderTotal: function () {
         let cal = 0
         for (let i = 0; i < this.cartproducts.length; i++) {
@@ -142,15 +135,24 @@
           this.$http.get(`http://localhost:3000/users/${cookie}`)
             .then(response => {
               this.user = response.data
-              console.log(response.data)
+              console.log('toto',response.data)
             })
             .catch(error => {
               console.log(error)
             })
         }
+      },
+      valPayment(){
+        let cookie = this.$cookies.get('user')
+        this.$http.post(`http://localhost:3000/payment/${cookie}`,{
+          token: this.getToken,
+          cart: this.cartproducts
+        })
+        this.$emit('click2')
       }
     },
     mounted() {
+      console.log('last')
       this.ifCookie()
       let cookie = this.$cookies.get('cart')
       if (cookie != null) {
@@ -159,9 +161,14 @@
         this.calUnderTotal()
         this.calTotal()
       }
-      document.querySelector('#scrollFocus').scrollIntoView({
+      /*document.querySelector('#scrollFocus').scrollIntoView({
         behavior: 'smooth'
-      });
+      });*/
+    },
+    computed:{
+      ...mapGetters([
+        'getToken'
+      ])
     }
   }
 </script>

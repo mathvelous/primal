@@ -78,6 +78,10 @@
 </script>
 
 <style lang="scss">
+  a{
+    cursor: pointer;
+  }
+
   $orange: #ff7900;
 
   header {

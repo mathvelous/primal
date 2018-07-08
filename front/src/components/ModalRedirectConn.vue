@@ -7,7 +7,7 @@
         <form class="p5">
           <h2>Pour pouvoir pousuivre votre achat vous devez vous connecter à votre compte ou en créer un.</h2>
           <div class="row justify-center links">
-            <router-link :to="{ name: 'SignIn'}">Connection</router-link>
+            <router-link to="/signin?redirect=1">Connection</router-link>
             <router-link :to="{ name: 'SignUp'}">Inscription</router-link>
           </div>
           <div class="row flex-end">

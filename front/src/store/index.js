@@ -4,52 +4,35 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const state = {
-  address: ''
-  /*loadTicket: [{
-    date: '20-°5-2018',
-    tel:'0123456789',
-    state: '',
-  }],
-  user: null*/
+  address: '',
+  token: ''
 }
 
 const mutations = {
   SET_ADDRESS(state, payload){
     state.address = payload
-  }
-  /*ADD_TO_QUEUE (state, payload){
-    state.loadTicket.push(payload)
   },
-  SET_USER (state, payload){
-    state.user = payload
-  }*/
+  SET_TOKEN(state, payload){
+    state.token = payload
+  }
 }
 
 const actions = {
   setAddress({commit}, payload) {
     commit('SET_ADDRESS', payload)
-    console.log(payload)
   },
-  /*addToQueue ({commit}, payload){
-    const ticket = {
-      createAt: new Data(),
-      tel: payload.tel,
-      state: 0
-    }
-    commit('ADD_TO_QUEUE', ticket)
-  }*/
+  setToken({commit}, payload){
+    console.log(payload)
+    commit('SET_TOKEN', payload)
+  }
 }
 
 const getters = {
-  /*loadTicket(state){
-    return (ticketid) => {
-      return state.loadTickets.find((ticket) => {
-        return ticket.id === tickerId
-      })
-    }
-  }*/
   getAddress(state){
     return state.address
+  },
+  getToken(state){
+    return state.token
   }
 }
 

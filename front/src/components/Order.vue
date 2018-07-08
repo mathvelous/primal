@@ -274,19 +274,6 @@
       valCart(){
         if(this.cartproducts.length > 0){
           this.$router.push('/cart')
-          let cookie = this.$cookies.get('user')
-          if (cookie == null){
-            this.$notify({
-              group: 'notUser',
-              title: "Vous devez vous connecter ou créer un compte pour continuer vos achats.",
-              duration: 5000,
-              speed: 500,
-              type: 'error'
-            })
-            this.$router.push('/signin')
-          }else{
-            this.$router.push('/cart')
-          }
         }else {
           this.$notify({
             group: 'empty',

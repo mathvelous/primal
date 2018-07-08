@@ -43,6 +43,7 @@
 </template>
 
 <script>
+  import {mapGetters, mapActions} from 'vuex'
   import ModalChoseAddress from '@/components/ModalChooseAddress'
 
   let stripe = Stripe(`pk_test_wPbUhBpNUvFFIhE79fjyoqXG`);
@@ -65,6 +66,9 @@
       ModalChoseAddress
     },
     methods: {
+      ...mapActions([
+        'setToken'
+      ]),
       Close: function (data) {
         if (data) {
           this.user.addresses = data
@@ -72,8 +76,10 @@
         this.showModal = false
       },
       purchase: function () {
+        let self = this
         stripe.createToken(card).then(function (result) {
           console.log(result)
+          self.setToken(result.token.id)
         });
         this.$emit('click2')
       },
@@ -84,7 +90,7 @@
       document.querySelector('#scrollFocus').scrollIntoView({
         behavior: 'smooth'
       })
-    }
+    },
   }
 </script>
 

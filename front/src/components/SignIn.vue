@@ -47,7 +47,10 @@
             console.log(response.data)
             if (response.data != 'Erreur de connection'){
               this.$cookies.set('user', response.data, '14d')
-              this.$router.push('/account')
+              if (window.location.search == '')
+                this.$router.push('/account')
+              else
+                this.$router.push('/cart')
             }
           })
           .catch(error => {
