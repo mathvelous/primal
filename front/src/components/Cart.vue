@@ -18,7 +18,7 @@
       </div>
       <span class="line"></span>
     </section>
-    <component @click1="clickPayment" @click2="clickPaymentValidation" @modify="Modify" :is="componentActuel"></component>
+    <component @click1="clickPayment" @click2="clickPaymentValidation" @modify="Modify"  @goback="Back" :is="componentActuel"></component>
   </main>
 </template>
 
@@ -56,6 +56,10 @@
       Modify: function () {
         this.componentActuel = 'Payment'
         this.selected2 = 0
+      },
+      Back(){
+        this.componentActuel = 'ComponentCart'
+        this.selected = 0
       }
     },
     mounted(){

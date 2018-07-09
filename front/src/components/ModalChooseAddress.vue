@@ -5,7 +5,7 @@
       <section>
         <h1 class="title">Choisissez une adresse</h1>
         <div class="p5">
-          <div v-for="address in user.addresses" class="card">
+          <div v-for="(address, index) in user.addresses" class="card" @click.prevent="changeAddress(index)">
             <input v-model="address.street" type="text" disabled>
             <input v-model="address.city" type="text" disabled>
             <input v-model="address.zipcode" type="text" disabled>
@@ -16,7 +16,7 @@
             </div>
           </div>
           <div class="row flex-end">
-            <div class="button">
+            <div @click.prevent="addressChoosen" class="button">
               <button class="bg_green" type="submit">Valider</button>
             </div>
           </div>
@@ -32,9 +32,10 @@
     data() {
       return {
         user: {},
+        chooseAddress: ''
       }
     },
-    methods:{
+    methods: {
       init: function () {
         let cookie = this.$cookies.get('user')
         this.$http.get(`http://localhost:3000/addresses/${cookie}`)
@@ -45,8 +46,14 @@
             console.log(error)
           })
       },
+      changeAddress(index){
+        this.chooseAddress = this.user.addresses[index]
+      },
+      addressChoosen(index) {
+        this.$emit('emitAddress', this.chooseAddress)
+      }
     },
-    mounted(){
+    mounted() {
       this.init()
     }
   }
@@ -122,7 +129,7 @@
     background-color: #F54141;
   }
 
-  .card{
+  .card {
     background-color: white;
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, .1);
     padding: 20px;
@@ -130,15 +137,15 @@
     display: flex;
     justify-content: center;
     transition: all ease .5s;
-    input{
+    input {
       width: 100%;
       font-size: 1rem;
       border: none;
       font-weight: bolder;
       font-family: Avenir;
     }
-    &:hover{
-      box-shadow:  0px 0px 0px 2px rgba(83, 224, 147, .3);
+    &:hover {
+      box-shadow: 0px 0px 0px 2px rgba(83, 224, 147, .3);
     }
   }
 

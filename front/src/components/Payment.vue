@@ -5,39 +5,44 @@
         <h1 class="title">Mes adresse et paiement</h1>
         <div class="group">
           <h2>Mon adresse de livraison</h2>
+          <p class="mb10">Entrer une nouvelle adresse</p>
           <div class="row space_between">
             <div class="label_group">
               <label for="adress">Adresse</label>
-              <input id="adress" type="text">
+              <input v-model="street" id="adress" type="text">
             </div>
             <div class="row">
               <div class="city">
                 <label for="city">Ville</label>
-                <input id="city" type="text">
+                <input v-model="city" id="city" type="text">
               </div>
               <div class="zip">
                 <label for="zipcode">Code postal</label>
-                <input id="zipcode" type="text">
+                <input v-model="zipcode" id="zipcode" type="text">
               </div>
             </div>
           </div>
+          <p>Ou</p>
           <div @click="showModal = true" class="button button_address">
-            <button>Choisir une adresse</button>
+            <button class="bg_green">Choisisser une adresse</button>
           </div>
         </div>
-        <div class="group">
+        <div>
           <h2>Paiement</h2>
           <div ref="card"></div>
         </div>
-        <div class="row flex-end">
+        <div class="row space_between w100">
+          <div @click.prevent="$emit('goback')" class="button">
+            <button class="bg_red">Retour</button>
+          </div>
           <div @click.prevent="purchase" class="button">
-            <button>Payer</button>
+            <button class="bg_green">Payer</button>
           </div>
         </div>
       </div>
     </div>
     <div v-if="showModal">
-      <ModalChoseAddress @close="Close"></ModalChoseAddress>
+      <ModalChoseAddress @close="Close" @emitAddress="setNewAddress"></ModalChoseAddress>
     </div>
   </section>
 </template>
@@ -55,11 +60,9 @@
     data() {
       return {
         showModal: false,
-        user: {
-          firstname: null,
-          lastname: null,
-          phone: null
-        },
+        street: '',
+        city: '',
+        zipcode: ''
       }
     },
     components: {
@@ -83,6 +86,20 @@
         });
         this.$emit('click2')
       },
+      ifAddress(){
+        if(this.getAddress != ''){
+            this.street = this.getAddress.street
+            this.city = this.getAddress.city
+            this.zipcode = this.getAddress.zipcode
+        }
+      },
+      setNewAddress(chooseAddress){
+        this.street = chooseAddress.street
+        this.city = chooseAddress.city
+        this.zipcode = chooseAddress.zipcode
+        console.log(chooseAddress)
+        this.showModal = false
+      }
     },
     mounted() {
       card = elements.create('card');
@@ -90,11 +107,20 @@
       document.querySelector('#scrollFocus').scrollIntoView({
         behavior: 'smooth'
       })
+      this.ifAddress()
     },
+    computed:{
+      ...mapGetters([
+        'getAddress'
+      ])
+    }
   }
 </script>
 
 <style lang="scss" scoped>
+  .mb10 {
+    margin-bottom: 10px;
+  }
 
   section {
     display: flex;
@@ -116,7 +142,6 @@
     letter-spacing: 1px;
     transform: translateY(110%);
     button {
-      background-color: #53E093;
       border-radius: 5px;
       width: 180px;
       height: 40px;
@@ -211,7 +236,7 @@
   }
 
   .button_address {
-    justify-content: flex-end;
+    justify-content: flex-start;
     transform: translateY(0);
     margin-top: 15px;
   }
@@ -231,7 +256,7 @@
   }
 
   .StripeElement {
-    width: 45%;
+    width: 50%;
     background-color: white;
     padding: 10px 12px;
     border-radius: 4px;
@@ -251,5 +276,17 @@
 
   .StripeElement--webkit-autofill {
     background-color: #fefde5 !important;
+  }
+
+  .w100 {
+    width: 100%;
+  }
+
+  .bg_green {
+    background-color: #53E093;
+  }
+
+  .bg_red {
+    background-color: #F54141;
   }
 </style>

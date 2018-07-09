@@ -94,13 +94,13 @@
             type: 'error'
           })
         }else{
-          this.setAddress(this.address)
+          this.setAddress(this.dbAddress)
           this.$router.push('/order')
         }
       },
       ifAddress(){
         if(this.getAddress != null){
-          this.address = this.getAddress
+          this.address = this.getAddress.full
           console.log(this.getAddress)
         }
       },
@@ -121,6 +121,7 @@
         this.dbAddress.street = place.address_components[0].long_name + ' ' + place.address_components[1].long_name
         this.dbAddress.city = place.address_components[2].long_name
         this.dbAddress.zipcode = place.address_components[6].long_name
+        this.dbAddress.full = place.formatted_address
         console.log(this.dbAddress)
       })
       this.ifAddress()
