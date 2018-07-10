@@ -37,7 +37,7 @@
           </button>
         </header>
         <p class="textDrag">Vous pouvez cliquez glissez votre produit au panier.</p>
-        <draggable v-model="products" class="container_cards bg" :options="dragOptions" :move="onMove"
+        <draggable v-model="products" class="container_cards bg " :options="dragOptions" :move="onMove"
                    @start="isDragging=true" @end="onAdd">
           <div class="card" v-for="(product, index) in products">
             <div class="img">
@@ -221,11 +221,11 @@
         }
         this.$delete(this.cartproducts, index)
         console.log(this.cartproducts.length)
-        if (this.cartproducts.length > 0){
+        if (this.cartproducts.length > 0) {
           this.$cookies.set('cart', JSON.stringify({
             cartProduct: this.cartproducts
           }), '7d')
-        }else {
+        } else {
           this.$cookies.remove('cart')
         }
       },
@@ -271,10 +271,10 @@
           behavior: 'smooth'
         });
       }*/
-      valCart(){
-        if(this.cartproducts.length > 0){
+      valCart() {
+        if (this.cartproducts.length > 0) {
           this.$router.push('/cart')
-        }else {
+        } else {
           this.$notify({
             group: 'empty',
             title: "Votre panier est vide vous ne pouver pas le valider.",
@@ -290,7 +290,7 @@
       this.onResize()
       this.init()
       let cookie = this.$cookies.get('cart')
-      if (cookie != null){
+      if (cookie != null) {
         cookie = JSON.parse(cookie)
         this.cartproducts = cookie.cartProduct
         this.calUnderTotal()
@@ -317,7 +317,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .img{
+  .img {
     height: 160px;
     width: 260px;
     img {
@@ -327,7 +327,7 @@
     }
   }
 
-  .textDrag{
+  .textDrag {
     transform: translateY(-250%);
     font-size: 0.9rem;
     padding-left: 2%;
@@ -468,6 +468,7 @@
     flex-wrap: wrap;
     margin-top: -20px;
     width: 100%;
+    text-align: center;
   }
 
   .add {
@@ -658,19 +659,19 @@
       }
     }
 
-    .container_cards{
+    .container_cards {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    .bg_order{
+    .bg_order {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    .textDrag{
+    .textDrag {
       transform: translateY(-85%);
     }
 

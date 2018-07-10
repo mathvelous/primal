@@ -14,7 +14,7 @@
         <router-link :to="{ name: 'What'}">Qu'est ce que c'est ?</router-link>
         <router-link :to="{ name: 'Order'}">Commander</router-link>
         <router-link :to="{ name: 'Contact'}">Contact</router-link>
-        <a @click.prevent="ifUser">Mon compte</a>
+        <a href="/account" @click.prevent="ifUser">Mon compte</a>
       </div>
       <router-link :to="{ name: 'Cart'}">
         <div class="icon">
@@ -36,9 +36,6 @@
       }
     },
     methods: {
-      ifCookie: function () {
-        //if(this.$cookies.get)
-      },
       onResize: function () {
         if (window.innerWidth < 960) {
           this.mobileBurger = true

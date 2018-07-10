@@ -33,7 +33,6 @@ router.post('/:id', function(req, res, next) {
         }).then(source => {
             console.log('source', source)
             stripe.charges.create({
-                // amount: req.body.totalPrice.split(".").join(''),
                 amount:  total*100,
                 currency: 'eur',
                 description: 'Example charge',
@@ -47,7 +46,6 @@ router.post('/:id', function(req, res, next) {
             res.json({
                 message: err
             })
-            // Deal with an error
         });
     }else{
         stripe.charges.create({
@@ -55,10 +53,15 @@ router.post('/:id', function(req, res, next) {
             currency: 'eur',
             description: 'Example charge',
             customer: customer
-        });
-        res.json({
-            customer: customer
         })
+            .then(
+                charge => {
+                    res.json({
+                        customer: customer
+                    })
+                }
+            )
+
     }
 })
 

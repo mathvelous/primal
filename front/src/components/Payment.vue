@@ -1,5 +1,6 @@
 <template>
   <section id="scrollFocus" class="marge">
+    <notifications classes="myNoti" group="emptyField"/>
     <div class="container">
       <div class="p5">
         <h1 class="title">Mes adresse et paiement</h1>
@@ -70,7 +71,8 @@
     },
     methods: {
       ...mapActions([
-        'setToken'
+        'setToken',
+        'setAddress'
       ]),
       Close: function (data) {
         if (data) {
@@ -81,10 +83,37 @@
       purchase: function () {
         let self = this
         stripe.createToken(card).then(function (result) {
-          console.log(result)
           self.setToken(result.token.id)
         });
-        this.$emit('click2')
+        if (this.street != '' && this.city != '' && this.zipcode != ''){
+          let cookie = this.$cookies.get('user')
+          this.$http.post(`http://localhost:3000/addresses/${cookie}`,{
+            street: this.street,
+            city: this.city,
+            zipcode: this.zipcode
+          })
+            .then(response => {
+              if(response.data == 'ok'){
+                this.setAddress({
+                  street: this.street,
+                  city: this.city,
+                  zipcode: this.zipcode,
+                })
+                this.$emit('click2')
+              }
+            })
+            .catch(error => {
+              console.log(error)
+            })
+        }else{
+          this.$notify({
+            group: 'emptyField',
+            title: 'Vous devez remplir tout les champs du formulaire',
+            duration: 5000,
+            speed: 500,
+            type: 'error'
+          })
+        }
       },
       ifAddress(){
         if(this.getAddress != ''){
@@ -102,7 +131,6 @@
       }
     },
     mounted() {
-      card = elements.create('card');
       card.mount(this.$refs.card);
       document.querySelector('#scrollFocus').scrollIntoView({
         behavior: 'smooth'
@@ -113,6 +141,9 @@
       ...mapGetters([
         'getAddress'
       ])
+    },
+    created(){
+      card = elements.create('card');
     }
   }
 </script>

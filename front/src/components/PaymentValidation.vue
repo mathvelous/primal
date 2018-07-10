@@ -2,8 +2,8 @@
   <div>
     <section id="scrollFocus" class="marge">
       <div class="container">
-        <h1 class="title">Récapitulatif panier</h1>
         <div class="p5">
+          <h1 class="title">Récapitulatif panier</h1>
           <div class="row align-center card" v-for="(product, index) in cartproducts">
             <div class="img_card">
               <img src="../assets/images/img-card1.jpg" alt="">
@@ -43,17 +43,17 @@
             <h2>Mon adresse de livraison</h2>
             <div class="row space_between">
               <div class="label_group">
-                <label for="adress">Adresse</label>
-                <input id="adress" type="text" disabled>
+                <label for="address">Adresse</label>
+                <input v-model="street" id="address" type="text" disabled>
               </div>
               <div class="row">
                 <div class="city">
                   <label for="city">Ville</label>
-                  <input id="city" type="text" disabled>
+                  <input v-model="city" id="city" type="text" disabled>
                 </div>
                 <div class="zip">
                   <label for="zipcode">Code postal</label>
-                  <input id="zipcode" type="text" disabled>
+                  <input v-model="zipcode" id="zipcode" type="text" disabled>
                 </div>
               </div>
             </div>
@@ -71,7 +71,7 @@
                   <h2>Frais de livraison</h2>
                 </div>
                 <div class="group_price">
-                  <h2>Ttoo</h2>
+                  <h2>{{underTotal}}€</h2>
                   <h2>3€</h2>
                 </div>
               </div>
@@ -79,7 +79,7 @@
               </div>
               <div class="row space_between w_block">
                 <h2>Total</h2>
-                <h2>sfkjn</h2>
+                <h2>{{total}}€</h2>
               </div>
             </div>
           </div>
@@ -111,7 +111,10 @@
           firstname: null,
           lastname: null,
           phone: null
-        }
+        },
+        street: '',
+        city: '',
+        zipcode: ''
       }
     },
     methods: {
@@ -149,7 +152,25 @@
           cart: this.cartproducts
         })
         this.$emit('click2')
-      }
+      },
+      ifAddress(){
+        if(this.getAddress != ''){
+          this.street = this.getAddress.street
+          this.city = this.getAddress.city
+          this.zipcode = this.getAddress.zipcode
+        }
+      },
+      calUnderTotal: function () {
+        let cal = 0
+        for (let i = 0; i < this.cartproducts.length; i++) {
+          cal += this.cartproducts[i].result
+        }
+        this.underTotal = cal
+      },
+      calTotal: function () {
+        let calT = this.underTotal + 3
+        this.total = calT
+      },
     },
     mounted() {
       console.log('last')
@@ -161,13 +182,12 @@
         this.calUnderTotal()
         this.calTotal()
       }
-      /*document.querySelector('#scrollFocus').scrollIntoView({
-        behavior: 'smooth'
-      });*/
+      this.ifAddress()
     },
     computed:{
       ...mapGetters([
-        'getToken'
+        'getToken',
+        'getAddress'
       ])
     }
   }

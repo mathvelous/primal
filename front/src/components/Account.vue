@@ -67,7 +67,6 @@
             <p>Etat</p>
           </div>
         </div>
-        <!-- todo: v-for orders + link db-->
       </article>
     </section>
     <div v-if="showModal">
@@ -146,6 +145,7 @@
       },
       deconnect(){
         this.$cookies.remove('user')
+        this.$router.push('/')
       }
     },
     mounted() {
