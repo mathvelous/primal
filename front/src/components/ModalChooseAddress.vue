@@ -6,16 +6,16 @@
         <h1 class="title">Choisissez une adresse</h1>
         <div class="p5">
           <div v-for="(address, index) in user.addresses" class="card" @click.prevent="changeAddress(index)">
-            <input v-model="address.street" type="text" disabled>
-            <input v-model="address.city" type="text" disabled>
-            <input v-model="address.zipcode" type="text" disabled>
+            <input class="street" v-model="address.street" type="text" disabled>
+            <div class="row">
+              <input v-model="address.city" type="text" disabled>
+              <input v-model="address.zipcode" type="text" disabled>
+            </div>
           </div>
-          <div class="row">
+          <div class="row justify-center align-center">
             <div @click.prevent="$emit('close')" class="button">
               <button class="bg_red" type="button">Annulé</button>
             </div>
-          </div>
-          <div class="row flex-end">
             <div @click.prevent="addressChoosen" class="button">
               <button class="bg_green" type="submit">Valider</button>
             </div>
@@ -46,7 +46,7 @@
             console.log(error)
           })
       },
-      changeAddress(index){
+      changeAddress(index) {
         this.chooseAddress = this.user.addresses[index]
       },
       addressChoosen(index) {
@@ -109,6 +109,7 @@
     align-items: center;
     letter-spacing: 1px;
     transform: translateY(50%);
+    margin: 0 4%;
     button {
       border-radius: 5px;
       width: 180px;
@@ -125,7 +126,6 @@
   }
 
   .bg_red {
-    transform: translateY(100%);
     background-color: #F54141;
   }
 
@@ -147,6 +147,55 @@
     &:hover {
       box-shadow: 0px 0px 0px 2px rgba(83, 224, 147, .3);
     }
+  }
+
+  /*********** Responsive ***********/
+
+  @media screen and (max-width: 480px) {
+    .title {
+      transform: translateY(-50%);
+      width: 255px;
+      margin-left: 0%;
+    }
+
+    h1 {
+      font-size: 1.4rem;
+    }
+
+    section {
+      width: 80vw;
+    }
+
+    .button {
+      button {
+        width: 100px;
+      }
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      input {
+        font-size: 0.9rem;
+      }
+    }
+
+    .street{
+      margin-bottom: 10px;
+    }
+
+  }
+
+  @media all and (min-width: 481px) and (max-width: 768px) {
+
+  }
+
+  @media all and (min-width: 769px) and (max-width: 1024px) {
+
+  }
+
+  @media screen and (min-width: 1224px) {
+
   }
 
 </style>

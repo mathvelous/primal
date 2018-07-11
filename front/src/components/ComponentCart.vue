@@ -7,7 +7,7 @@
           <p v-if="cartproducts.length == 0" class="sentence_empty">Panier vide</p>
         </transition>
         <div class="row align-center card" v-for="(product, index) in cartproducts">
-          <div class="img_card">
+          <div class="img_card m_none">
             <img src="../assets/images/img-card1.jpg" alt="">
           </div>
           <div class="row align-center space_around group_card">
@@ -50,7 +50,7 @@
           </div>
         </div>
       </div>
-      <div class="row flex-end">
+      <div class="row justify-center">
         <div @click.prevent="clickBuy" class="button">
           <button>Acheter</button>
         </div>
@@ -303,7 +303,6 @@
     align-items: center;
     letter-spacing: 1px;
     transform: translateY(110%);
-    margin-right: 5%;
     button {
       background-color: #53E093;
       border-radius: 5px;
@@ -341,4 +340,55 @@
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
   }
+
+  /*********** Responsive ***********/
+
+  @media screen and (max-width: 480px) {
+    .title {
+      transform: translateY(-50%);
+      width: 255px;
+      margin-left: 0%;
+    }
+
+    section {
+      .container {
+        width: 80vw;
+      }
+    }
+
+    .p100 {
+      padding-right: 0px;
+      padding-left: 10px;
+    }
+
+
+    .name {
+      width: 80px;
+      margin-left: 5px;
+    }
+
+    .card{
+      padding: 10px 0;
+      .group_card {
+        width: 80%;
+      }
+    }
+
+    h2{
+      font-size: 0.9rem;
+    }
+  }
+
+  @media all and (min-width: 481px) and (max-width: 768px) {
+
+  }
+
+  @media all and (min-width: 769px) and (max-width: 1024px) {
+
+  }
+
+  @media screen and (min-width: 1224px) {
+
+  }
+
 </style>

@@ -5,12 +5,13 @@
         <div class="p5">
           <h1 class="title">Récapitulatif panier</h1>
           <div class="row align-center card" v-for="(product, index) in cartproducts">
-            <div class="img_card">
+            <div class="img_card m_none">
               <img src="../assets/images/img-card1.jpg" alt="">
             </div>
             <div class="row align-center">
               <h2 class="name">{{product.name}}</h2>
               <h2 class="p100">{{product.result}}€</h2>
+              <h2 class="p100 quantity">{{product.quantity}}</h2>
             </div>
           </div>
         </div>
@@ -19,10 +20,10 @@
     <section class="marge">
       <div class="container">
         <div class="p5">
-          <h1 class="title">Mes informations et paiement</h1>
+          <h1 class="title h1_resp">Mes informations et paiement</h1>
           <div class="group">
             <h2>Mes informations</h2>
-            <div class="row space_between">
+            <div class="row space_between m_column">
               <div>
                 <div class="label_group">
                   <label for="firstname">Nom</label>
@@ -41,7 +42,7 @@
           </div>
           <div class="group">
             <h2>Mon adresse de livraison</h2>
-            <div class="row space_between">
+            <div class="row space_between m_column">
               <div class="label_group">
                 <label for="address">Adresse</label>
                 <input v-model="street" id="address" type="text" disabled>
@@ -83,11 +84,11 @@
               </div>
             </div>
           </div>
-          <div class="row space_between w100">
-            <div @click.prevent="$emit('modify')" class="button">
+          <div class="row justify-center w100">
+            <div @click.prevent="$emit('modify')" class="button m4">
               <button class="bg_red"><span>Modif</span><span>ier</span></button>
             </div>
-            <div @click.prevent="valPayment" class="button">
+            <div @click.prevent="valPayment" class="button m4">
               <button class="bg_green">Valider</button>
             </div>
           </div>
@@ -231,6 +232,10 @@
     }
   }
 
+  .m4{
+    margin: 0 4%;
+  }
+
   .title {
     transform: translateY(-50%);
     color: white;
@@ -346,8 +351,72 @@
     margin-top: 30px;
   }
 
-
   .w_block{
     width: 230px;
+  }
+
+  .quantity {
+    color: #53E093;
+  }
+
+  /*********** Responsive ***********/
+
+  @media screen and (max-width: 480px) {
+    .title {
+      transform: translateY(-50%) translateX(-5%);
+      width: 255px;
+      margin-left: 0%;
+    }
+
+    h1 {
+      font-size: 1.4rem;
+    }
+
+    .h1_resp{
+      font-size: 1.1rem;
+    }
+
+    section {
+      .container{
+        width: 80vw;
+      }
+    }
+
+    .button {
+      button {
+        width: 100px;
+      }
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      input {
+        font-size: 0.9rem;
+      }
+    }
+
+    .label_group{
+      width: 70vw;
+    }
+
+    .group {
+      margin-bottom: 20px;
+      h2 {
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  @media all and (min-width: 481px) and (max-width: 768px) {
+
+  }
+
+  @media all and (min-width: 769px) and (max-width: 1024px) {
+
+  }
+
+  @media screen and (min-width: 1224px) {
+
   }
 </style>

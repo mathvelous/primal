@@ -7,7 +7,7 @@
         <div class="group">
           <h2>Mon adresse de livraison</h2>
           <p class="mb10">Entrer une nouvelle adresse</p>
-          <div class="row space_between">
+          <div class="row space_between m_column">
             <div class="label_group">
               <label for="adress">Adresse</label>
               <input v-model="street" id="adress" type="text">
@@ -30,13 +30,13 @@
         </div>
         <div>
           <h2>Paiement</h2>
-          <div ref="card"></div>
+          <div class="card" ref="card"></div>
         </div>
-        <div class="row space_between w100">
-          <div @click.prevent="$emit('goback')" class="button">
+        <div class="row justify-center w100">
+          <div @click.prevent="$emit('goback')" class="button m4 button_resp">
             <button class="bg_red">Retour</button>
           </div>
-          <div @click.prevent="purchase" class="button">
+          <div @click.prevent="purchase" class="button m4 button_resp">
             <button class="bg_green">Payer</button>
           </div>
         </div>
@@ -83,56 +83,64 @@
       },
       purchase: function () {
         let self = this
+
         stripe.createToken(card).then(function (result) {
+          if (result.error) {
+            var errorElement = document.getElementById('card-errors');
+            errorElement.textContent = result.error.message;
+            return
+          }
           self.setToken(result.token.id)
-        });
-        if (this.street != '' && this.city != '' && this.zipcode != ''){
-          let cookie = this.$cookies.get('user')
-          this.$http.post(`http://localhost:3000/addresses/${cookie}`,{
-            street: this.street,
-            city: this.city,
-            zipcode: this.zipcode
-          })
-            .then(response => {
-              if(response.data == 'ok'){
-                this.setAddress({
-                  street: this.street,
-                  city: this.city,
-                  zipcode: this.zipcode,
-                  id: this.id_address
-                })
-                this.$emit('click2')
-              }else{
-                this.setAddress({
-                  street: this.street,
-                  city: this.city,
-                  zipcode: this.zipcode,
-                  id: response.data
-                })
-                this.$emit('click2')
-              }
+
+          if (self.street != '' && self.city != '' && self.zipcode != '') {
+            let cookie = self.$cookies.get('user')
+            self.$http.post(`http://localhost:3000/addresses/${cookie}`, {
+              street: self.street,
+              city: self.city,
+              zipcode: self.zipcode
             })
-            .catch(error => {
-              console.log(error)
+              .then(response => {
+                if (response.data == 'ok') {
+                  self.setAddress({
+                    street: self.street,
+                    city: self.city,
+                    zipcode: self.zipcode,
+                    id: self.id_address
+                  })
+                  self.$emit('click2')
+                } else {
+                  self.setAddress({
+                    street: self.street,
+                    city: self.city,
+                    zipcode: self.zipcode,
+                    id: response.data
+                  })
+                  self.$emit('click2')
+                }
+              })
+              .catch(error => {
+                console.log(error)
+              })
+          } else {
+            self.$notify({
+              group: 'emptyField',
+              title: 'Vous devez remplir tout les champs du formulaire',
+              duration: 5000,
+              speed: 500,
+              type: 'error'
             })
-        }else{
-          this.$notify({
-            group: 'emptyField',
-            title: 'Vous devez remplir tout les champs du formulaire',
-            duration: 5000,
-            speed: 500,
-            type: 'error'
-          })
+          }
+        })
+      },
+
+      ifAddress() {
+        if (this.getAddress != '') {
+          this.street = this.getAddress.street
+          this.city = this.getAddress.city
+          this.zipcode = this.getAddress.zipcode
         }
       },
-      ifAddress(){
-        if(this.getAddress != ''){
-            this.street = this.getAddress.street
-            this.city = this.getAddress.city
-            this.zipcode = this.getAddress.zipcode
-        }
-      },
-      setNewAddress(chooseAddress){
+      setNewAddress(chooseAddress) {
         this.street = chooseAddress.street
         this.city = chooseAddress.city
         this.zipcode = chooseAddress.zipcode
@@ -147,12 +155,12 @@
       })
       this.ifAddress()
     },
-    computed:{
+    computed: {
       ...mapGetters([
         'getAddress'
       ])
     },
-    created(){
+    created() {
       card = elements.create('card');
     }
   }
@@ -191,6 +199,10 @@
       font-size: 1rem;
       font-family: fira_sansmedium;
     }
+  }
+
+  .m4{
+    margin: 0 4%;
   }
 
   .title {
@@ -272,10 +284,6 @@
     }
   }
 
-  .group_payment {
-    width: 47%;
-  }
-
   .button_address {
     justify-content: flex-start;
     transform: translateY(0);
@@ -329,5 +337,68 @@
 
   .bg_red {
     background-color: #F54141;
+  }
+
+  /*********** Responsive ***********/
+
+  @media screen and (max-width: 480px) {
+    .title {
+      transform: translateY(-50%) translateX(-5%);
+      width: 255px;
+      margin-left: 0%;
+    }
+
+    section {
+      .container {
+        width: 80vw;
+      }
+    }
+
+    h1 {
+      font-size: 1.2rem;
+    }
+
+    .label_group {
+      width: 80vw;
+    }
+
+    input{
+      width: 90%;
+    }
+
+    .city {
+      input {
+        width: 38vw;
+        margin-right: 23px;
+      }
+    }
+
+    .zip {
+      input {
+        width: 25vw;
+      }
+    }
+
+    .card{
+      width: 90%;
+    }
+
+    .button_resp {
+      button {
+        width: 100px;
+      }
+    }
+  }
+
+  @media all and (min-width: 481px) and (max-width: 768px) {
+
+  }
+
+  @media all and (min-width: 769px) and (max-width: 1024px) {
+
+  }
+
+  @media screen and (min-width: 1224px) {
+
   }
 </style>

@@ -5,7 +5,7 @@
         <h1 class="title">Inscrivez-vous</h1>
         <form @submit.prevent="signup" method="POST" class="p5">
           <h2>Informations personnelles</h2>
-          <div class="row space_between">
+          <div class="row space_between m_column m_justify-center">
             <div>
               <div class="label_group">
                 <label for="firstname">Nom</label>
@@ -37,7 +37,7 @@
             </div>
           </div>
           <h2>Adresse de livraison</h2>
-          <div class="row space_between">
+          <div class="row space_between m_column">
             <div class="label_group">
               <label for="adress">Adresse</label>
               <input v-model="address.street" id="adress" type="text">
@@ -54,7 +54,7 @@
             </div>
           </div>
           <p>Vous avez déjà <router-link :to="{ name: 'SignIn'}">un compte ?</router-link></p>
-          <div class="row flex-end">
+          <div class="row justify-center">
             <div class="button">
               <button type="submit">Valider</button>
             </div>
@@ -253,6 +253,56 @@
     &:hover{
       text-decoration: underline;
     }
+  }
+
+  /*********** Responsive ***********/
+
+  @media screen and (max-width: 480px) {
+    section {
+      width: 80vw;
+    }
+
+    .title {
+      transform: translateY(-50%);
+      width: 255px;
+      margin-left: 0%;
+    }
+
+    main{
+      height: 160vh;
+    }
+
+    .label_group {
+      width: 70vw;
+    }
+
+    .vw27{
+      width: 80vw;
+    }
+
+    .city {
+      input {
+        width: 37vw;
+      }
+    }
+
+    .zip {
+      input {
+        width: 25vw;
+      }
+    }
+  }
+
+  @media all and (min-width: 481px) and (max-width: 768px) {
+
+  }
+
+  @media all and (min-width: 769px) and (max-width: 1024px) {
+
+  }
+
+  @media screen and (min-width: 1224px) {
+
   }
 
 </style>

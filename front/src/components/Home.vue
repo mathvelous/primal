@@ -75,7 +75,7 @@
     },
     methods: {
       geoAddress: function () {
-        if (this.address == ''){
+        if (this.address == '') {
           return
         }
         this.$router.push(`/order?address=${this.address}`)
@@ -83,8 +83,8 @@
       ...mapActions([
         'setAddress'
       ]),
-      search(){
-        if (this.address == ''){
+      search() {
+        if (this.address == '') {
           this.$notify({
             group: 'notGeo',
             title: 'Impossible de livrer à cette adresse',
@@ -93,13 +93,13 @@
             speed: 500,
             type: 'error'
           })
-        }else{
+        } else {
           this.setAddress(this.dbAddress)
           this.$router.push('/order')
         }
       },
-      ifAddress(){
-        if(this.getAddress != null){
+      ifAddress() {
+        if (this.getAddress != null) {
           this.address = this.getAddress.full
           console.log(this.getAddress)
         }
@@ -126,7 +126,7 @@
       })
       this.ifAddress()
     },
-    computed:{
+    computed: {
       ...mapGetters([
         'getAddress'
       ])
@@ -155,7 +155,7 @@
     }
   }
 
-  h3{
+  h3 {
     font-size: 1.7rem;
   }
 
@@ -169,7 +169,7 @@
       border: none;
       border-radius: 3px 0px 0px 3px;
       font-size: 1rem;
-      &:focus{
+      &:focus {
         outline: none;
       }
     }
@@ -177,7 +177,7 @@
       border: none;
       background-color: #ff7900;
       border-radius: 0px 3px 3px 0px;
-      &:focus{
+      &:focus {
         outline: none;
       }
       img {
@@ -185,7 +185,7 @@
         height: 30px;
         padding: 10px;
         transition: all ease .5s;
-        &:hover{
+        &:hover {
           transform: scale(1.2);
         }
       }
@@ -204,104 +204,83 @@
       display: flex;
       align-items: center;
     }
-    p{
+    p {
       text-align: center;
       font-size: 0.9rem;
     }
   }
 
-  .section article{
+  .section article {
     transform: translateX(5%);
     width: 46vw;
     background-color: #ECECEC;
     padding-right: 5%;
     padding-bottom: 5%;
     padding-top: 1%;
-    p{
+    p {
       text-align: justify;
     }
   }
 
-/*********** Responsive ***********/
+  /*********** Responsive ***********/
 
-  @media screen and (max-width: 480px){
-    .home {
-      background-position: center;
-      h1 {
-        font-size: 1.5rem;
-        text-align: center;
-      }
-    }
-
-    h3{
-      font-size: 1.3rem;
-      margin-top:20px ;
-      text-align: center;
-    }
-
-    #formAdress{
-      input{
-        width: 60vw;
-        font-size: 0.8rem;
-      }
-    }
-
-    .big_icon{
-      img {
-        width: 100px;
-        height: auto;
-      }
-      p{
-        margin-bottom: 30px;
-      }
-      h2{
-        height: 60px;
-      }
-    }
-
-    .marge{
-      margin: 3%;
-    }
-
-    .section{
-      margin-bottom: 0;
-    }
-
-    .section article{
-      transform: translateX(0);
-      width: 90%;
-      padding-bottom: 0;
-      padding-right: 0;
-    }
-
-    .image img{
-      width: 100vw;
-      margin-top: 20px;
-    }
-  }
-
-  @media all and (min-width: 481px) and (max-width: 768px){
+  @media screen and (max-width: 480px) {
     .home {
       h1 {
         font-size: 2rem;
-      }
-    }
-    #formAdress{
-      input{
-        width: 50vw;
+        text-align: center;
+        margin-bottom: 40px;
       }
     }
 
-    .section{
-      margin: 10vh 6%;
+    #formAdress {
+      input {
+        width: 70vw;
+        font-size: 0.9rem;
+      }
+    }
+
+    .section {
+      margin-bottom: 0;
+      article {
+        transform: translateX(0);
+        width: 80vw;
+        background-color: #ECECEC;
+        padding-right: 0%;
+        padding-top: 1%;
+        padding-bottom: 5%;
+      }
+    }
+    .image {
+      img {
+        width: 100vw;
+      }
     }
   }
 
-  @media all and (min-width: 769px) and (max-width: 1024px){
+  @media all and (min-width: 481px) and (max-width: 768px) {
+    .home {
+      h1 {
+        font-size: 2rem;
+        text-align: center;
+        margin-bottom: 40px;
+      }
+    }
+
+    #formAdress {
+      input {
+        width: 60vw;
+        font-size: 0.9rem;
+      }
+    }
 
   }
 
-  @media screen and (min-width : 1224px) {
+  @media all and (min-width: 769px) and (max-width: 1024px) {
+
+  }
+
+  @media screen and (min-width: 1224px) {
 
   }
 

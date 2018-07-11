@@ -5,7 +5,7 @@
         <h1 class="title">Connectez-vous</h1>
         <form @submit.prevent="signin" class="p5">
           <h2>Entrez vos <span>identif</span><span>iants</span></h2>
-          <div class="row space_between">
+          <div class="row space_between m_column">
             <div class="label_group">
               <label for="mail">Adresse mail</label>
               <input v-model="conn.mail" id="mail" type="email">
@@ -16,7 +16,7 @@
             </div>
           </div>
           <p>Vous n'avez pas <router-link :to="{ name: 'SignUp'}">de compte ?</router-link></p>
-          <div class="row flex-end">
+          <div class="row justify-center">
             <div class="button">
               <button type="submit">Valider</button>
             </div>
@@ -171,6 +171,41 @@
     &:hover{
       text-decoration: underline;
     }
+  }
+
+
+  /*********** Responsive ***********/
+
+  @media screen and (max-width: 480px) {
+    section {
+      width: 80vw;
+    }
+
+    .title {
+      transform: translateY(-50%);
+      width: 255px;
+      margin-left: 0%;
+    }
+
+    main{
+      height: 80vh;
+    }
+
+    .label_group {
+      width: 70vw;
+    }
+  }
+
+  @media all and (min-width: 481px) and (max-width: 768px) {
+
+  }
+
+  @media all and (min-width: 769px) and (max-width: 1024px) {
+
+  }
+
+  @media screen and (min-width: 1224px) {
+
   }
 
 </style>

@@ -62,8 +62,6 @@
         this.selected = 0
       }
     },
-    mounted(){
-    }
   }
 </script>
 

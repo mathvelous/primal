@@ -112,4 +112,80 @@
   .pb15{
     padding-bottom: 15px;
   }
+
+  /*********** Responsive ***********/
+
+  @media screen and (max-width: 480px) {
+    .img_contact{
+      width: 100vw;
+      position: absolute;
+      left: 0;
+      top: 8vh;
+      z-index: 1;
+    }
+
+    .section1{
+      position: relative;
+      z-index: 10;
+      left: 45%;
+      transform: translateX(-50%);
+    }
+
+    .title {
+      width: 230px;
+      margin-bottom: 15px;
+    }
+
+    h1{
+      font-size: 1.2rem;
+    }
+
+    h2{
+      font-size: 1rem;
+    }
+
+    .card {
+      width: 250px;
+    }
+
+    .picto img {
+      width: 50px;
+      height: auto;
+      margin-right: 10px;
+    }
+  }
+
+  @media all and (min-width: 481px) and (max-width: 768px) {
+    .img_contact{
+      width: 100vw;
+      position: absolute;
+      left: 0;
+      top: 8vh;
+      z-index: 1;
+    }
+
+    .section1{
+      position: relative;
+      z-index: 10;
+      left: 45%;
+      transform: translateX(-50%);
+    }
+
+    .title {
+      width: 250px;
+      margin-bottom: 15px;
+    }
+
+    h1{
+      font-size: 1.4rem;
+    }
+  }
+
+  @media all and (min-width: 769px) and (max-width: 1024px) {
+
+  }
+
+  @media screen and (min-width: 1224px) {
+
+  }
 </style>

@@ -167,7 +167,7 @@ button {
   /* line 143, ../sass/_main.scss */
   .m_column {
     display: flex;
-    flex-direction: column;
+    flex-direction: column !important;
   }
 
   /* line 148, ../sass/_main.scss */
@@ -212,13 +212,13 @@ button {
   background-size: cover;
 }
 
-/* line 9, ../sass/_images.scss */
+/* line 8, ../sass/_images.scss */
 .image img {
   width: 45vw;
   height: auto;
 }
 
-/* line 15, ../sass/_images.scss */
+/* line 14, ../sass/_images.scss */
 .bg_order {
   background-image: url("../images/order-img.jpg");
   background-repeat: no-repeat;
@@ -227,7 +227,7 @@ button {
   height: 60vh;
 }
 
-/* line 23, ../sass/_images.scss */
+/* line 22, ../sass/_images.scss */
 .bg_what {
   background-image: url("../images/bg-what.jpg");
   background-repeat: no-repeat;
