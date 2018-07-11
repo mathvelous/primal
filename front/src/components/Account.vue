@@ -92,7 +92,7 @@
     methods: {
       init: function () {
         let cookie = this.$cookies.get('user')
-        this.$http.get(`http://localhost:3000/users/${cookie}`)
+        this.$http.get(`${process.env.URL}users/${cookie}`)
           .then(response => {
             this.user = response.data
             console.log(response.data)
@@ -103,7 +103,7 @@
       },
       deleted: function (index) {
         if (this.user.addresses.length > 1) {
-          this.$http.delete(`http://localhost:3000/addresses/${this.user.addresses[index].id}`)
+          this.$http.delete(`${process.env.URL}addresses/${this.user.addresses[index].id}`)
             .then(response => {
               this.$delete(this.user.addresses, index)
               this.$notify({
@@ -127,7 +127,7 @@
       },
       infoModify: function () {
         let cookie = this.$cookies.get('user')
-        this.$http.post(`http://localhost:3000/users/update/${cookie}`, {
+        this.$http.post(`${process.env.URL}users/update/${cookie}`, {
           data: this.user
         })
           .then(response => {

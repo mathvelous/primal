@@ -54,7 +54,7 @@
           return
         }
         if (this.address.street != '' && this.address.city != '' && this.address.zipcode != ''){
-          this.$http.post(`http://localhost:3000/users/address/${cookie}`, {
+          this.$http.post(`${process.env.URL}users/address/${cookie}`, {
             address: this.address
           })
             .then(response => {

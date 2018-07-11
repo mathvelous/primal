@@ -40,7 +40,7 @@
     },
     methods: {
       signin: function() {
-        this.$http.post("http://localhost:3000/users/conn", {
+        this.$http.post(`${process.env.URL}users/conn`, {
           data: this.conn
         })
           .then(response => {

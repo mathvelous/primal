@@ -44,7 +44,7 @@
               <img class="" :src="product.image" alt="">
             </div>
             <div class="p20">
-              <div class="title_card row space_between">
+              <div class="title_card">
                 <h3>{{product.name}}</h3>
                 <p :style="'color:' + categoryColor">{{product.price}} €</p>
               </div>
@@ -121,7 +121,8 @@
         categoryColor: '#53E093',
         underTotal: 0,
         total: 0,
-        aside: true
+        aside: true,
+        all: []
       }
     },
     components: {
@@ -170,12 +171,13 @@
         return (!relatedElement || !relatedElement.fixed) && !draggedElement.fixed
       },
       init: function () {
-        this.$http.get(`http://localhost:3000/products/${this.category}`)
+        this.$http.get(`${process.env.URL}products`)
           .then(response => {
             for (let product of response.data) {
               product.quantity = 1
             }
-            this.products = response.data
+            this.all = response.data
+            this.products = this.all.filter(product => product.category == this.category)
           })
           .catch(error => {
             console.log(error)
@@ -184,7 +186,7 @@
       clickCategory: function (text, color) {
         this.category = text
         this.categoryColor = color
-        this.init()
+        this.products = this.all.filter(product => product.category == this.category)
       },
       addMore: function (index) {
         this.cartproducts[index].quantity++
@@ -266,11 +268,6 @@
       resize() {
         window.addEventListener('resize', this.onResize)
       },
-      /*scrollFocus: function () {
-        document.querySelector('#scrollFocus').scrollIntoView({
-          behavior: 'smooth'
-        });
-      }*/
       valCart() {
         if (this.cartproducts.length > 0) {
           this.$router.push('/cart')
@@ -366,7 +363,6 @@
 
   h3 {
     font-size: 1rem;
-    width: 80%;
     margin-bottom: 15px;
   }
 
@@ -449,7 +445,14 @@
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, .1);
     margin: 2%;
     .title_card {
+      display: flex;
+      justify-content: space-between;
+      h3 {
+       text-align: left;
+        width: 220px;
+      }
       p {
+        width: 40px;
         font-family: fira_sansbold;
         font-size: 1rem;
         height: 80px;

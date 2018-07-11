@@ -38,7 +38,7 @@
     methods: {
       init: function () {
         let cookie = this.$cookies.get('user')
-        this.$http.get(`http://localhost:3000/addresses/${cookie}`)
+        this.$http.get(`${process.env.URL}addresses/${cookie}`)
           .then(response => {
             this.user = response.data
           })

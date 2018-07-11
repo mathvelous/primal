@@ -94,7 +94,7 @@
           this.dontMatch = true
           return
         }
-        this.$http.post("http://localhost:3000/users", {
+        this.$http.post(`${process.env.URL}users`, {
           data: this.info, address: this.address
         })
           .then(response => {

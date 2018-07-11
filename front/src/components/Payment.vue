@@ -94,7 +94,7 @@
 
           if (self.street != '' && self.city != '' && self.zipcode != '') {
             let cookie = self.$cookies.get('user')
-            self.$http.post(`http://localhost:3000/addresses/${cookie}`, {
+            self.$http.post(`${process.env.URL}addresses/${cookie}`, {
               street: self.street,
               city: self.city,
               zipcode: self.zipcode

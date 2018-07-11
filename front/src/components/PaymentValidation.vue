@@ -6,7 +6,7 @@
           <h1 class="title">Récapitulatif panier</h1>
           <div class="row align-center card" v-for="(product, index) in cartproducts">
             <div class="img_card m_none">
-              <img src="../assets/images/img-card1.jpg" alt="">
+              <img class="" :src="product.image" alt="">
             </div>
             <div class="row align-center">
               <h2 class="name">{{product.name}}</h2>
@@ -137,7 +137,7 @@
       ifCookie: function () {
         let cookie = this.$cookies.get('user')
         if (cookie != null){
-          this.$http.get(`http://localhost:3000/users/${cookie}`)
+          this.$http.get(`${process.env.URL}users/${cookie}`)
             .then(response => {
               this.user = response.data
               console.log('toto',response.data)
@@ -149,7 +149,7 @@
       },
       valPayment(){
         let cookie = this.$cookies.get('user')
-        this.$http.post(`http://localhost:3000/payment/${cookie}`,{
+        this.$http.post(`${process.env.URL}payment/${cookie}`,{
           token: this.getToken,
           cart: this.cartproducts,
           id_address: this.id_address

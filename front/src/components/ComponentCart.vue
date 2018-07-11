@@ -8,7 +8,7 @@
         </transition>
         <div class="row align-center card" v-for="(product, index) in cartproducts">
           <div class="img_card m_none">
-            <img src="../assets/images/img-card1.jpg" alt="">
+            <img class="" :src="product.image" alt="">
           </div>
           <div class="row align-center space_around group_card">
             <h2 class="name">{{product.name}}</h2>
