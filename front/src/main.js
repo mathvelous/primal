@@ -8,12 +8,14 @@ import axios from 'axios'
 import VueCookies from 'vue-cookies'
 import {store} from './store'
 import Notifications from 'vue-notification'
+import Lottie from 'lottie-web'
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.use(VueCookies)
 Vue.prototype.$cookies = VueCookies
 Vue.use(Notifications)
+Vue.prototype.$lottie = Lottie
 
 /* eslint-disable no-new */
 new Vue({

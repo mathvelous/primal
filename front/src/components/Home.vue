@@ -16,19 +16,19 @@
       <h3 class="mb70">Comment ça marche ?</h3>
       <div class="row justify-center m_column">
         <div class="big_icon column align-center">
-          <img src="../assets/images/order.svg" alt="Commandez">
+          <div id="anim1"></div>
           <h2>Vous commandez</h2>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aperiam aspernatur aut commodi
             consequuntur deserunt distinctio dolorum, exercitationemm.</p>
         </div>
         <div class="big_icon column align-center">
-          <img src="../assets/images/delivery.svg" alt="Commandez">
+          <div id="anim2"></div>
           <h2>Nous vous livrons</h2>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aperiam aspernatur aut commodi
             consequuntur deserunt distinctio dolorum, exercitationemm.</p>
         </div>
         <div class="big_icon column align-center">
-          <img src="../assets/images/savor.svg" alt="Commandez">
+          <div id="anim3"></div>
           <h2>Vous dégustez</h2>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aperiam aspernatur aut commodi
             consequuntur deserunt distinctio dolorum, exercitationemm.</p>
@@ -70,7 +70,8 @@
     data() {
       return {
         address: '',
-        dbAddress: {}
+        dbAddress: {},
+        scrolled: true
       }
     },
     methods: {
@@ -104,6 +105,35 @@
           console.log(this.getAddress)
         }
       },
+      anim() {
+        if(!this.scrolled){
+          return
+        }
+        if (window.scrollY > 413) {
+          this.$lottie.loadAnimation({
+            container: document.querySelector('#anim1'), // the dom element that will contain the animation
+            renderer: 'svg',
+            loop: false,
+            autoplay: true,
+            path: '/static/img/anim1.json' // the path to the animation json
+          });
+          this.$lottie.loadAnimation({
+            container: document.querySelector('#anim2'), // the dom element that will contain the animation
+            renderer: 'svg',
+            loop: false,
+            autoplay: true,
+            path: '/static/img/anim2.json' // the path to the animation json
+          });
+          this.$lottie.loadAnimation({
+            container: document.querySelector('#anim3'), // the dom element that will contain the animation
+            renderer: 'svg',
+            loop: false,
+            autoplay: true,
+            path: '/static/img/anim3.json' // the path to the animation json
+          });
+          this.scrolled = false
+        }
+      }
     },
     mounted() {
       this.autocomplete = new google.maps.places.Autocomplete(
@@ -125,12 +155,16 @@
         console.log(this.dbAddress)
       })
       this.ifAddress()
+
     },
     computed: {
       ...mapGetters([
         'getAddress'
       ])
     },
+    created(){
+      window.addEventListener('scroll', this.anim);
+    }
   }
 </script>
 
