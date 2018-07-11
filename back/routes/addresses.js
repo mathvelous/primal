@@ -58,7 +58,7 @@ router.post('/:id', function (req, res, next) {
                         console.log(err)
                     }
                     else {
-                        res.json('ok')
+                        res.json(results.insertId)
                     }
                 })
             }else {

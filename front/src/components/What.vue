@@ -2,7 +2,7 @@
   <main>
     <div class="bg_what"></div>
     <div class="marge">
-      <section class="row section1">
+      <section class="row section1 m_column">
         <div class="image">
           <img src="../assets/images/what1.jpg" alt="Image de champignons">
         </div>
@@ -16,7 +16,7 @@
             saepe sapiente.</p>
         </article>
       </section>
-      <section class="section2 row space_between">
+      <section class="section2 row space_between m_column">
         <div class="card">
           <h3 class="title bg_green">Cueillette</h3>
           <p>ipsum dolor sit amet, consectetur adipiscing elit. Nam hendrerit arcu elit, nec consequat dolor volutpat
@@ -56,7 +56,7 @@
             </div>
           </div>
         </article>
-        <div class="image">
+        <div class="image m_none">
           <img src="../assets/images/what2.jpg" alt="Image de moule">
         </div>
       </section>
@@ -64,33 +64,37 @@
     <section class="section4">
       <div class="marge">
         <h2>Les <span>bénéf</span><span>ices</span> santé</h2>
-        <div class="row space_around align-center">
-          <div class="contain">
-            <div class="picto">
-              <img src="../assets/images/health1.svg" alt="">
+        <div class="row justify-center align-center">
+          <div class="row m_column">
+            <div class="contain">
+              <div class="picto">
+                <img src="../assets/images/health1.svg" alt="">
+              </div>
+              <p>Gain de masse musculaire
+                quand combiné à une activité sportive</p>
             </div>
-            <p>Gain de masse musculaire
-              quand combiné à une activité sportive</p>
+            <div class="contain">
+              <div class="picto">
+                <img src="../assets/images/health2.svg" alt="">
+              </div>
+              <p>Perte de poid</p>
+            </div>
           </div>
-          <div class="contain">
-            <div class="picto">
-              <img src="../assets/images/health2.svg" alt="">
-            </div>
-            <p>Perte de poid</p>
-          </div>
-          <div class="contain">
-            <div class="picto">
-              <img src="../assets/images/health3.svg" alt="">
-            </div>
+          <div class="row m_column">
+            <div class="contain">
+              <div class="picto">
+                <img src="../assets/images/health3.svg" alt="">
+              </div>
 
-            <p>Diminue les risques de diabète</p>
-          </div>
-          <div class="contain">
-            <div class="picto">
-              <img src="../assets/images/health4.svg" alt="">
+              <p>Diminue les risques de diabète</p>
             </div>
-            <p >Prévient l’aparition de certaines
-              maladie croniques</p>
+            <div class="contain">
+              <div class="picto">
+                <img src="../assets/images/health4.svg" alt="">
+              </div>
+              <p>Prévient l’aparition de certaines
+                maladie croniques</p>
+            </div>
           </div>
         </div>
       </div>
@@ -99,7 +103,17 @@
 </template>
 
 <script>
-
+  export default {
+    name: 'What',
+    data() {
+      return {
+      }
+    },
+    methods:{
+    },
+    mounted(){
+    }
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -208,11 +222,12 @@
       text-align: center;
       height: 80px;
     }
-    .contain{
+    .contain {
       width: 200px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      margin:0 30px
     }
   }
 
@@ -227,5 +242,92 @@
   .bg_bleu {
     background-color: #2FA2F7;
   }
+
+  /*********** Responsive ***********/
+
+  @media screen and (max-width: 480px) {
+
+    .bg_what{
+      height: 30vh;
+    }
+
+    .section1 {
+      margin-bottom: 60px;
+      article {
+        transform: translateY(-10%);
+        margin-left: 0px;
+        margin-top: 0px;
+        width: 100%;
+        h2 {
+          width: 100%;
+          margin-bottom: 20px;
+        }
+      }
+      .image {
+        transform: translateY(-20%);
+        img {
+          width: 90vw;
+        }
+      }
+    }
+
+    .section2 {
+      margin-bottom: 35px;
+      .card {
+        padding: 20px;
+        width: 250px;
+        margin-bottom: 50px;
+        .title {
+          transform: translateY(-80%);
+        }
+      }
+    }
+
+    .section3 {
+      article {
+        p {
+          font-size: 1rem;
+        }
+        .decal {
+          margin-left: 20px;
+        }
+      }
+    }
+
+    .section4{
+      padding: 0;
+      .picto{
+        img{
+          width: 60px;
+        }
+      }
+      .contain{
+        width: 140px;
+        margin:0;
+      }
+      p{
+        font-size: 0.7rem;
+      }
+      h2{
+        padding-top: 40px;
+        margin-bottom: 0;
+      }
+    }
+
+
+  }
+
+  @media all and (min-width: 481px) and (max-width: 768px) {
+
+  }
+
+  @media all and (min-width: 769px) and (max-width: 1024px) {
+
+  }
+
+  @media screen and (min-width: 1224px) {
+
+  }
+
 
 </style>

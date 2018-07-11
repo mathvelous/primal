@@ -199,6 +199,11 @@ button {
   .m_flex-end {
     justify-content: flex-end;
   }
+
+  /* line 172, ../sass/_main.scss */
+  .m_none {
+    display: none;
+  }
 }
 /* line 1, ../sass/_images.scss */
 .home {

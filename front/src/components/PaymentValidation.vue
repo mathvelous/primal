@@ -114,7 +114,8 @@
         },
         street: '',
         city: '',
-        zipcode: ''
+        zipcode: '',
+        id_address: NaN
       }
     },
     methods: {
@@ -149,7 +150,8 @@
         let cookie = this.$cookies.get('user')
         this.$http.post(`http://localhost:3000/payment/${cookie}`,{
           token: this.getToken,
-          cart: this.cartproducts
+          cart: this.cartproducts,
+          id_address: this.id_address
         })
         this.$emit('click2')
       },
@@ -158,6 +160,7 @@
           this.street = this.getAddress.street
           this.city = this.getAddress.city
           this.zipcode = this.getAddress.zipcode
+          this.id_address = this.getAddress.id
         }
       },
       calUnderTotal: function () {

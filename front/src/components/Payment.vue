@@ -63,7 +63,8 @@
         showModal: false,
         street: '',
         city: '',
-        zipcode: ''
+        zipcode: '',
+        id_address: NaN
       }
     },
     components: {
@@ -98,6 +99,15 @@
                   street: this.street,
                   city: this.city,
                   zipcode: this.zipcode,
+                  id: this.id_address
+                })
+                this.$emit('click2')
+              }else{
+                this.setAddress({
+                  street: this.street,
+                  city: this.city,
+                  zipcode: this.zipcode,
+                  id: response.data
                 })
                 this.$emit('click2')
               }
@@ -126,7 +136,7 @@
         this.street = chooseAddress.street
         this.city = chooseAddress.city
         this.zipcode = chooseAddress.zipcode
-        console.log(chooseAddress)
+        this.id_address = chooseAddress.id
         this.showModal = false
       }
     },
