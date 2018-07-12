@@ -3,7 +3,7 @@
     <notifications classes="myNoti" group="notGeo"/>
     <section class="home">
       <div class="content-home">
-        <h1>Les origines du goût livré chez vous</h1>
+        <h1>Les origines du goût livrées chez vous</h1>
         <form id="formAdress" @submit.prevent="geoAddress">
           <input v-model="address" ref="autocomplete" type="text" placeholder="Entrer votre adresse de livraison">
           <button @click.prevent="search" type="submit">
@@ -43,7 +43,7 @@
     </section>
     <section class="section marge row align-center flex-end m_column">
       <article>
-        <h3 class="mb30">Qui sommes nous ?</h3>
+        <h3 class="mb30">Qui sommes-nous ?</h3>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aperiam aspernatur aut commodi
           consequuntur deserunt distinctio dolorum, exercitationemm.
@@ -374,14 +374,6 @@
         font-size: 0.9rem;
       }
     }
-
-  }
-
-  @media all and (min-width: 769px) and (max-width: 1024px) {
-
-  }
-
-  @media screen and (min-width: 1224px) {
 
   }
 

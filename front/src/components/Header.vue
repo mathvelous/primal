@@ -171,7 +171,6 @@
   #mobile_burger{
     position: absolute;
     right: 15px;
-    transform: translateY(35%);
   }
 
   /*********** Responsive ***********/

@@ -46,7 +46,7 @@
             </div>
             <div class="row align-center mb30">
               <p class="number">2</p>
-              <p>Les sportifs qui souhaite adopder une alimentation
+              <p>Les sportifs qui souhaitent adopter une alimentation
                 en accord avec leur activité</p>
             </div>
             <div class="row align-center mb30">
@@ -70,14 +70,13 @@
               <div class="picto">
                 <img src="../assets/images/health1.svg" alt="">
               </div>
-              <p>Gain de masse musculaire
-                quand combiné à une activité sportive</p>
+              <p>Gain de masse musculaire si activité sportive</p>
             </div>
             <div class="contain">
               <div class="picto">
                 <img src="../assets/images/health2.svg" alt="">
               </div>
-              <p>Perte de poid</p>
+              <p>Perte de poids</p>
             </div>
           </div>
           <div class="row m_column">
@@ -85,15 +84,14 @@
               <div class="picto">
                 <img src="../assets/images/health3.svg" alt="">
               </div>
-
               <p>Diminue les risques de diabète</p>
             </div>
             <div class="contain">
               <div class="picto">
                 <img src="../assets/images/health4.svg" alt="">
               </div>
-              <p>Prévient l’aparition de certaines
-                maladie croniques</p>
+              <p>Prévient l’apparition de certaines
+                maladies chroniques</p>
             </div>
           </div>
         </div>
@@ -318,14 +316,48 @@
   }
 
   @media all and (min-width: 481px) and (max-width: 768px) {
+    .section1 {
+      article {
+        width: 100%;
+        margin-bottom: 30px;
+        h2 {
+          width: 100%;
+          margin-bottom: 20px;
+        }
+      }
+    }
 
-  }
+    .section2 {
+      margin-bottom: 35px;
+      .card {
+        padding: 20px;
+        width: 180px;
+        margin-bottom: 50px;
+        p{
+          font-size: 0.8rem;
+        }
+        .title {
+          transform: translateY(-80%);
+        }
+      }
+    }
 
-  @media all and (min-width: 769px) and (max-width: 1024px) {
+    .section4 {
+      .contain {
+        width: 120px;
+      }
+    }
 
-  }
-
-  @media screen and (min-width: 1224px) {
+    .section3 {
+      article {
+        p {
+          font-size: 1.2rem;
+        }
+        .decal {
+          margin-left: 20px;
+        }
+      }
+    }
 
   }
 

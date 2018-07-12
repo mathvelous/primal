@@ -3,13 +3,13 @@
     <notifications classes="myNoti" group="modifySuccess"/>
     <notifications classes="myNoti" group="deleteAddress"/>
     <section class="marge">
-      <div class="row space_between">
+      <div class="row space_between m_column">
       <h1 class="title">mon compte</h1>
         <div @click.prevent="deconnect" class="button_deco">
           <button>Déconnection</button>
         </div>
       </div>
-      <div class="row space_between">
+      <div class="row space_between m_column m_justify-center mt_r">
         <div class="card_account">
           <form @submit.prevent="infoModify">
             <h2>Mes informations</h2>
@@ -329,5 +329,55 @@
   .modal-leave-active .modal-container {
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
+  }
+
+  /*********** Responsive ***********/
+
+  @media screen and (max-width: 480px) {
+    .title {
+      transform: translateY(95%);
+      width: 100%;
+      margin-left: 0%;
+    }
+
+    h1{
+      font-size: 1.1rem;
+    }
+
+    .button_deco{
+      button{
+        position: absolute;
+        top: 15vh;
+        right: 5%;
+      }
+    }
+
+    .mt_r{
+      margin-top: 30px;
+    }
+
+    form, .form{
+      width: 67vw;
+    }
+
+    form{
+      margin-bottom: 50px;
+    }
+
+  }
+
+  @media all and (min-width: 481px) and (max-width: 768px) {
+    form, .form{
+      width: 38vw;
+      padding: 20px;
+    }
+  }
+
+  @media all and (min-width: 769px) and (max-width: 1024px) {
+
+  }
+
+  @media screen and (min-width: 1224px) {
+
   }
 </style>

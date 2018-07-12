@@ -14,7 +14,7 @@
             <div class="picto">
               <img src="../assets/images/phone.svg" alt="téléphone">
             </div>
-            <h2>0123456789</h2>
+            <h2>01 23 45 67 89</h2>
           </div>
         </div>
       </div>

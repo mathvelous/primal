@@ -389,16 +389,4 @@
       }
     }
   }
-
-  @media all and (min-width: 481px) and (max-width: 768px) {
-
-  }
-
-  @media all and (min-width: 769px) and (max-width: 1024px) {
-
-  }
-
-  @media screen and (min-width: 1224px) {
-
-  }
 </style>

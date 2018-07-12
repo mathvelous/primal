@@ -36,7 +36,7 @@
             <p>Breuvage</p>
           </button>
         </header>
-        <p class="textDrag">Vous pouvez cliquez glissez votre produit au panier.</p>
+        <p class="textDrag">Vous pouvez cliquer/glisser votre produit dans le panier.</p>
         <draggable v-model="products" class="container_cards bg " :options="dragOptions" :move="onMove"
                    @start="isDragging=true" @end="onAdd">
           <div class="card" v-for="(product, index) in products">

@@ -381,14 +381,28 @@
 
   @media all and (min-width: 481px) and (max-width: 768px) {
 
+
+
+    .p100 {
+      padding-right: 0px;
+      padding-left: 10px;
+    }
+
+
+    .name {
+      width: 80px;
+      margin-left: 5px;
+    }
+
+    .card{
+      padding: 10px 0;
+      .group_card {
+        width: 80%;
+      }
+    }
+
+    h2{
+      font-size: 0.9rem;
+    }
   }
-
-  @media all and (min-width: 769px) and (max-width: 1024px) {
-
-  }
-
-  @media screen and (min-width: 1224px) {
-
-  }
-
 </style>

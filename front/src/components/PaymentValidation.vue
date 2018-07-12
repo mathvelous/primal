@@ -10,8 +10,8 @@
             </div>
             <div class="row align-center">
               <h2 class="name">{{product.name}}</h2>
-              <h2 class="p100">{{product.result}}€</h2>
-              <h2 class="p100 quantity">{{product.quantity}}</h2>
+              <h2>{{product.result}}€</h2>
+              <h2 class="quantity">{{product.quantity}}</h2>
             </div>
           </div>
         </div>
@@ -394,6 +394,9 @@
       input {
         font-size: 0.9rem;
       }
+      h2{
+        width: 30px;
+      }
     }
 
     .label_group{
@@ -406,17 +409,19 @@
         margin-bottom: 10px;
       }
     }
+    .name{
+      width: 100px!important;
+    }
   }
 
   @media all and (min-width: 481px) and (max-width: 768px) {
-
-  }
-
-  @media all and (min-width: 769px) and (max-width: 1024px) {
-
-  }
-
-  @media screen and (min-width: 1224px) {
-
+    .card {
+      h2{
+        width: 50px;
+      }
+    }
+    .name{
+      width: 100px!important;
+    }
   }
 </style>
