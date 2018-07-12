@@ -20,8 +20,10 @@
       <hr>
       <p>© Tous droits réservés primal.cf</p>
       <div class="row flex-end">
-        <a href="https://www.instagram.com/" target="_blank" class="network"><img src="../assets/images/instagram.svg" alt="Instagram"></a>
-        <a href="https://www.facebook.com/" target="_blank" class="network"><img src="../assets/images/facebook.svg" alt="Facebook"></a>
+        <a href="https://www.instagram.com/" target="_blank" class="network"><img src="../assets/images/instagram.svg"
+                                                                                  alt="Instagram"></a>
+        <a href="https://www.facebook.com/" target="_blank" class="network"><img src="../assets/images/facebook.svg"
+                                                                                 alt="Facebook"></a>
         <a href="https://www.linkedin.com/" target="_blank" class="network"><img src="../assets/images/linkedin.svg" alt="Linkedin"></a>
       </div>
     </div>
@@ -42,7 +44,7 @@
       a {
         color: #fafdfa;
         text-decoration: none;
-        font-family: fira_sansmedium;
+        font-family: Avenir;
         font-size: 0.9rem;
       }
     }
@@ -59,9 +61,8 @@
     }
     .network img {
       width: 30px;
-      height: auto;
       padding: 0 15px;
-      &:last-child{
+      &:last-child {
         padding-right: 0;
       }
     }
@@ -77,4 +78,22 @@
     border-width: 0.5px;
     border-color: #fafdfa;
   }
+
+  /*********** Responsive ***********/
+
+  @media screen and (max-width: 960px) {
+    footer {
+      .menu2 {
+        line-height: 20px;
+        a {
+          font-size: 0.8rem;
+        }
+      }
+    }
+
+    .network img {
+      margin-top: 20px;
+    }
+  }
+
 </style>

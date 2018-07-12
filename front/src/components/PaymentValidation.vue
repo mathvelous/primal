@@ -154,7 +154,7 @@
           cart: this.cartproducts,
           id_address: this.id_address
         })
-        this.$emit('click2')
+        this.$router.push('/delivery')
       },
       ifAddress(){
         if(this.getAddress != ''){

@@ -11,6 +11,7 @@ import Order from '@/components/Order'
 import SignIn from '@/components/SignIn'
 import SignUp from '@/components/SignUp'
 import Payment from '@/components/Payment'
+import Delivery from '@/components/Delivery'
 
 
 Vue.use(Router)
@@ -61,6 +62,11 @@ export default new Router({
       path: '/payment',
       name: 'payment',
       component: Payment
+    },
+    {
+      path: '/delivery',
+      name: 'delivery',
+      component: Delivery
     }
 
   ]

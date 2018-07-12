@@ -16,22 +16,28 @@
       <h3 class="mb70">Comment ça marche ?</h3>
       <div class="row justify-center m_column">
         <div class="big_icon column align-center">
-          <div id="anim1"></div>
-          <h2>Vous commandez</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aperiam aspernatur aut commodi
-            consequuntur deserunt distinctio dolorum, exercitationemm.</p>
+          <div id="anim1" class="anims"></div>
+          <div id="text1">
+            <h2 class="green">Vous commandez</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aperiam aspernatur aut commodi
+              consequuntur deserunt distinctio dolorum, exercitationemm.</p>
+          </div>
         </div>
         <div class="big_icon column align-center">
-          <div id="anim2"></div>
-          <h2>Nous vous livrons</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aperiam aspernatur aut commodi
-            consequuntur deserunt distinctio dolorum, exercitationemm.</p>
+          <div id="anim2" class="anims"></div>
+          <div id="text2">
+            <h2 class="blue">Nous vous livrons</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aperiam aspernatur aut commodi
+              consequuntur deserunt distinctio dolorum, exercitationemm.</p>
+          </div>
         </div>
         <div class="big_icon column align-center">
-          <div id="anim3"></div>
-          <h2>Vous dégustez</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aperiam aspernatur aut commodi
-            consequuntur deserunt distinctio dolorum, exercitationemm.</p>
+          <div id="anim3" class="anims"></div>
+          <div id="text3">
+            <h2 class="orange">Vous dégustez</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aperiam aspernatur aut commodi
+              consequuntur deserunt distinctio dolorum, exercitationemm.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -105,32 +111,55 @@
           console.log(this.getAddress)
         }
       },
-      anim() {
-        if(!this.scrolled){
+      anim1() {
+        this.$lottie.loadAnimation({
+          container: document.querySelector('#anim1'), // the dom element that will contain the animation
+          renderer: 'svg',
+          loop: false,
+          autoplay: true,
+          path: '/static/img/anim1.json' // the path to the animation json
+        });
+        document.querySelector('#text1').classList.add('text_anim')
+        let self = this
+        setTimeout(() => {
+          self.anim2()
+        }, 500)
+      },
+      anim2() {
+        this.$lottie.loadAnimation({
+          container: document.querySelector('#anim2'), // the dom element that will contain the animation
+          renderer: 'svg',
+          loop: false,
+          autoplay: true,
+          path: '/static/img/anim2.json' // the path to the animation json
+        });
+        document.querySelector('#text2').classList.add('text_anim')
+        document.querySelector('#text1').classList.add('afterOpacity')
+        let self = this
+        setTimeout(() => {
+          self.anim3()
+        }, 500)
+      },
+      anim3() {
+        this.$lottie.loadAnimation({
+          container: document.querySelector('#anim3'), // the dom element that will contain the animation
+          renderer: 'svg',
+          loop: false,
+          autoplay: true,
+          path: '/static/img/anim3.json' // the path to the animation json
+        });
+        document.querySelector('#text3').classList.add('text_anim')
+        document.querySelector('#text2').classList.add('afterOpacity')
+      },
+      anims() {
+        if (!this.scrolled) {
           return
         }
-        if (window.scrollY > 413) {
-          this.$lottie.loadAnimation({
-            container: document.querySelector('#anim1'), // the dom element that will contain the animation
-            renderer: 'svg',
-            loop: false,
-            autoplay: true,
-            path: '/static/img/anim1.json' // the path to the animation json
-          });
-          this.$lottie.loadAnimation({
-            container: document.querySelector('#anim2'), // the dom element that will contain the animation
-            renderer: 'svg',
-            loop: false,
-            autoplay: true,
-            path: '/static/img/anim2.json' // the path to the animation json
-          });
-          this.$lottie.loadAnimation({
-            container: document.querySelector('#anim3'), // the dom element that will contain the animation
-            renderer: 'svg',
-            loop: false,
-            autoplay: true,
-            path: '/static/img/anim3.json' // the path to the animation json
-          });
+        if (window.scrollY > 400) {
+          this.anim1()
+          setTimeout(() => {
+            document.querySelector('#text3').classList.add('afterOpacity')
+          }, 4000)
           this.scrolled = false
         }
       }
@@ -162,8 +191,8 @@
         'getAddress'
       ])
     },
-    created(){
-      window.addEventListener('scroll', this.anim);
+    created() {
+      window.addEventListener('scroll', this.anims);
     }
   }
 </script>
@@ -256,10 +285,48 @@
     }
   }
 
+  .green {
+    color: #53e093;
+  }
+
+  .blue {
+    color: #2fa2f7;
+  }
+
+  .orange {
+    color: #ff7900;
+  }
+
+  .anims {
+    height: 150px;
+  }
+
+  #text1, #text2, #text3{
+    opacity: 0;
+  }
+
+  .text_anim{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation-name: fade;
+    animation-duration: 4s;
+  }
+
+  .afterOpacity{
+    opacity: 1!important;
+  }
+
+  @keyframes fade {
+    0% {opacity: 0}
+    100% {opacity: 1}
+  }
+
   /*********** Responsive ***********/
 
   @media screen and (max-width: 480px) {
     .home {
+      background-position: center;
       h1 {
         font-size: 2rem;
         text-align: center;

@@ -6,11 +6,11 @@
         <img src="../assets/images/logo.png" alt="">
       </router-link>
     </div>
-    <div class="mobile_burger">
-      <div v-if="mobileBurger" class="burger"></div>
+    <div @click="clickBurger" id="mobile_burger">
+      <div v-if="mobileBurger" id="burger"></div>
     </div>
     <div  class="menu">
-      <div v-if="menu">
+      <div id="menu" class="menu_resp">
         <router-link :to="{ name: 'What'}">Qu'est ce que c'est ?</router-link>
         <router-link :to="{ name: 'Order'}">Commander</router-link>
         <router-link :to="{ name: 'Contact'}">Contact</router-link>
@@ -32,17 +32,14 @@
     data() {
       return {
         mobileBurger: false,
-        menu: true
       }
     },
     methods: {
       onResize: function () {
         if (window.innerWidth < 960) {
           this.mobileBurger = true
-          this.menu = false
         }else {
           this.mobileBurger = false
-          this.menu = true
         }
       },
       resize(){
@@ -62,6 +59,10 @@
         }else{
           this.$router.push('/account')
         }
+      },
+      clickBurger(){
+        document.querySelector('#menu').classList.toggle('opacity')
+        document.querySelector('#burger').classList.toggle('cross')
       }
     },
     mounted() {
@@ -140,9 +141,9 @@
     }
   }
 
-  .burger {
+  #burger {
     position: relative;
-    width: 40px;
+    width: 35px;
     height: 3px;
     background-color: white;
     border-radius: 5px;
@@ -151,7 +152,7 @@
       position: absolute;
       content: '';
       top: 12px;
-      width: 40px;
+      width: 35px;
       height: 3px;
       background-color: white;
       border-radius: 5px;
@@ -160,17 +161,66 @@
       position: absolute;
       content: '';
       bottom: 12px;
-      width: 40px;
+      width: 35px;
       height: 3px;
       background-color: white;
       border-radius: 5px;
     }
   }
 
-  .mobile_burger{
+  #mobile_burger{
     position: absolute;
     right: 15px;
     transform: translateY(35%);
+  }
+
+  /*********** Responsive ***********/
+
+  @media screen and (max-width: 960px) {
+    header{
+      .logo{
+        img {
+          width:70px;
+          height: 40px;
+          margin-left: 10px;
+        }
+      }
+    }
+    .menu_resp{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: absolute;
+      top: 8vh;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #22292E;
+      width: 100vw;
+      z-index: 30;
+      opacity: 0;
+      transition: all ease .5s;
+      a{
+        font-size: 1.3rem;
+        margin: 15px 0;
+      }
+    }
+    .opacity{
+      transition: all ease .5s;
+      opacity: 1;
+    }
+
+    #burger.cross {
+      transform: rotate(45deg);
+      background-color: transparent;
+      &:before {
+        transform: rotate(90deg);
+        top: 0;
+      }
+      &:after {
+        transform: rotate(0deg) translateY(-50%);
+        top: 50%;
+      }
+    }
   }
 
 </style>
