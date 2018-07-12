@@ -47,7 +47,7 @@
             console.log(response.data)
             if (response.data != 'Erreur de connection'){
               this.$cookies.set('user', response.data, '14d')
-              if (window.location.search == '')
+              if (window.location.href.split('?').length <= 1)
                 this.$router.push('/account')
               else
                 this.$router.push('/cart')
@@ -196,16 +196,5 @@
     }
   }
 
-  @media all and (min-width: 481px) and (max-width: 768px) {
-
-  }
-
-  @media all and (min-width: 769px) and (max-width: 1024px) {
-
-  }
-
-  @media screen and (min-width: 1224px) {
-
-  }
 
 </style>

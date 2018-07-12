@@ -99,7 +99,12 @@
         })
           .then(response => {
             this.$cookies.set('user', response.data, '14d')
-            //this.$router.push('/account')
+            if (window.location.href.split('?').length > 1)
+            {
+              this.$router.push('/cart')
+            } else {
+              this.$router.push('/account')
+            }
           })
           .catch(error => {
             console.log(error)

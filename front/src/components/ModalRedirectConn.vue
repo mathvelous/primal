@@ -8,9 +8,9 @@
           <h2>Pour pouvoir pousuivre votre achat vous devez vous connecter à votre compte ou en créer un.</h2>
           <div class="row justify-center links">
             <router-link to="/signin?redirect=1">Connection</router-link>
-            <router-link :to="{ name: 'SignUp'}">Inscription</router-link>
+            <router-link to="/signup?redirect=1">Inscription</router-link>
           </div>
-          <div class="row flex-end">
+          <div class="row justify-center">
             <div @click.prevent="$emit('close')" class="button">
               <button class="bg_red" type="submit">Annulé</button>
             </div>
@@ -129,10 +129,6 @@
     }
   }
 
-  .bg_green {
-    background-color: #53E093;
-  }
-
   .bg_red {
     background-color: #F54141;
   }
@@ -149,4 +145,41 @@
       }
     }
   }
+
+
+  /*********** Responsive ***********/
+
+  @media screen and (max-width: 480px) {
+    section {
+      width: 80vw;
+    }
+
+    .title {
+      transform: translateY(-50%);
+      width: 255px;
+      margin-left: 0%;
+    }
+
+    h1{
+      font-size: 1.1rem;
+    }
+
+    h2{
+      font-size: 1rem;
+      line-height: 21px;
+    }
+
+    main{
+      height: 80vh;
+    }
+
+    .links {
+      a {
+        text-decoration: none;
+        color: #ff7900;
+        margin: 20px 30px;
+      }
+    }
+  }
+
 </style>
