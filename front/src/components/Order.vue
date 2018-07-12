@@ -101,7 +101,7 @@
           <h3>Total</h3>
           <p>{{total}} € TTC</p>
         </div>
-        <div @click.prevent="valCart" class="button mb30">
+        <div @click.prevent="valCart" class="button button2 mb30">
           <button>Valider mon panier</button>
         </div>
       </aside>
@@ -694,8 +694,70 @@
       transform: translateY(-85%);
     }
 
+    aside{
+      width: 250px;
+    }
+
     #idAside{
-      width: 80vw;
+      transition: all ease .5s;
+      position: fixed;
+      z-index: 10;
+      right: -100%;
+      bottom: -8vh;
+      height: 90vh;
+    }
+
+    .card_order {
+      padding: 10px;
+      margin-bottom: 5px;
+      p {
+        font-size: 0.8rem;
+      }
+      .quantity {
+        color: #53E093;
+        padding: 0 10px;
+      }
+    }
+
+    h2{
+      font-size: 1.1rem;
+    }
+
+    h3{
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+
+    #cart{
+      transition: all ease .5s;
+      position: fixed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #53e093;
+      width: 70px;
+      height: 70px;
+      bottom: 5vh;
+      right: 0;
+      z-index: 20;
+      img{
+        width: 40px;
+        height: auto;
+      }
+    }
+
+    .button2{
+      transform: translateY(-10%);
+    }
+
+    .toggleAside{
+      bottom: -8vh!important;
+      right:0!important;
+    }
+
+    .toggleCart{
+      right:78vw!important;
+      bottom: 5vh!important;
     }
 
   }
@@ -759,16 +821,19 @@
         font-size: 0.9rem;
       }
     }
-  }
 
-  @media screen and (max-width: 768px) {
+    aside{
+      width: 300px;
+    }
+
+
     #idAside{
       transition: all ease .5s;
       position: fixed;
       z-index: 10;
       right: -100%;
-      bottom: -2.5vh;
-      height: 100%;
+      bottom: -8vh;
+      height: 90vh;
     }
 
     .card_order {
@@ -801,7 +866,7 @@
       background-color: #53e093;
       width: 70px;
       height: 70px;
-      bottom: 10vh;
+      bottom: 5vh;
       right: 0;
       z-index: 20;
       img{
@@ -810,15 +875,23 @@
       }
     }
 
+    .button2{
+      transform: translateY(-10%);
+    }
+
     .toggleAside{
-      bottom: -2.5vh!important;
+      bottom: -8vh!important;
       right:0!important;
     }
 
     .toggleCart{
       right: 39vw!important;
-      bottom: 10vh!important;
+      bottom: 5vh!important;
     }
   }
+
+
+
+
 
 </style>
