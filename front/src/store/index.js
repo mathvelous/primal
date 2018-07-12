@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 const state = {
   address: '',
-  token: ''
+  token: '',
+  id_order: ''
 }
 
 const mutations = {
@@ -14,6 +15,9 @@ const mutations = {
   },
   SET_TOKEN(state, payload){
     state.token = payload
+  },
+  SET_ORDER(state, payload){
+    state.id_order = payload
   }
 }
 
@@ -22,8 +26,10 @@ const actions = {
     commit('SET_ADDRESS', payload)
   },
   setToken({commit}, payload){
-    console.log(payload)
     commit('SET_TOKEN', payload)
+  },
+  setOrder({commit}, payload){
+    commit('SET_ORDER', payload)
   }
 }
 
@@ -33,6 +39,9 @@ const getters = {
   },
   getToken(state){
     return state.token
+  },
+  getOrder(state){
+    return state.id_order
   }
 }
 

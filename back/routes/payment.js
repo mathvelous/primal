@@ -44,9 +44,10 @@ router.post('/:id', function (req, res, next) {
                             if(err){
                                 console.log(err)
                             }
-                        })
-                        res.json({
-                            customer: customer
+                            res.json({
+                                charge: charge.status,
+                                id: results.insertId
+                            })
                         })
                     }).catch(e => {
                         console.error(e)
@@ -67,14 +68,21 @@ router.post('/:id', function (req, res, next) {
                         description: 'Example charge',
                         customer: customer
                     }).then(charge => {
-                        database.sendQuery(`INSERT INTO orders (price, state, id_user, id_address) VALUES (${total}, 'en attente de validation', ${id}, ${req.body.id_address})`, (err, results) => {
-                            if(err){
-                                console.log(err)
-                            }
-                        })
-                        res.json({
-                            customer: customer
-                        })
+                        if (charge.status == 'succeeded') {
+                            database.sendQuery(`INSERT INTO orders (price, state, id_user, id_address) VALUES (${total}, 'en attente de validation', ${id}, ${req.body.id_address})`, (err, results) => {
+                                if(err){
+                                    console.log(err)
+                                }
+                                res.json({
+                                    charge: charge.status,
+                                    id: results.insertId
+                                })
+                            })
+                        } else {
+                            res.json({
+                                charge: charge.status
+                            })
+                        }
                     }).catch(e => {
                         console.error(e)
                     })

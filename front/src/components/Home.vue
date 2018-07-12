@@ -108,7 +108,6 @@
       ifAddress() {
         if (this.getAddress != null) {
           this.address = this.getAddress.full
-          console.log(this.getAddress)
         }
       },
       anim1() {

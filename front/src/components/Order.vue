@@ -37,7 +37,7 @@
           </button>
         </header>
         <p class="textDrag">Vous pouvez cliquer/glisser votre produit dans le panier.</p>
-        <draggable v-model="products" class="container_cards bg " :options="dragOptions" :move="onMove"
+        <draggable v-model="products" class="container_cards  " :options="dragOptions" :move="onMove"
                    @start="isDragging=true" @end="onAdd">
           <div class="card" v-for="(product, index) in products">
             <div class="img">
@@ -56,10 +56,13 @@
           </div>
         </draggable>
       </div>
-      <aside v-if="aside">
+      <div @click='clickCart' id="cart">
+        <img src="../assets/images/cart.svg" alt="Panier">
+      </div>
+      <aside id="idAside">
         <h2 class="border_b">Récapitulatif du panier</h2>
         <div class="p20">
-          <draggable v-model="cartproducts" class="bg container_empty" :options="{group:'description'}" :move="onMove">
+          <draggable v-model="cartproducts" class=" container_empty" :options="{group:'description'}" :move="onMove">
             <transition name="fade">
               <p v-if="cartproducts.length == 0" class="sentence_empty">Déposer un produit ici.</p>
             </transition>
@@ -121,7 +124,6 @@
         categoryColor: '#53E093',
         underTotal: 0,
         total: 0,
-        aside: true,
         all: []
       }
     },
@@ -195,6 +197,7 @@
         this.calTotal()
       },
       onAdd: function (event) {
+        this.isDragging = false
         let tab = []
         for (let i = 0; i < this.cartproducts.length; i++) {
           if (this.cartproducts[i].id == this.products[event.oldIndex].id) {
@@ -212,6 +215,8 @@
         this.products[event.oldIndex].result = this.products[event.oldIndex].quantity * this.products[event.oldIndex].price
         this.calUnderTotal()
         this.calTotal()
+
+
       },
       deleted: function (index) {
         this.underTotal = 0
@@ -258,16 +263,6 @@
           cartProduct: this.cartproducts
         }), '7d')
       },
-      onResize: function () {
-        if (window.innerWidth < 960) {
-          this.aside = false
-        } else {
-          this.aside = true
-        }
-      },
-      resize() {
-        window.addEventListener('resize', this.onResize)
-      },
       valCart() {
         if (this.cartproducts.length > 0) {
           this.$router.push('/cart')
@@ -281,10 +276,13 @@
             type: 'error'
           })
         }
+      },
+      clickCart(){
+        document.querySelector('#idAside').classList.toggle('toggleAside')
+        document.querySelector('#cart').classList.toggle('toggleCart')
       }
     },
     mounted() {
-      this.onResize()
       this.init()
       let cookie = this.$cookies.get('cart')
       if (cookie != null) {
@@ -307,9 +305,19 @@
         };
       },
     },
-    created() {
-      this.resize()
-    },
+    watch:{
+      isDragging () {
+        if (this.isDragging == true){
+          document.querySelector('#idAside').style.right = '0%'
+          document.querySelector('#cart').style.right = '39vw'
+        }
+        else {
+            document.querySelector('#idAside').style.right = '-100%'
+            document.querySelector('#cart').style.right = '0'
+        }
+
+      },
+    }
   }
 </script>
 
@@ -626,6 +634,14 @@
     }
   }
 
+  .cart{
+    display: none;
+  }
+
+  main{
+    overflow-x: hidden;
+  }
+
   /*********** Responsive ***********/
 
   @media screen and (max-width: 480px) {
@@ -678,17 +694,131 @@
       transform: translateY(-85%);
     }
 
+    #idAside{
+      width: 80vw;
+    }
+
   }
 
   @media all and (min-width: 481px) and (max-width: 768px) {
+    .card_new {
+      width: 30vw;
+      transform: translateY(30%);
+      margin-bottom: 200px;
+      h2{
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+      }
+      p{
+        font-size: 0.7rem;
+      }
+    }
+
+    .section_card {
+      width: 100vw;
+      padding: 0px;
+      padding-left: 25px;
+    }
+
+    .img {
+      height: auto;
+      width: 200px;
+      img {
+        background-color: #ff7900;
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .card {
+      width: 200px;
+      height: 390px;
+      margin: 1%;
+      .title_card {
+        h3 {
+          font-size: 0.9rem;
+          height: 80px;
+        }
+        p {
+          font-size: 0.9rem;
+          height:60px;
+        }
+        .text_card {
+          height: 120px;
+        }
+      }
+    }
+
+    header {
+      width: 60vw;
+      padding: 15px 0;
+      img {
+        height: 50px;
+      }
+      p {
+        font-size: 0.9rem;
+      }
+    }
   }
 
-  @media all and (min-width: 769px) and (max-width: 1024px) {
+  @media screen and (max-width: 768px) {
+    #idAside{
+      transition: all ease .5s;
+      position: fixed;
+      z-index: 10;
+      right: -100%;
+      bottom: -2.5vh;
+      height: 100%;
+    }
 
-  }
+    .card_order {
+      padding: 10px;
+      margin-bottom: 5px;
+      p {
+        font-size: 0.8rem;
+      }
+      .quantity {
+        color: #53E093;
+        padding: 0 10px;
+      }
+    }
 
-  @media screen and (min-width: 1224px) {
+    h2{
+      font-size: 1.1rem;
+    }
 
+    h3{
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+
+    #cart{
+      transition: all ease .5s;
+      position: fixed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #53e093;
+      width: 70px;
+      height: 70px;
+      bottom: 10vh;
+      right: 0;
+      z-index: 20;
+      img{
+        width: 40px;
+        height: auto;
+      }
+    }
+
+    .toggleAside{
+      bottom: -2.5vh!important;
+      right:0!important;
+    }
+
+    .toggleCart{
+      right: 39vw!important;
+      bottom: 10vh!important;
+    }
   }
 
 </style>

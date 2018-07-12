@@ -61,10 +61,10 @@
           </div>
         </div>
         <div class="column justify-center mt20">
-          <div class="row space_around">
-            <p>Date</p>
-            <p>Prix total</p>
-            <p>Etat</p>
+          <div v-for="order in user.orders" class="row space_around orders">
+            <p>{{order.date}}</p>
+            <p>{{order.price}}€</p>
+            <p>{{order.state}}</p>
           </div>
         </div>
       </article>
@@ -96,6 +96,10 @@
           .then(response => {
             this.user = response.data
             console.log(response.data)
+            for (let i = 0; i < this.user.orders.length ; i++) {
+              let order = this.user.orders[i]
+              order.date = order.date.split('T')[0]
+            }
           })
           .catch(error => {
             console.log(error)
@@ -119,13 +123,13 @@
             })
         }
       },
-      Close: function (data) {
+      Close(data) {
         if (data) {
           this.user.addresses = data
         }
         this.showModal = false
       },
-      infoModify: function () {
+      infoModify() {
         let cookie = this.$cookies.get('user')
         this.$http.post(`${process.env.URL}users/update/${cookie}`, {
           data: this.user
@@ -331,6 +335,14 @@
     transform: scale(1.1);
   }
 
+  .orders{
+    p{
+      display: flex;
+      justify-content: center;
+      width: 230px;
+    }
+  }
+
   /*********** Responsive ***********/
 
   @media screen and (max-width: 480px) {
@@ -362,6 +374,12 @@
 
     form{
       margin-bottom: 50px;
+    }
+
+    .orders{
+      p{
+        font-size: 0.8rem;
+      }
     }
 
   }

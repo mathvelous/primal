@@ -17,12 +17,21 @@ router.get('/:id', function(req, res, next) {
                       console.log(err)
                   } else {
                       let userAddresses = results
-                      res.json({
-                          info: userInfo,
-                          addresses: userAddresses
+                      database.sendQuery(`SELECT * FROM orders WHERE id_user = ${id}`, function (err, results) {
+                          if(err){
+                              console.log(err)
+                          } else{
+                              let userOrders = results
+                              res.json({
+                                  info: userInfo,
+                                  addresses: userAddresses,
+                                  orders: userOrders
+                              })
+                          }
                       })
                   }
               })
+
           }
       })
 });
@@ -88,8 +97,18 @@ router.post('/address/:id', function(req, res, next) {
 
 router.post('/update/:id', function (req, res, next) {
     let id = req.params.id
-    console.log(req.body)
     database.sendQuery(`UPDATE users SET firstname='${req.body.data.info.firstname}', lastname='${req.body.data.info.lastname}', email='${req.body.data.info.email}', phone='${req.body.data.info.phone}' WHERE id = ${id}`, (err, results) => {
+        if (err) {
+            console.log('error in updating user', err)
+            return
+        }
+        res.json('Success')
+    })
+});
+
+router.post('/orders/update/:id', function (req, res, next) {
+    let id = req.params.id
+    database.sendQuery(`UPDATE orders SET state='${req.body.data}' WHERE id = ${id}`, (err, results) => {
         if (err) {
             console.log('error in updating user', err)
             return

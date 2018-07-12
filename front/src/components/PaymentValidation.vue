@@ -120,6 +120,9 @@
       }
     },
     methods: {
+      ...mapActions([
+        'setOrder'
+      ]),
       calUnderTotal: function () {
         let cal = 0
         for (let i = 0; i < this.cartproducts.length; i++) {
@@ -140,7 +143,6 @@
           this.$http.get(`${process.env.URL}users/${cookie}`)
             .then(response => {
               this.user = response.data
-              console.log('toto',response.data)
             })
             .catch(error => {
               console.log(error)
@@ -154,7 +156,15 @@
           cart: this.cartproducts,
           id_address: this.id_address
         })
-        this.$router.push('/delivery')
+          .then(response => {
+            if (response.data.charge == 'succeeded') {
+              this.setOrder(response.data.id)
+              this.$router.push('/delivery')
+            }
+          })
+          .catch(error => {
+            console.log(error)
+        })
       },
       ifAddress(){
         if(this.getAddress != ''){

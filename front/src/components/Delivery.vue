@@ -29,18 +29,31 @@
 </template>
 
 <script>
+  import {mapGetters, mapActions} from 'vuex'
+
   export default {
     name: "Delivery",
     data() {
-      return {}
+      return {
+        state: 'Livré'
+      }
     },
     methods: {
+      update_order() {
+        this.$http.post(`${process.env.URL}users/orders/update/${this.getOrder}`, {
+          data: this.state
+        }).then(response => {
+          console.log(response)
+        }).catch(error => {
+          console.log(error)
+        })
+      },
       move() {
         let elem = document.getElementById("myBar");
         let picto = document.getElementById("delivery_picto");
         let width = 1;
         let id = setInterval(frame, 70);
-
+        let self = this
         function frame() {
           if (width >= 100) {
             clearInterval(id);
@@ -59,6 +72,7 @@
           }
           if (width >= 95) {
             document.querySelector('#step3').style.color = '#53E093'
+            self.update_order()
           }
         }
       },
@@ -68,7 +82,12 @@
     },
     mounted() {
       this.move()
-    }
+    },
+    computed: {
+      ...mapGetters([
+        'getOrder'
+      ])
+    },
   }
 </script>
 
@@ -205,12 +224,12 @@
       }
     }
 
-    .decal_m{
+    .decal_m {
       transform: translateY(-20%);
     }
 
-    .button{
-      button{
+    .button {
+      button {
         transform: translateY(80%);
       }
     }
